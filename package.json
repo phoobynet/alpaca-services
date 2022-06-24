@@ -1,0 +1,9 @@
+{
+  "name": "alpaca-services",
+  "workspaces": [
+    "packages"
+  ],
+  "devDependencies": {
+    "turbo": "^1.3.1"
+  }
+}
