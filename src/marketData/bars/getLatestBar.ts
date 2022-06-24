@@ -1,16 +1,10 @@
-import { Bar } from './types'
-import axios from 'axios'
-import { options } from '../../options'
+import { Bar, RawBar } from './types'
+import { cleanRawBar } from './helpers'
+import { cleanTimestamp } from '../helpers'
+import { getMarketData } from '../http'
 
 export const getLatestBar = (symbol: string): Promise<Bar> => {
-  const { key, secret } = options.get()
-
-  return axios
-    .get<Bar>(`https://data.alpaca.markets/v2/stocks/${symbol}/bars/latest`, {
-      headers: {
-        'APCA-API-KEY-ID': key,
-        'APCA-API-KEY-SECRET': secret,
-      },
-    })
-    .then((r) => r.data)
+  return getMarketData<RawBar>(`/stocks/${symbol}/bars/latest`)
+    .then(cleanRawBar)
+    .then(cleanTimestamp)
 }

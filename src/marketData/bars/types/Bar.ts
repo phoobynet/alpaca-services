@@ -1,8 +1,6 @@
-export interface Bar {
-  S: string
+import { MarketDataEntity } from '../../types'
 
-  t: string
-
+export interface Bar extends MarketDataEntity {
   /** Open */
   o: number
   /** High */
