@@ -1,9 +1,9 @@
-import { cleanBar, isValidTimeframe } from './helpers'
-import { getMarketDataIterator } from '../http'
-import { Bar } from './types'
-import { cleanTimestamp } from '../helpers'
+import { cleanBar, isValidTimeframe } from '../helpers'
+import { getMarketDataIterator } from '../../http'
+import { Bar } from '../types'
+import { cleanTimestamp } from '../../helpers'
 import { flow } from 'lodash'
-import { cleanSymbol } from '../helpers'
+import { cleanSymbol } from '../../helpers'
 
 export type BarsBetweenArgs = {
   symbol: string

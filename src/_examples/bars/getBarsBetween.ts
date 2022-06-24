@@ -1,5 +1,5 @@
-import { options } from '../options'
-import { BarsBetweenArgs, getBarsBetween } from '../marketData/bars'
+import { options } from '../../options'
+import { BarsBetweenArgs, getBarsBetween } from '../../marketData/bars'
 import { subWeeks } from 'date-fns'
 
 options.set({

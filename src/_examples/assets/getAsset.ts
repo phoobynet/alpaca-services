@@ -1,5 +1,5 @@
-import { getLatestBar } from '../marketData/bars'
-import { options } from '../options'
+import { options } from '../../options'
+import { getAsset } from '../../tradingData/assets'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -7,9 +7,8 @@ options.set({
 })
 
 async function main() {
-  const bar = await getLatestBar('AAPL')
-
-  console.log(bar)
+  const asset = await getAsset('AAPL')
+  console.log(asset)
   process.exit(0)
 }
 
