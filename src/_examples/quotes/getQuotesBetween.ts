@@ -1,6 +1,9 @@
-import { stockMarketDataSource } from '../../marketData'
+import {
+  stockMarketDataSource,
+  getQuotesBetween,
+  Quote,
+} from '../../marketData'
 import { options } from '../../options'
-import { getQuotesBetween, Quote } from '../../marketData/quotes'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
