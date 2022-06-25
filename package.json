@@ -32,7 +32,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "examples:getLatestQuote": "ts-node src/_examples/quotes/getLatestQuote.ts"
   },
   "repository": {
     "type": "git",
