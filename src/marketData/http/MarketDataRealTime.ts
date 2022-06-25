@@ -6,7 +6,6 @@ import {
   MarketDataRealTimeSubscriptionEntityType as SubEntityType,
 } from '../types'
 import { cleanSymbol, filteredWithRemaining } from '../../common'
-import { cleanMarketDataEntity } from '../helpers'
 
 type MarketDataSocketMessageFilter = (
   message: MarketDataSocketMessage,
@@ -212,22 +211,9 @@ export class MarketDataRealTime {
         const symbolMarketDataHandlers =
           subscriptionEntityTypeHandlers.get(message.S as string) ?? []
 
-        // crypto quotes are so different from equity quotes that I make them look
-        // like equity quotes
-        let m: MarketDataSocketMessage = message
-        if (subscriptionEntityType === SubEntityType.quote && 'x' in message) {
-          m = {
-            ...message,
-            ax: message.x,
-            bx: message.x,
-          }
-        }
-
         for (const symbolMarketDataHandler of symbolMarketDataHandlers) {
           if (subscriptionEntityType !== SubEntityType.news) {
-            symbolMarketDataHandler(
-              cleanMarketDataEntity(m as { t: string; S?: string }),
-            )
+            symbolMarketDataHandler(message)
           }
         }
       }

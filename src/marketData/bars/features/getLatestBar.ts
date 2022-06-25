@@ -1,6 +1,5 @@
 import { Bar, RawBar } from '../types'
-import { cleanRawBar } from '../helpers'
-import { cleanTimestamp } from '../../helpers'
+import { cleanBar } from '../helpers'
 import { cleanSymbol } from '../../../common'
 import { MarketDataSource } from '../../types'
 
@@ -21,7 +20,5 @@ export const getLatestBar = (
 
   return marketDataSource<RawBar>(`/${cleanSymbol(symbol)}/bars/latest`, {
     exchange,
-  })
-    .then(cleanRawBar)
-    .then(cleanTimestamp)
+  }).then(cleanBar)
 }

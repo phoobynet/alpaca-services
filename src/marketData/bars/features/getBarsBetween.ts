@@ -1,8 +1,6 @@
 import { cleanBar, isValidTimeframe } from '../helpers'
 import { getMarketDataIterator } from '../../http'
 import { Bar } from '../types'
-import { cleanTimestamp } from '../../helpers'
-import { flow } from 'lodash'
 import { cleanSymbol } from '../../../common'
 import { MarketDataSource } from '../../types'
 
@@ -42,6 +40,6 @@ export const getBarsBetween = (
     url,
     queryParams,
     absoluteLimit: args.absoluteLimit || DEFAULT_ABSOLUTE_LIMIT,
-    tidy: (item) => flow((bar) => cleanBar(bar, symbol), cleanTimestamp)(item),
+    tidy: (item) => cleanBar(item, symbol),
   })
 }

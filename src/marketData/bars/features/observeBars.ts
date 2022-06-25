@@ -8,6 +8,8 @@ import {
 } from '../../types'
 import { Bar } from '../types'
 import { isCryptoMarketDataSource } from '../../helpers'
+import { cleanBar } from '../helpers'
+import { cleanSymbol } from '../../../common'
 
 export const observeBars = (
   marketDataSourceType: MarketDataSourceType,
@@ -18,7 +20,9 @@ export const observeBars = (
     ? getCryptoMarketDataRealTime()
     : getStockMarketDataRealTime()
 
+  symbol = cleanSymbol(symbol)
+
   return realTime.subscribeTo(SubEntityType.bar, symbol, (message: unknown) => {
-    handler(message as Bar)
+    handler(cleanBar(message as Bar, symbol))
   })
 }
