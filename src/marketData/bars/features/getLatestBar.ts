@@ -1,10 +1,27 @@
 import { Bar, RawBar } from '../types'
 import { cleanRawBar } from '../helpers'
 import { cleanTimestamp } from '../../helpers'
-import { getMarketData } from '../../http'
+import { cleanSymbol } from '../../../common'
+import { MarketDataSource } from '../../types'
 
-export const getLatestBar = (symbol: string): Promise<Bar> => {
-  return getMarketData<RawBar>(`/stocks/${symbol}/bars/latest`)
+/**
+ *
+ * @param {MarketDataSource} marketDataSource
+ * @param {string} symbol
+ * @param {string} exchange - see https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/
+ */
+export const getLatestBar = (
+  marketDataSource: MarketDataSource,
+  symbol: string,
+  exchange = '',
+): Promise<Bar> => {
+  if (marketDataSource.type === 'crypto' && exchange === '') {
+    throw new Error('Exchange is required for crypto market data')
+  }
+
+  return marketDataSource<RawBar>(`/${cleanSymbol(symbol)}/bars/latest`, {
+    exchange,
+  })
     .then(cleanRawBar)
     .then(cleanTimestamp)
 }

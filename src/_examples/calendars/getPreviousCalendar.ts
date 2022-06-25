@@ -1,5 +1,5 @@
-import { getLatestBar } from '../../marketData/bars'
 import { options } from '../../options'
+import { getPreviousCalendar } from '../../tradingData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -7,9 +7,9 @@ options.set({
 })
 
 async function main() {
-  const bar = await getLatestBar('AAPL')
+  const cal = await getPreviousCalendar()
 
-  console.log(bar)
+  console.log(cal)
   process.exit(0)
 }
 

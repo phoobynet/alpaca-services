@@ -1,2 +1,7 @@
-export * from './getMarketData'
+export * from './cryptoMarketDataSource'
+export * from './getCryptoMarketDataHttpClient'
+export * from './stockMarketDataSource'
+export * from './getStockMarketDataHttpClient'
 export * from './getMarketDataIterator'
+export * from './MarketDataSocket'
+export { MarketDataSocketMessage } from '../types/ReceivedMessageType'

@@ -1,5 +1,5 @@
-import { getMarketDataHttp } from './getMarketDataHttp'
 import { first } from 'lodash'
+import { MarketDataSource } from '../types'
 
 export type MarketDataIteratorArgs<T> = {
   url: string
@@ -12,9 +12,9 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
 const DEFAULT_PAGE_LIMIT = 1_000
 
 export const getMarketDataIterator = <T>(
+  marketDataSource: MarketDataSource,
   args: MarketDataIteratorArgs<T>,
 ): AsyncIterable<T> => {
-  const http = getMarketDataHttp()
   const { url, queryParams, absoluteLimit } = args
 
   let pages = 0
@@ -47,25 +47,25 @@ export const getMarketDataIterator = <T>(
       qp.page_token = page_token
     }
 
-    const result = await http
-      .get(url, {
-        params: qp,
-      })
-      .then((r) => r.data)
-
-    nestedDataProperty =
-      first(
-        Object.keys(result).filter(
-          (key) => ['symbol', 'next_page_token'].indexOf(key) === -1,
-        ),
-      ) || ''
+    const result = await marketDataSource<Record<string, unknown>>(url, qp)
 
     if (!nestedDataProperty) {
-      throw new Error('Expected to find a key')
+      nestedDataProperty =
+        first(
+          Object.keys(result).filter(
+            (key) => ['symbol', 'next_page_token'].indexOf(key) === -1,
+          ),
+        ) || ''
     }
 
-    page_token = result.next_page_token || ''
-    items = result[nestedDataProperty] || []
+    if (!nestedDataProperty) {
+      throw new Error(
+        'Expected to find a nest key called something like "trades", "quotes", "bars"',
+      )
+    }
+
+    page_token = (result.next_page_token || '') as string
+    items = (result[nestedDataProperty] || []) as T[]
     itemsIndex = 0
   }
 
