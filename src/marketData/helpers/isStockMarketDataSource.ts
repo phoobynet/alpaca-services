@@ -1,8 +1,7 @@
-import { MarketDataSourceType } from '../bars/types'
-import { MarketDataSource } from '../types'
+import { MarketDataSource, MarketDataSourceType } from '../types'
 
 export const isStockMarketDataSource = (
-  marketDataSource: MarketDataSourceType,
+  marketDataSource: MarketDataSourceType | MarketDataSource,
 ): boolean => {
   if (typeof marketDataSource === 'string' && marketDataSource === 'stock') {
     return true

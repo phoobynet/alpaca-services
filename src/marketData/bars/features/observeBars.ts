@@ -2,8 +2,11 @@ import {
   getCryptoMarketDataRealTime,
   getStockMarketDataRealTime,
 } from '../../http'
-import { MarketDataRealTimeSubscriptionEntityType as SubEntityType } from '../../types'
-import { Bar, MarketDataSourceType } from '../types'
+import {
+  MarketDataRealTimeSubscriptionEntityType as SubEntityType,
+  MarketDataSourceType,
+} from '../../types'
+import { Bar } from '../types'
 import { isCryptoMarketDataSource } from '../../helpers'
 
 export const observeBars = (
@@ -15,15 +18,7 @@ export const observeBars = (
     ? getCryptoMarketDataRealTime()
     : getStockMarketDataRealTime()
 
-  const cancel = realTime.subscribeTo(
-    SubEntityType.bar,
-    symbol,
-    (message: unknown) => {
-      handler(message as Bar)
-    },
-  )
-
-  return () => {
-    cancel()
-  }
+  return realTime.subscribeTo(SubEntityType.bar, symbol, (message: unknown) => {
+    handler(message as Bar)
+  })
 }
