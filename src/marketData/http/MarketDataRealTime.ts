@@ -36,7 +36,7 @@ export class MarketDataRealTime {
     MarketDataSocketMessageFilter
   >()
 
-  protected constructor(private marketDataSocket: MarketDataSocket) {
+  public constructor(private marketDataSocket: MarketDataSocket) {
     this.marketDataSocket.on(MarketDataSocket.IS_READY_EVENT, () => {
       this.isReady = true
       this.drainPending()
