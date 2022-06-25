@@ -1,7 +1,7 @@
-import { MarketDataSocketMessage } from './ReceivedMessageType'
+import { MarketDataSocketMessageType } from './MarketDataSocketMessageType'
 
 export interface MarketDataSocketMessage extends Record<string, unknown> {
-  T: MarketDataSocketMessage
+  T: MarketDataSocketMessageType
   msg?: string
   error?: number
   S?: string
