@@ -1,7 +1,8 @@
 import { options } from '../../options'
 import {
-  BarsBetweenArgs,
-  getBarsBetween,
+  BarAdjustment,
+  getMultiBars,
+  MultiBarsArgs,
   stockMarketDataSource,
 } from '../../marketData'
 import { subWeeks } from 'date-fns'
@@ -12,16 +13,17 @@ options.set({
 })
 
 async function main() {
-  const args: BarsBetweenArgs = {
-    symbol: 'AAPL',
+  const args: MultiBarsArgs = {
+    symbols: ['AAPL', 'AMZN'],
     start: subWeeks(new Date(), 1),
     end: new Date(),
     timeframe: '1Day',
+    absoluteLimit: 1_000,
+    adjustment: BarAdjustment.split,
   }
 
-  for await (const bar of getBarsBetween(stockMarketDataSource, args)) {
-    console.log(bar)
-  }
+  const result = await getMultiBars(stockMarketDataSource, args)
+  console.log(result)
   process.exit(0)
 }
 
