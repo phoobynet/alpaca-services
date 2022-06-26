@@ -3,6 +3,9 @@ import { Bar, BarAdjustment } from '../types'
 import { getMarketDataPagedMultiArray } from '../../http'
 import { cleanSymbol } from '../../../common'
 import { cleanBar, isValidTimeframe } from '../helpers'
+import z from 'zod'
+
+const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
 export type MultiBarsArgs = {
   symbols: string[]
@@ -10,30 +13,51 @@ export type MultiBarsArgs = {
   adjustment: BarAdjustment
   start: Date
   end: Date
-  // absolute limit per symbol (default: 1_000)
+  // absolute limit per symbol (max: 1_000)
   absoluteLimit: number
 }
+
+const MultiBarsArgsValidation = z.object({
+  symbols: z.array(z.string()).nonempty({
+    message: 'symbols is required',
+  }),
+  timeframe: z.custom((value) => isValidTimeframe(value as string), {
+    message: 'timeframe is invalid',
+  }),
+  adjustment: z.nativeEnum(BarAdjustment),
+  start: z.date(),
+  end: z.date(),
+  absoluteLimit: z
+    .number()
+    .min(1, {
+      message: 'absoluteLimit must be greater than 0',
+    })
+    .max(DEFAULT_ABSOLUTE_LIMIT, {
+      message: 'absoluteLimit must be between 1 and 1,000',
+    })
+    .default(DEFAULT_ABSOLUTE_LIMIT),
+})
 
 export const getMultiBars = async (
   marketDataSource: MarketDataSource,
   args: MultiBarsArgs,
 ): Promise<Record<string, Bar[]>> => {
-  if (!isValidTimeframe(args.timeframe)) {
-    throw new Error(`Invalid timeframe: ${args.timeframe}`)
-  }
+  const { symbols, timeframe, start, end, absoluteLimit, adjustment } =
+    MultiBarsArgsValidation.parse(args)
 
   const queryParams: Record<string, string> = {
-    symbols: args.symbols.map(cleanSymbol).join(','),
-    timeframe: args.timeframe,
-    start: args.start.toISOString(),
-    end: args.end.toISOString(),
+    symbols: symbols.map(cleanSymbol).join(','),
+    timeframe: timeframe,
+    start: start.toISOString(),
+    end: end.toISOString(),
+    adjustment,
   }
 
   const data = await getMarketDataPagedMultiArray(
     marketDataSource,
     '/bars',
     queryParams,
-    args.absoluteLimit,
+    absoluteLimit,
   )
 
   const result = new Map<string, Bar[]>()

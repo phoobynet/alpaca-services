@@ -17,8 +17,8 @@ async function main() {
     symbols: ['AAPL', 'AMZN'],
     start: subWeeks(new Date(), 1),
     end: new Date(),
-    timeframe: '1Day',
-    absoluteLimit: 1_000,
+    timeframe: '1Dwefefef',
+    absoluteLimit: 1,
     adjustment: BarAdjustment.split,
   }
 
