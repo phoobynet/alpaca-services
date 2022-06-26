@@ -1,15 +1,20 @@
-import { Calendar } from '../types'
+import { Calendar, CalendarRepository } from '../types'
 import { getCalendarsBetween } from './getCalendarsBetween'
 import { subBusinessDays } from 'date-fns'
 import { last } from 'lodash'
 
 export const getPreviousCalendar = async (
   date: Date = new Date(),
+  calendarRepository?: CalendarRepository,
 ): Promise<Calendar> => {
   const start = subBusinessDays(date, 5)
   const end = subBusinessDays(date, 1)
 
-  const previousCalendar = await getCalendarsBetween(start, end).then(last)
+  const previousCalendar = await getCalendarsBetween(
+    start,
+    end,
+    calendarRepository,
+  ).then(last)
 
   if (!previousCalendar) {
     throw new Error(

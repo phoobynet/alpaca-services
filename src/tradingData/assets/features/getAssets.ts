@@ -1,6 +1,12 @@
-import { Asset } from '../types'
+import { Asset, AssetRepository } from '../types'
 import { getTradingData } from '../../http'
 
-export const getAssets = (): Promise<Asset[]> => {
+export const getAssets = (
+  assetRepository?: AssetRepository,
+): Promise<Asset[]> => {
+  if (assetRepository) {
+    return assetRepository.findAll()
+  }
+
   return getTradingData<Asset[]>('/assets')
 }

@@ -1,14 +1,16 @@
 import { addBusinessDays } from 'date-fns'
 import { getCalendarsBetween } from './getCalendarsBetween'
-import { Calendar } from '../types'
+import { Calendar, CalendarRepository } from '../types'
 import { first } from 'lodash'
 
 export const getNextCalendar = async (
   date: Date = new Date(),
+  calendarRepository?: CalendarRepository,
 ): Promise<Calendar> => {
   const nextCalendar = await getCalendarsBetween(
     addBusinessDays(date, 1),
     addBusinessDays(date, 5),
+    calendarRepository,
   ).then(first)
 
   if (!nextCalendar) {

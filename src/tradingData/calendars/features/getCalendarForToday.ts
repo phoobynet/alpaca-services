@@ -1,6 +1,7 @@
-import { Calendar } from '../types'
+import { Calendar, CalendarRepository } from '../types'
 import { getCalendarFor } from './getCalendarFor'
 
-export const getCalendarForToday = async (): Promise<Calendar | undefined> => {
-  return getCalendarFor(new Date())
-}
+export const getCalendarForToday = async (
+  calendarRepository?: CalendarRepository,
+): Promise<Calendar | undefined> =>
+  getCalendarFor(new Date(), calendarRepository)
