@@ -1,4 +1,4 @@
-import { MarketDataSource } from '../../types'
+import { MarketDataFeed, MarketDataSource } from '../../types'
 import { Quote } from '../types'
 import { getMarketDataPagedMultiArray } from '../../http'
 import { cleanSymbol } from '../../../common'
@@ -11,6 +11,7 @@ export type MultiQuotesArgs = {
   symbols: string[]
   start: Date
   end: Date
+  feed: MarketDataFeed
   // absolute limit per symbol (max: 1_000)
   absoluteLimit: number
 }
@@ -21,7 +22,7 @@ const MultiQuotesArgsValidation = z.object({
   }),
   start: z.date(),
   end: z.date(),
-  feed: z.enum(['iex', 'otc', 'sip']),
+  feed: z.nativeEnum(MarketDataFeed),
   absoluteLimit: z
     .number()
     .min(1, {

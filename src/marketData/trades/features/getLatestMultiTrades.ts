@@ -1,5 +1,5 @@
 import { Trade } from '../types'
-import { MarketDataSource } from '../../types'
+import { MarketDataFeed, MarketDataSource } from '../../types'
 import { getMarketDataPagedMultiObject } from '../../http'
 import { cleanSymbol } from '../../../common'
 import z from 'zod'
@@ -7,7 +7,7 @@ import { cleanLatestMultiTrades } from '../helpers'
 
 export type LatestMultiTradesArgs = {
   symbols: string[]
-  feed: 'iex' | 'otc' | 'sip'
+  feed: MarketDataFeed
 }
 
 const Validation = z.object({
@@ -18,7 +18,7 @@ const Validation = z.object({
       }),
     )
     .nonempty('symbols is required'),
-  feed: z.enum(['iex', 'otc', 'sip']),
+  feed: z.nativeEnum(MarketDataFeed),
 })
 
 export const getLatestMultiTrades = async (

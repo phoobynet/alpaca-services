@@ -1,5 +1,5 @@
 import { Quote } from '../types'
-import { MarketDataSource } from '../../types'
+import { MarketDataFeed, MarketDataSource } from '../../types'
 import { getMarketDataPagedMultiObject } from '../../http'
 import { cleanSymbol } from '../../../common'
 import z from 'zod'
@@ -7,7 +7,7 @@ import { cleanLatestMultiQuotes } from '../helpers'
 
 export type LatestMultiQuotesArgs = {
   symbols: string[]
-  feed: 'iex' | 'otc' | 'sip'
+  feed: MarketDataFeed
 }
 
 const Validation = z.object({
@@ -18,7 +18,7 @@ const Validation = z.object({
       }),
     )
     .nonempty('symbols is required'),
-  feed: z.enum(['iex', 'otc', 'sip']),
+  feed: z.nativeEnum(MarketDataFeed),
 })
 
 export const getLatestMultiQuotes = async (
@@ -29,7 +29,7 @@ export const getLatestMultiQuotes = async (
 
   const queryParams: Record<string, string> = {
     symbols: symbols.map(cleanSymbol).join(','),
-    feed: feed,
+    feed,
   }
   const result = await getMarketDataPagedMultiObject(
     marketDataSource,

@@ -2,6 +2,7 @@ import { options } from '../../options'
 import {
   getLatestMultiBars,
   LatestMultiBarsArgs,
+  MarketDataFeed,
   stockMarketDataSource,
 } from '../../marketData'
 
@@ -13,7 +14,7 @@ options.set({
 async function main() {
   const args: LatestMultiBarsArgs = {
     symbols: ['AAPL', 'AMZN'],
-    feed: 'sip',
+    feed: MarketDataFeed.sip,
   }
 
   const result = await getLatestMultiBars(stockMarketDataSource, args)
