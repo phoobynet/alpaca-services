@@ -74,7 +74,10 @@ export const getMarketDataPagedMultiArray = async (
 
     const actualQueryParams: Record<string, string> = {
       ...queryParams,
-      limit,
+    }
+
+    if (queryParams.limit?.length) {
+      actualQueryParams.limit = limit
     }
 
     if (page_token) {

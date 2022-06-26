@@ -1,11 +1,9 @@
 import { options } from '../../options'
 import {
-  BarAdjustment,
-  getMultiBars,
-  MultiBarsArgs,
+  getLatestMultiBars,
+  LatestMultiBarsArgs,
   stockMarketDataSource,
 } from '../../marketData'
-import { subWeeks } from 'date-fns'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -13,16 +11,12 @@ options.set({
 })
 
 async function main() {
-  const args: MultiBarsArgs = {
+  const args: LatestMultiBarsArgs = {
     symbols: ['AAPL', 'AMZN'],
-    start: subWeeks(new Date(), 1),
-    end: new Date(),
-    timeframe: '1Day',
-    absoluteLimit: 1,
-    adjustment: BarAdjustment.split,
+    feed: 'sip',
   }
 
-  const result = await getMultiBars(stockMarketDataSource, args)
+  const result = await getLatestMultiBars(stockMarketDataSource, args)
   console.log(result)
   process.exit(0)
 }

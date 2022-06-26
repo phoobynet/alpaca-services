@@ -1,9 +1,9 @@
 import { Bar } from '../types'
 import { MarketDataSource } from '../../types'
-import { getMarketDataPagedMultiArray } from '../../http'
+import { getMarketDataPagedMultiObject } from '../../http'
 import { cleanSymbol } from '../../../common'
-import { cleanMultiBars } from '../helpers'
 import z from 'zod'
+import { cleanLatestMultiBars } from '../helpers'
 
 export type LatestMultiBarsArgs = {
   symbols: string[]
@@ -11,25 +11,31 @@ export type LatestMultiBarsArgs = {
 }
 
 const Validation = z.object({
-  symbols: z.array(z.string()).nonempty('symbols is required'),
+  symbols: z
+    .array(
+      z.string().nonempty({
+        message: 'symbol cannot be empty',
+      }),
+    )
+    .nonempty('symbols is required'),
   feed: z.enum(['iex', 'otc', 'sip']),
 })
 
 export const getLatestMultiBars = async (
   marketDataSource: MarketDataSource,
   args: LatestMultiBarsArgs,
-): Promise<Record<string, Bar[]>> => {
+): Promise<Record<string, Bar>> => {
   const { symbols, feed } = Validation.parse(args)
 
   const queryParams: Record<string, string> = {
     symbols: symbols.map(cleanSymbol).join(','),
     feed: feed,
   }
-  const result = await getMarketDataPagedMultiArray(
+  const result = await getMarketDataPagedMultiObject(
     marketDataSource,
     '/bars/latest',
     queryParams,
   )
 
-  return cleanMultiBars(result)
+  return cleanLatestMultiBars(result)
 }
