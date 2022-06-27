@@ -6,11 +6,16 @@ options.set({
   secret: process.env.APCA_API_SECRET_KEY as string,
 })
 
-async function main() {
+async function main(): Promise<void> {
   const account = await getAccount()
   console.log(account)
 }
 
-main().then(() => {
-  process.exit(0)
-})
+main()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(() => {
+    process.exit(0)
+  })
