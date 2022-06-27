@@ -11,7 +11,8 @@
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest"
+    "test": "jest",
+    "workflow:test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "axios": "^0.27.2",
