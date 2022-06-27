@@ -1,7 +1,7 @@
 import { Calendar, CalendarRepository } from '../types'
 import { getCalendarsBetween } from './getCalendarsBetween'
 import { subBusinessDays } from 'date-fns'
-import { last } from 'lodash'
+import last from 'lodash/last'
 
 export const getPreviousCalendar = async (
   date: Date = new Date(),

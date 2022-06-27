@@ -1,7 +1,7 @@
 import { addBusinessDays } from 'date-fns'
 import { getCalendarsBetween } from './getCalendarsBetween'
 import { Calendar, CalendarRepository } from '../types'
-import { first } from 'lodash'
+import first from 'lodash/first'
 
 export const getNextCalendar = async (
   date: Date = new Date(),

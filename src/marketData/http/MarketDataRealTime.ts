@@ -1,4 +1,4 @@
-import { uniq } from 'lodash'
+import uniq from 'lodash/uniq'
 import { MarketDataSocket } from './MarketDataSocket'
 import {
   MarketDataSocketMessage,

@@ -1,4 +1,5 @@
-import { get, take } from 'lodash'
+import get from 'lodash/get'
+import take from 'lodash/take'
 import { MarketDataSource } from '../types'
 import { getPagedNestedDataProperty } from './helpers'
 

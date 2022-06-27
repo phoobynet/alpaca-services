@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { get } from 'lodash'
+import get from 'lodash/get'
 import { MarketDataClass } from './MarketDataClass'
 
 export class MarketDataError extends Error {

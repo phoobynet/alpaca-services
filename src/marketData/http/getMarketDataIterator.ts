@@ -1,4 +1,4 @@
-import { first } from 'lodash'
+import first from 'lodash/first'
 import { MarketDataSource } from '../types'
 
 export type MarketDataIteratorArgs<T> = {

@@ -1,5 +1,6 @@
-import { flow, toUpper, trim } from 'lodash'
+import z from 'zod'
 
 export const cleanSymbol = (symbol: string): string => {
-  return flow(toUpper, trim)(symbol)
+  symbol = z.string().parse(symbol)
+  return symbol?.toUpperCase().trim()
 }
