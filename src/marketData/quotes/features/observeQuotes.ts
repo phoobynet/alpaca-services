@@ -8,15 +8,15 @@ import {
   getStockMarketDataRealTime,
 } from '../../http'
 import { cleanSymbol } from '../../../common'
-import { Trade } from '../types'
-import { cleanTrade } from '../helpers'
+import { Quote } from '../types'
+import { cleanQuote } from '../helpers'
 import throttle from 'lodash/throttle'
 import { MarketDataSocketMessageHandler } from '../../http'
 
-export const observeTrades = (
+export const observeQuotes = (
   marketDataSourceType: MarketDataSourceType,
   symbol: string,
-  onTrade: (trade: Trade) => void,
+  onQuote: (Quote: Quote) => void,
   throttleMs = 0,
 ) => {
   const realTime = isCryptoMarketDataSource(marketDataSourceType)
@@ -25,17 +25,17 @@ export const observeTrades = (
 
   symbol = cleanSymbol(symbol)
 
-  let update: MarketDataSocketMessageHandler = (trade) =>
-    onTrade(cleanTrade(trade as Trade, symbol))
+  let update: MarketDataSocketMessageHandler = (Quote) =>
+    onQuote(cleanQuote(Quote as Quote, symbol))
 
   if (throttleMs > 0) {
-    update = throttle((trade) => {
-      onTrade(cleanTrade(trade as Trade, symbol))
+    update = throttle((Quote) => {
+      onQuote(cleanQuote(Quote as Quote, symbol))
     }, throttleMs)
   }
 
   return realTime.subscribeTo(
-    MarketDataRealTimeSubscriptionEntityType.trade,
+    MarketDataRealTimeSubscriptionEntityType.quote,
     symbol,
     update,
   )

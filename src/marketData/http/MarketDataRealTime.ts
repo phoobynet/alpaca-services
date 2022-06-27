@@ -11,7 +11,7 @@ type MarketDataSocketMessageFilter = (
   message: MarketDataSocketMessage,
 ) => boolean
 export type MarketDataSocketMessageHandlerCancellation = () => void
-export type MarketDataSocketMessageHandler<T> = (t: T) => void
+export type MarketDataSocketMessageHandler = (t: unknown) => void
 
 export class MarketDataRealTime {
   private isReady = false
@@ -27,7 +27,7 @@ export class MarketDataRealTime {
    */
   private handlers = new Map<
     SubEntityType,
-    Map<string, MarketDataSocketMessageHandler<unknown>[]>
+    Map<string, MarketDataSocketMessageHandler[]>
   >()
 
   private messageFilters = new Map<
@@ -63,7 +63,7 @@ export class MarketDataRealTime {
     for (const [, subscriptionType] of Object.entries(SubEntityType)) {
       this.handlers.set(
         subscriptionType,
-        new Map<string, MarketDataSocketMessageHandler<unknown>[]>(),
+        new Map<string, MarketDataSocketMessageHandler[]>(),
       )
     }
 
@@ -78,12 +78,12 @@ export class MarketDataRealTime {
   public subscribeTo(
     subscriptionEntityType: SubEntityType,
     symbol: string,
-    handler: MarketDataSocketMessageHandler<unknown>,
+    handler: MarketDataSocketMessageHandler,
   ): MarketDataSocketMessageHandlerCancellation {
     symbol = cleanSymbol(symbol)
     const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
       string,
-      MarketDataSocketMessageHandler<unknown>[]
+      MarketDataSocketMessageHandler[]
     >
     const symbolSubscribers = subscribersMap.get(symbol)
 
@@ -110,7 +110,7 @@ export class MarketDataRealTime {
     return () => {
       const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
         string,
-        MarketDataSocketMessageHandler<unknown>[]
+        MarketDataSocketMessageHandler[]
       >
       let symbolSubscribers = subscribersMap.get(symbol) ?? []
 

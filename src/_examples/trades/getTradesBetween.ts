@@ -1,8 +1,10 @@
-import { stockMarketDataSource } from '../../marketData'
+import {
+  stockMarketDataSource,
+  getTradesBetween,
+  Trade,
+} from '../../marketData'
 import { options } from '../../options'
-import { getTradesBetween } from '../../marketData/trades/features/getTradesBetween'
 import { parseISO } from 'date-fns'
-import { Trade } from '../../marketData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
