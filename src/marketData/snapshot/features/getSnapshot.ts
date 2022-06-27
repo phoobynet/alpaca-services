@@ -23,7 +23,7 @@ export const getSnapshot = async (
     queryParams.exchange = exchange
   }
 
-  return marketDataSource<Snapshot>(`${symbol}/snapshot`, queryParams).then(
-    cleanSnapshot,
-  )
+  return marketDataSource
+    .get<Snapshot>(`${symbol}/snapshot`, queryParams)
+    .then(cleanSnapshot)
 }

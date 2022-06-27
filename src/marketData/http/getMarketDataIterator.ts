@@ -47,7 +47,7 @@ export const getMarketDataIterator = <T>(
       qp.page_token = page_token
     }
 
-    const result = await marketDataSource<Record<string, unknown>>(url, qp)
+    const result = await marketDataSource.get<Record<string, unknown>>(url, qp)
 
     if (!nestedDataProperty) {
       nestedDataProperty =

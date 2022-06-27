@@ -9,7 +9,7 @@ export const getLatestQuote = (
 ): Promise<Quote> => {
   symbol = cleanSymbol(symbol)
 
-  return marketDataSource<RawQuote>(`${symbol}/quotes/latest`).then(
-    (rawQuote) => cleanQuote(rawQuote, symbol),
-  )
+  return marketDataSource
+    .get<RawQuote>(`${symbol}/quotes/latest`)
+    .then((rawQuote) => cleanQuote(rawQuote, symbol))
 }

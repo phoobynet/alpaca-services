@@ -1,4 +1,4 @@
 export interface MarketDataEntity {
-  S: string
+  S?: string
   t: string
 }

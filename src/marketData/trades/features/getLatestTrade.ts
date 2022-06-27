@@ -7,6 +7,6 @@ export const getLatestTrade = async (
   marketDataSource: MarketDataSource,
   symbol: string,
 ): Promise<Trade> =>
-  marketDataSource<RawTrade>(`${cleanSymbol(symbol)}/trades/latest`).then(
-    cleanTrade,
-  )
+  marketDataSource
+    .get<RawTrade>(`${cleanSymbol(symbol)}/trades/latest`)
+    .then(cleanTrade)

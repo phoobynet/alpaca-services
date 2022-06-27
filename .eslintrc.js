@@ -22,4 +22,15 @@ module.exports = {
     semi: ['error', 'never'],
     '@typescript-eslint/no-floating-promises': ['error'],
   },
+  overrides: [
+    Object.assign(
+      {
+        files: ['**/*.spec.ts'],
+        env: { jest: true },
+        plugins: ['jest'],
+      },
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require('eslint-plugin-jest').configs.recommended,
+    ),
+  ],
 }

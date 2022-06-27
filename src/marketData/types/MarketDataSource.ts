@@ -1,5 +1,7 @@
-export interface MarketDataSource {
-  <T>(url: string, queryParams?: Record<string, string>): Promise<T>
+import { MarketDataClass } from './MarketDataClass'
 
-  type: 'crypto' | 'stock'
+export interface MarketDataSource {
+  get<T>(url: string, queryParams?: Record<string, string>): Promise<T>
+
+  type: MarketDataClass
 }

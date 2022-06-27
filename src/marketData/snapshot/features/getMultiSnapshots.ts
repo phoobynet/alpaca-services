@@ -12,7 +12,7 @@ export const getMultiSnapshots = async (
     symbols: symbols.map(cleanSymbol).join(','),
     feed,
   }
-  const multiSnapshot = await marketDataSource<Record<string, Snapshot>>(
+  const multiSnapshot = await marketDataSource.get<Record<string, Snapshot>>(
     '/snapshots',
     queryParams,
   )

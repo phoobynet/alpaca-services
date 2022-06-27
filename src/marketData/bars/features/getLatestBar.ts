@@ -1,7 +1,7 @@
 import { Bar, RawBar } from '../types'
 import { cleanBar } from '../helpers'
 import { cleanSymbol } from '../../../common'
-import { MarketDataSource } from '../../types'
+import { MarketDataClass, MarketDataSource } from '../../types'
 
 /**
  *
@@ -14,11 +14,19 @@ export const getLatestBar = (
   symbol: string,
   exchange = '',
 ): Promise<Bar> => {
-  if (marketDataSource.type === 'crypto' && exchange === '') {
+  if (marketDataSource.type === MarketDataClass.crypto && exchange === '') {
     throw new Error('Exchange is required for crypto market data')
+  } else if (marketDataSource.type === MarketDataClass.stock && exchange) {
+    throw new Error('Exchange should not be provided for stock market data')
   }
 
-  return marketDataSource<RawBar>(`/${cleanSymbol(symbol)}/bars/latest`, {
-    exchange,
-  }).then(cleanBar)
+  const queryParams: Record<string, string> = {}
+
+  if (exchange && marketDataSource.type === MarketDataClass.crypto) {
+    queryParams.exchange = exchange
+  }
+
+  return marketDataSource
+    .get<RawBar>(`/${cleanSymbol(symbol)}/bars/latest`, queryParams)
+    .then(cleanBar)
 }

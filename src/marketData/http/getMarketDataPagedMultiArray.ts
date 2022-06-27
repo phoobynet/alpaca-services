@@ -83,7 +83,7 @@ export const getMarketDataPagedMultiArray = async (
     if (page_token) {
       actualQueryParams.page_token = page_token
     }
-    const data = await marketDataSource<{ next_page_token: string }>(
+    const data = await marketDataSource.get<{ next_page_token: string }>(
       url,
       actualQueryParams,
     )

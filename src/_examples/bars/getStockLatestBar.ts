@@ -7,7 +7,7 @@ options.set({
 })
 
 async function main() {
-  const bar = await getLatestBar(stockMarketDataSource, 'AAPL')
+  const bar = await getLatestBar(stockMarketDataSource, 'FOOBAR')
 
   console.log(bar)
   process.exit(0)
