@@ -1,9 +1,10 @@
 {
-  "name": "alpaca-services",
+  "name": "@phoobynet/alpaca-services",
   "version": "0.0.1",
-  "description": "",
+  "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "npm run lint:fix && npm run clean && npm run build:types && npm run build:ts",
     "clean": "rimraf dist",
     "build:types": "tsc --emitDeclarationOnly",
