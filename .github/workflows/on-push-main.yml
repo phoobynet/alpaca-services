@@ -12,5 +12,5 @@ jobs:
         with:
           node-version: 18.x
       - run: npm install
-      - run: npm run workflow
+      - run: npm run workflow:test
       - run: npm run build
