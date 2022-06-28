@@ -1,29 +1,31 @@
 import { getTradeHttpClient } from '../../http'
-import { HttpClient, HttpClientError } from '../../../common'
+import { HttpClientError } from '../../../common'
 import {
   addAssetToWatchlist,
   AddAssetToWatchlistArgs,
 } from './addAssetToWatchlist'
 
-jest.mock('../../http')
-
-const getTradeHttpClientMock = getTradeHttpClient as jest.Mock<HttpClient>
+jest.mock('../../http', () => ({
+  __esModule: true,
+  getTradeHttpClient: jest.fn().mockReturnValue({
+    post: jest.fn(),
+    get: jest.fn(),
+    put: jest.fn(),
+    delete: jest.fn(),
+  }),
+}))
 
 describe('addAssetToWatchlist', () => {
-  const postFn = jest.fn()
-  getTradeHttpClientMock.mockImplementation(() => {
-    return {
-      post: postFn,
-      get: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn(),
-    }
-  })
   beforeEach(() => {
-    getTradeHttpClientMock.mockClear()
+    jest.clearAllMocks()
   })
 
-  it('should', async () => {
+  const mockHttpClient = getTradeHttpClient()
+
+  const postFn = jest.fn()
+  mockHttpClient.post = postFn
+
+  it('should send the correct URLs and query parameters', async () => {
     const args: AddAssetToWatchlistArgs = {
       watchlistId: '123',
       symbol: 'AAPL',
@@ -37,21 +39,15 @@ describe('addAssetToWatchlist', () => {
 })
 
 describe('alpaca error handling', () => {
-  beforeEach(() => {
-    getTradeHttpClientMock.mockClear()
-  })
-
   it('The requested watchlist is not found, or the symbol is not found in the assets', async () => {
-    getTradeHttpClientMock.mockImplementationOnce(() => ({
-      post: jest
-        .fn()
-        .mockRejectedValueOnce(
-          new HttpClientError('some sort of error', '/watchlists', 404),
-        ),
-      get: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn(),
-    }))
+    const mockHttpClient = getTradeHttpClient()
+
+    mockHttpClient.post = jest
+      .fn()
+      .mockRejectedValueOnce(
+        new HttpClientError('some sort of error', '/watchlists', 404),
+      )
+
     const args: AddAssetToWatchlistArgs = {
       watchlistId: '123',
       symbol: 'AAPL',
@@ -63,16 +59,12 @@ describe('alpaca error handling', () => {
   })
 
   it('Some parameters are not valid', async () => {
-    getTradeHttpClientMock.mockImplementationOnce(() => ({
-      post: jest
-        .fn()
-        .mockRejectedValueOnce(
-          new HttpClientError('some sort of error', '/watchlists', 422),
-        ),
-      get: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn(),
-    }))
+    const mockHttpClient = getTradeHttpClient()
+    mockHttpClient.post = jest
+      .fn()
+      .mockRejectedValueOnce(
+        new HttpClientError('some sort of error', '/watchlists', 422),
+      )
     const args: AddAssetToWatchlistArgs = {
       watchlistId: '123',
       symbol: 'AAPL',
