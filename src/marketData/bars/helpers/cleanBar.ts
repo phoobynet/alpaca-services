@@ -1,20 +1,20 @@
 import { Bar, RawBar } from '../types'
-import { parseISO } from 'date-fns'
+import { cleanMarketDataEntity } from '../../helpers'
 
 export const cleanBar = (bar: Bar | RawBar, symbol?: string): Bar => {
-  const isRawBar = 'bar' in bar
+  let result: Bar
+  if ('bar' in bar) {
+    const rawBar = bar as RawBar
 
-  if (isRawBar) {
-    return {
-      ...bar.bar,
-      S: symbol || bar.symbol,
-      t: parseISO(bar.bar.t).toISOString(),
+    result = {
+      ...rawBar.bar,
+      S: rawBar.symbol || symbol,
+    }
+  } else {
+    result = {
+      ...bar,
     }
   }
 
-  return {
-    ...bar,
-    S: symbol || bar.S,
-    t: parseISO(bar.t).toISOString(),
-  }
+  return cleanMarketDataEntity(result, symbol)
 }

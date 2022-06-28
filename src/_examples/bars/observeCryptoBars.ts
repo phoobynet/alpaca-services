@@ -1,4 +1,4 @@
-import { observeBars } from '../../marketData'
+import { MarketDataClass, observeBars } from '../../marketData'
 import { options } from '../../options'
 
 options.set({
@@ -7,7 +7,7 @@ options.set({
 })
 
 function main() {
-  const cancel = observeBars('crypto', 'BTCUSD', (bar) => {
+  const cancel = observeBars(MarketDataClass.crypto, 'BTCUSD', (bar) => {
     console.log(bar)
   })
 

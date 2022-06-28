@@ -2,13 +2,11 @@ import { Quote, RawQuote } from '../types'
 import { cleanMarketDataEntity } from '../../helpers'
 
 export const cleanQuote = (quote: RawQuote | Quote, symbol?: string): Quote => {
-  const isRawQuote = 'quote' in quote
-
-  if (isRawQuote) {
+  if ('quote' in quote) {
     return cleanQuote({
-      ...quote.quote,
+      ...(quote as RawQuote).quote,
       S: quote.symbol,
-    })
+    } as Quote)
   }
 
   if (!quote.S && !symbol) {

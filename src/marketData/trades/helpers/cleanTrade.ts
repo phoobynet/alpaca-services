@@ -2,18 +2,19 @@ import { RawTrade, Trade } from '../types'
 import { cleanMarketDataEntity } from '../../helpers'
 
 export const cleanTrade = (trade: RawTrade | Trade, symbol = ''): Trade => {
-  const isRawTrade = 'trade' in trade
+  let result: Trade
 
-  if (isRawTrade) {
-    return cleanTrade({
-      ...trade.trade,
-      S: symbol || trade.symbol,
-    })
+  if ('trade' in trade) {
+    const rawTrade = trade as RawTrade
+    result = {
+      ...rawTrade.trade,
+      S: rawTrade.symbol || symbol,
+    }
+  } else {
+    result = {
+      ...trade,
+    }
   }
 
-  if (!symbol) {
-    throw new Error('Symbol is required to clean a Trade')
-  }
-
-  return cleanMarketDataEntity(trade, symbol)
+  return cleanMarketDataEntity(result, symbol)
 }
