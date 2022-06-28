@@ -1,6 +1,6 @@
 import { getTradeHttpClient } from '../../http'
-import { createWatchlist, CreateWatchlistArgs } from './createWatchlist'
 import { HttpClient, HttpClientError } from '../../../common'
+import { createWatchlist, CreateWatchlistArgs } from './createWatchlist'
 
 jest.mock('../../http')
 
