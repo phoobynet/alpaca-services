@@ -1,3 +1,3 @@
-import { MarketDataSource } from './index'
+import { MarketDataClass, MarketDataSource } from './index'
 
-export type MarketDataSourceType = MarketDataSource | 'crypto' | 'stock'
+export type MarketDataSourceType = MarketDataSource | MarketDataClass

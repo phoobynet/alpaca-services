@@ -1,10 +1,11 @@
 import { parseISO } from 'date-fns'
+import { MarketDataEntity } from '../types'
 
-export const cleanTimestamp = <T extends { t: string }>(
+export const cleanTimestamp = <T extends MarketDataEntity>(
   marketDataEntity: T,
 ): T => {
   return {
     ...marketDataEntity,
-    t: parseISO(marketDataEntity.t),
+    t: parseISO(marketDataEntity.t).toISOString(),
   }
 }
