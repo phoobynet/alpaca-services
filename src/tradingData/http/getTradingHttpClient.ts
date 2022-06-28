@@ -5,18 +5,11 @@ let httpClient: HttpClient
 /**
  * Uses baseURL https://paper-api.alpaca.markets/v2
  */
-const getTradingDataHttp = () => {
+export const getTradeHttpClient = () => {
   if (!httpClient) {
     // TODO: allow user to determine the baseURL
     httpClient = createHttpClient('https://paper-api.alpaca.markets/v2')
   }
 
   return httpClient
-}
-
-export const getTradingData = <T>(
-  url: string,
-  queryParams?: Record<string, string>,
-): Promise<T> => {
-  return getTradingDataHttp().get<T>(url, queryParams)
 }

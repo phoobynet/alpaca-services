@@ -1,1 +1,1 @@
-export * from './getTradingData'
+export * from './getTradingHttpClient'
