@@ -14,6 +14,9 @@ describe('stockMarketDataSource', () => {
     mockHttpClient.mockImplementation(() => {
       return {
         get: mockHttpClientGet,
+        post: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn(),
       }
     })
   })

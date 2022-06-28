@@ -1,5 +1,5 @@
 import { Asset, AssetRepository } from '../types'
-import { getTradingData } from '../../http'
+import { getTradeHttpClient } from '../../http'
 import { cleanSymbol } from '../../../common'
 
 export const getAsset = (
@@ -12,5 +12,5 @@ export const getAsset = (
     return assetRepository.find(symbol)
   }
 
-  return getTradingData<Asset>(`/assets/${symbol}`)
+  return getTradeHttpClient().get<Asset>(`/assets/${symbol}`)
 }

@@ -1,5 +1,5 @@
 import { Calendar, CalendarRepository, RawCalendar } from '../types'
-import { getTradingData } from '../../http'
+import { getTradeHttpClient } from '../../http'
 import { cleanCalendar } from '../helpers'
 import { formatISODate } from '../../../common'
 
@@ -11,8 +11,10 @@ export const getCalendarsBetween = (
   if (calendarRepository) {
     return calendarRepository.findBetween(start, end)
   }
-  return getTradingData<RawCalendar[]>('/calendar', {
-    start: formatISODate(start),
-    end: formatISODate(end),
-  }).then((rawCalendars) => rawCalendars.map(cleanCalendar) as Calendar[])
+  return getTradeHttpClient()
+    .get<RawCalendar[]>('/calendar', {
+      start: formatISODate(start),
+      end: formatISODate(end),
+    })
+    .then((rawCalendars) => rawCalendars.map(cleanCalendar) as Calendar[])
 }
