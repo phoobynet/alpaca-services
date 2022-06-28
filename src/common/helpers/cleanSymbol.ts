@@ -1,6 +1,22 @@
-import z from 'zod'
-
 export const cleanSymbol = (symbol: string): string => {
-  symbol = z.string().parse(symbol)
-  return symbol?.toUpperCase().trim()
+  // runtime type check
+  // noinspection SuspiciousTypeOfGuard
+  if (typeof symbol !== 'string') {
+    throw new CleanSymbolError('symbol arg must be a string', symbol)
+  }
+
+  symbol = (symbol || '').trim().toUpperCase()
+
+  if (!symbol) {
+    throw new CleanSymbolError('symbol arg must be a non-empty string', symbol)
+  }
+
+  return symbol
+}
+
+export class CleanSymbolError extends Error {
+  constructor(message: string, public symbol: unknown) {
+    super(message)
+    this.name = 'CleanSymbolError'
+  }
 }

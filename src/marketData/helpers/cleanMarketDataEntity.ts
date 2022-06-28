@@ -1,26 +1,48 @@
-import { cleanSymbol } from '../../common'
+import { cleanSymbol, CleanSymbolError } from '../../common'
 import { MarketDataEntity } from '../types'
-import { cleanTimestamp } from './cleanTimestamp'
+import { cleanTimestamp, CleanTimestampError } from './cleanTimestamp'
 
 export const cleanMarketDataEntity = <T extends MarketDataEntity>(
   entity: T,
   symbol = '',
 ): T => {
-  const result = cleanTimestamp({
-    ...entity,
-  })
+  try {
+    const result = cleanTimestamp({
+      ...entity,
+    })
 
-  if (!entity.S) {
-    symbol = cleanSymbol(symbol)
+    if (!result.S) {
+      symbol = cleanSymbol(symbol)
+      result.S = symbol
+    }
 
-    if (!symbol) {
-      throw new Error(
-        'Entity has no .S property.  Please provide a symbol to that it can be populated.',
+    return result
+  } catch (e) {
+    if (e instanceof CleanSymbolError) {
+      throw new CleanMarketDataEntityError(
+        'Entity has no .S property.  Please provide a valid symbol so that it can be populated.',
+        entity,
+        symbol,
       )
     }
 
-    result.S = symbol
+    if (e instanceof CleanTimestampError) {
+      throw new CleanMarketDataEntityError(
+        'entity.t value is not a valid ISO formatted date string',
+        entity,
+        symbol,
+      )
+    }
+    throw e
   }
+}
 
-  return result
+export class CleanMarketDataEntityError extends Error {
+  constructor(
+    message: string,
+    public entity?: unknown,
+    public symbol?: unknown,
+  ) {
+    super(message)
+  }
 }
