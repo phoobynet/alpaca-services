@@ -10,17 +10,17 @@ export const getPagedNestedDataProperty = (
 ): string => {
   let nestedDataProperty: string | undefined
 
-  if (!nestedDataProperty) {
-    const nestDataProperties = Object.keys(data).filter(
-      (key) => key !== 'next_page_token',
-    )
+  const nestDataProperties = Object.keys(data).filter(
+    (key) => key !== 'next_page_token',
+  )
 
-    if (nestDataProperties.length > 1) {
-      throw new Error('Too many nested data properties')
-    } else if (nestDataProperties.length === 0) {
-      throw new Error('No nested data properties')
-    }
+  if (nestDataProperties.length > 1) {
+    throw new Error('Too many nested data properties')
+  } else if (nestDataProperties.length === 0) {
+    throw new Error('No nested data properties')
+  }
 
+  if (nestDataProperties.length) {
     nestedDataProperty = nestDataProperties[0]
   }
 

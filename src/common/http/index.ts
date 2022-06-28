@@ -1,1 +1,2 @@
-export * from './createHttpInstance'
+export * from './features'
+export * from './types'

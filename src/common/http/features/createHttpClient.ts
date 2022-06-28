@@ -1,8 +1,9 @@
 import rateLimit from 'axios-rate-limit'
-import axios, { AxiosInstance } from 'axios'
-import { options } from '../../options'
+import axios from 'axios'
+import { options } from '../../../options'
+import { HttpClient } from '../types'
 
-export const createHttpInstance = (baseURL: string): AxiosInstance => {
+export const createHttpClient = (baseURL: string): HttpClient => {
   const instance = rateLimit(
     axios.create({
       baseURL,
@@ -20,5 +21,9 @@ export const createHttpInstance = (baseURL: string): AxiosInstance => {
     return config
   })
 
-  return instance
+  return {
+    get<T>(url: string, queryParams?: Record<string, string>): Promise<T> {
+      return instance.get(url, { params: queryParams }).then((r) => r.data)
+    },
+  }
 }
