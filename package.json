@@ -1,6 +1,6 @@
 {
   "name": "@phoobynet/alpaca-services",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
-    "test": "clear && npm run test:clear && jest",
+    "test": "jest",
     "test:clear": "jest --clearCache",
     "test:config": "jest --showConfig",
     "workflow:test": "jest --forceExit --detectOpenHandles"
