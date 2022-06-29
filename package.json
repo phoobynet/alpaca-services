@@ -1,14 +1,14 @@
 {
   "name": "@phoobynet/alpaca-services",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "npm run lint:fix && npm run clean && npm run build:types && npm run build:ts",
     "clean": "rimraf dist",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:ts": "tsc",
+    "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly",
+    "build:ts": "tsc -p tsconfig-build.json",
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
