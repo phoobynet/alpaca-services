@@ -1,5 +1,5 @@
 import { Watchlist } from '../types'
-import { getTradeHttpClient } from '../../http'
+import { postTradeData } from '../../http'
 import { cleanSymbol, HttpClientError } from '../../../common'
 
 export type CreateWatchlistArgs = {
@@ -16,10 +16,7 @@ export const createWatchlist = async (
   }
 
   try {
-    return await getTradeHttpClient().post<Watchlist>(
-      '/watchlists',
-      queryParams,
-    )
+    return await postTradeData<Watchlist>('/watchlists', queryParams)
   } catch (err) {
     if (err instanceof HttpClientError) {
       if (err.statusCode === 404) {

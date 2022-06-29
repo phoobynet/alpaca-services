@@ -1,5 +1,5 @@
 import { Asset, AssetRepository } from '../types'
-import { getTradeHttpClient } from '../../http'
+import { getTradeData } from '../../http'
 
 export const getAssets = (
   assetRepository?: AssetRepository,
@@ -8,5 +8,5 @@ export const getAssets = (
     return assetRepository.findAll()
   }
 
-  return getTradeHttpClient().get<Asset[]>('/assets')
+  return getTradeData<Asset[]>('/assets')
 }

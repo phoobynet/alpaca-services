@@ -1,5 +1,5 @@
 import { Watchlist } from '../types'
-import { getTradeHttpClient } from '../../http'
+import { putTradeData } from '../../http'
 import { cleanSymbol, HttpClientError } from '../../../common'
 
 export type UpdateWatchlistArgs = {
@@ -22,7 +22,7 @@ export const updateWatchlist = async (
   }
 
   try {
-    return await getTradeHttpClient().put<Watchlist>(
+    return await putTradeData<Watchlist>(
       `/watchlists/${args.watchlistId}`,
       queryParams,
     )

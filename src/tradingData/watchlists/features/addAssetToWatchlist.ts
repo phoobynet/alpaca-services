@@ -1,4 +1,4 @@
-import { getTradeHttpClient } from '../../http'
+import { postTradeData } from '../../http'
 import { Watchlist } from '../types'
 import { cleanSymbol, HttpClientError } from '../../../common'
 
@@ -13,7 +13,7 @@ export type AddAssetToWatchlistArgs = {
  */
 export const addAssetToWatchlist = async (args: AddAssetToWatchlistArgs) => {
   try {
-    return await getTradeHttpClient().post<Watchlist>(
+    return await postTradeData<Watchlist>(
       `/watchlists/${args.watchlistId}`,
       undefined,
       {

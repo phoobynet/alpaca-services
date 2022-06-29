@@ -1,84 +1,54 @@
-import { getTradeHttpClient } from '../../http'
-import { HttpClient, HttpClientError } from '../../../common'
+import { postTradeData } from '../../http'
+import { HttpClientError } from '../../../common'
 import { createWatchlist, CreateWatchlistArgs } from './createWatchlist'
 
 jest.mock('../../http')
 
-const getTradeHttpClientMock = getTradeHttpClient as jest.Mock<HttpClient>
-
 describe('createWatchlist', () => {
-  const postFn = jest.fn()
-  getTradeHttpClientMock.mockImplementation(() => {
-    return {
-      post: postFn,
-      get: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn(),
-    }
-  })
-  beforeEach(() => {
-    getTradeHttpClientMock.mockClear()
-  })
+  describe('URL parameters check', () => {
+    it('should send the correct URLs and query parameters', async () => {
+      const args: CreateWatchlistArgs = {
+        name: 'foo',
+        symbols: ['AAPL', 'MSFT'],
+      }
 
-  it('create a watchlist', async () => {
-    const args: CreateWatchlistArgs = {
-      name: 'foo',
-      symbols: ['AAPL', 'MSFT'],
-    }
+      await createWatchlist(args)
 
-    await createWatchlist(args)
-
-    expect(postFn).toHaveBeenCalledWith('/watchlists', {
-      name: 'foo',
-      symbols: 'AAPL,MSFT',
+      expect(postTradeData).toHaveBeenCalledWith('/watchlists', {
+        name: 'foo',
+        symbols: 'AAPL,MSFT',
+      })
     })
   })
-})
 
-describe('alpaca error handling', () => {
-  beforeEach(() => {
-    getTradeHttpClientMock.mockClear()
-  })
+  describe('alpaca error handling', () => {
+    it('Watchlist name is not unique, or some parameters are not valid', async () => {
+      ;(postTradeData as jest.Mock).mockRejectedValueOnce(
+        new HttpClientError('some sort of error', '/watchlists', 422),
+      )
+      const args: CreateWatchlistArgs = {
+        name: 'foo',
+        symbols: ['AAPL', 'MSFT'],
+      }
 
-  it('Watchlist name is not unique, or some parameters are not valid', async () => {
-    getTradeHttpClientMock.mockImplementationOnce(() => ({
-      post: jest
-        .fn()
-        .mockRejectedValueOnce(
-          new HttpClientError('some sort of error', '/watchlists', 422),
-        ),
-      get: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn(),
-    }))
-    const args: CreateWatchlistArgs = {
-      name: 'foo',
-      symbols: ['AAPL', 'MSFT'],
-    }
+      await expect(() => createWatchlist(args)).rejects.toThrowError(
+        'Watchlist name is not unique, or some parameters are not valid',
+      )
+    })
 
-    await expect(() => createWatchlist(args)).rejects.toThrowError(
-      'Watchlist name is not unique, or some parameters are not valid',
-    )
-  })
+    it('One of the symbol is not found in the assets', async () => {
+      ;(postTradeData as jest.Mock).mockRejectedValueOnce(
+        new HttpClientError('some sort of error', '/watchlists', 404),
+      )
 
-  it('One of the symbol is not found in the assets', async () => {
-    getTradeHttpClientMock.mockImplementationOnce(() => ({
-      post: jest
-        .fn()
-        .mockRejectedValueOnce(
-          new HttpClientError('some other error', '/watchlists', 404),
-        ),
-      get: jest.fn(),
-      put: jest.fn(),
-      delete: jest.fn(),
-    }))
-    const args: CreateWatchlistArgs = {
-      name: 'foo',
-      symbols: ['AAPL', 'MSFT'],
-    }
+      const args: CreateWatchlistArgs = {
+        name: 'foo',
+        symbols: ['AAPL', 'MSFT'],
+      }
 
-    await expect(() => createWatchlist(args)).rejects.toThrowError(
-      'One of the symbol is not found in the assets',
-    )
+      await expect(() => createWatchlist(args)).rejects.toThrowError(
+        'One of the symbol is not found in the assets',
+      )
+    })
   })
 })

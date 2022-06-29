@@ -12,7 +12,9 @@
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest",
+    "test": "clear && npm run test:clear && jest",
+    "test:clear": "jest --clearCache",
+    "test:config": "jest --showConfig",
     "workflow:test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {

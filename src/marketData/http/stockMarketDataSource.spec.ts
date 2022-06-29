@@ -2,13 +2,10 @@ import { stockMarketDataSource } from './stockMarketDataSource'
 import { MarketDataClass } from '../types'
 import { createHttpClient } from '../../common'
 
-const getFn = jest.fn()
-
-jest.mock('../../', () => ({
-  __esModule: true,
+jest.mock('../../common', () => ({
   createHttpClient: jest.fn().mockReturnValue({
     post: jest.fn(),
-    get: getFn,
+    get: jest.fn(),
     put: jest.fn(),
     delete: jest.fn(),
   }),
@@ -27,14 +24,14 @@ describe('stockMarketDataSource', () => {
 
   it('should invoke the http client get method with the correct URL', async () => {
     await stockMarketDataSource.get('/hello')
-    expect(getFn).toHaveBeenCalledWith('/hello', undefined)
+    expect(createHttpClient('').get).toHaveBeenCalledWith('/hello', undefined)
   })
 
   it('should invoke the http client get method with the correct URL and query params', async () => {
     await stockMarketDataSource.get('/hello', {
       foo: 'bar',
     })
-    expect(getFn).toHaveBeenCalledWith('/hello', {
+    expect(createHttpClient('').get).toHaveBeenCalledWith('/hello', {
       foo: 'bar',
     })
   })
