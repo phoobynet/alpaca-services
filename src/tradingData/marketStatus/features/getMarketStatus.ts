@@ -10,8 +10,8 @@ import {
   getCalendarForToday,
   getNextCalendar,
   getPreviousCalendar,
-} from '../../calendars/features'
-import { Calendar } from '../../calendars'
+} from '../../calendars'
+import type { Calendar } from '../../calendars'
 import { MarketStatus, MarketStatusDuration } from '../types'
 import { AMERICA_NEW_YORK_TZ } from '../../../common'
 
