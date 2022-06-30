@@ -3,15 +3,10 @@ import { cleanQuote } from '../../quotes/helpers'
 import { cleanTrade } from '../../trades/helpers'
 import { cleanBar } from '../../bars/helpers'
 
-export const cleanSnapshot = (snapshot: Snapshot): Snapshot => {
-  const {
-    symbol,
-    latestTrade,
-    latestQuote,
-    dailyBar,
-    prevDailyBar,
-    minuteBar,
-  } = snapshot
+export const cleanSnapshot = (snapshot: Snapshot, symbol: string): Snapshot => {
+  const { latestTrade, latestQuote, dailyBar, prevDailyBar, minuteBar } =
+    snapshot
+
   return {
     symbol,
     latestQuote: cleanQuote(latestQuote, symbol),

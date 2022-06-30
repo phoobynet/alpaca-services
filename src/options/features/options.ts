@@ -29,6 +29,7 @@ export const options = {
         options,
       )
     }
+
     _options = options
   },
 }

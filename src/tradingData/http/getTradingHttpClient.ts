@@ -1,4 +1,5 @@
 import { createHttpClient, HttpClient } from '../../common'
+import { options } from '../../options'
 
 let httpClient: HttpClient
 
@@ -8,7 +9,13 @@ let httpClient: HttpClient
 export const getTradeHttpClient = (): HttpClient => {
   if (!httpClient) {
     // TODO: allow user to determine the baseURL
-    httpClient = createHttpClient('https://paper-api.alpaca.markets/v2')
+    const { paper } = options.get()
+
+    const url = paper
+      ? 'https://paper-api.alpaca.markets/v2'
+      : 'https://api.alpaca.markets/v2'
+
+    httpClient = createHttpClient(url)
   }
 
   return httpClient

@@ -15,7 +15,8 @@
     "test": "jest",
     "test:clear": "jest --clearCache",
     "test:config": "jest --showConfig",
-    "workflow:test": "jest --forceExit --detectOpenHandles"
+    "workflow:test": "jest --forceExit --detectOpenHandles",
+    "examples": "ts-node src/_examples/snapshot/getMultiSnapshots.ts"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -25,6 +26,7 @@
     "eventemitter3": "^4.0.7",
     "isomorphic-ws": "^4.0.1",
     "lodash": "^4.17.21",
+    "qs": "^6.11.0",
     "ws": "^8.8.0",
     "zod": "^3.17.3"
   },
@@ -32,6 +34,7 @@
     "@types/jest": "^28.1.3",
     "@types/lodash": "^4.14.182",
     "@types/node": "^18.0.0",
+    "@types/qs": "^6.9.7",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
