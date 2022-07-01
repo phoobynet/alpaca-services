@@ -29,6 +29,8 @@ export const addAssetToWatchlist = async (args: AddAssetToWatchlistArgs) => {
       } else if (e.statusCode === 422) {
         throw new Error('Some parameters are not valid')
       }
+    } else {
+      throw e
     }
   }
 }
