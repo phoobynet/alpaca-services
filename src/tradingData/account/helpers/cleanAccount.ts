@@ -1,12 +1,12 @@
-import { Account, RawAccount } from '../types'
+import { Account, AccountStatus, RawAccount } from '../types'
 import { parseISO } from 'date-fns'
 
 export const cleanAccount = (rawAccount: RawAccount): Account => {
   return {
     id: rawAccount.id,
     account_number: rawAccount.account_number,
-    status: rawAccount.status,
-    crypto_status: rawAccount.crypto_status,
+    status: rawAccount.status as AccountStatus,
+    crypto_status: rawAccount.crypto_status as AccountStatus,
     currency: rawAccount.currency,
     pattern_day_trader: rawAccount.pattern_day_trader,
     trading_blocked: rawAccount.trading_blocked,
@@ -16,25 +16,23 @@ export const cleanAccount = (rawAccount: RawAccount): Account => {
     trade_suspended_by_user: rawAccount.trade_suspended_by_user,
     shorting_enabled: rawAccount.shorting_enabled,
 
-    buying_power: parseFloat(rawAccount.buying_power),
-    daytrading_buying_power: parseFloat(rawAccount.daytrading_buying_power),
-    regt_buying_power: parseFloat(rawAccount.regt_buying_power),
-    non_marginable_buying_power: parseFloat(
-      rawAccount.non_marginable_buying_power,
-    ),
-    cash: parseFloat(rawAccount.cash),
-    accrued_fees: parseFloat(rawAccount.accrued_fees),
-    pending_transfer_in: parseFloat(rawAccount.pending_transfer_in),
-    portfolio_value: parseFloat(rawAccount.portfolio_value),
-    multiplier: parseFloat(rawAccount.multiplier),
-    equity: parseFloat(rawAccount.equity),
-    last_equity: parseFloat(rawAccount.last_equity),
-    long_market_value: parseFloat(rawAccount.long_market_value),
-    short_market_value: parseFloat(rawAccount.short_market_value),
-    initial_margin: parseFloat(rawAccount.initial_margin),
-    last_maintenance_margin: parseFloat(rawAccount.last_maintenance_margin),
-    maintenance_margin: parseFloat(rawAccount.maintenance_margin),
-    sma: parseFloat(rawAccount.sma),
-    daytrade_count: parseInt(rawAccount.daytrade_count),
+    buying_power: Number(rawAccount.buying_power),
+    daytrading_buying_power: Number(rawAccount.daytrading_buying_power),
+    regt_buying_power: Number(rawAccount.regt_buying_power),
+    non_marginable_buying_power: Number(rawAccount.non_marginable_buying_power),
+    cash: Number(rawAccount.cash),
+    accrued_fees: Number(rawAccount.accrued_fees),
+    pending_transfer_in: Number(rawAccount.pending_transfer_in),
+    portfolio_value: Number(rawAccount.portfolio_value),
+    multiplier: Number(rawAccount.multiplier),
+    equity: Number(rawAccount.equity),
+    last_equity: Number(rawAccount.last_equity),
+    long_market_value: Number(rawAccount.long_market_value),
+    short_market_value: Number(rawAccount.short_market_value),
+    initial_margin: Number(rawAccount.initial_margin),
+    last_maintenance_margin: Number(rawAccount.last_maintenance_margin),
+    maintenance_margin: Number(rawAccount.maintenance_margin),
+    sma: Number(rawAccount.sma),
+    daytrade_count: Number(rawAccount.daytrade_count),
   }
 }

@@ -1,6 +1,6 @@
 export interface RawAnnouncement {
   id: string
-  corporate_actions_id: string
+  corporate_action_id: string
   ca_type: string
   ca_sub_type: string
   initiating_symbol: string
@@ -8,7 +8,7 @@ export interface RawAnnouncement {
   target_symbol: string
   target_original_cusip: string
   declaration_date: string
-  expiration_date: string
+  ex_date: string
   record_date: string
   payable_date: string
   cash: string

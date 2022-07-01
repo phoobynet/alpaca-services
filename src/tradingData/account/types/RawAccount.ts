@@ -1,15 +1,13 @@
-import { AccountStatus } from './AccountStatus'
-
 export interface RawAccount {
   account_blocked: boolean
   account_number: string
   buying_power: string
-  status: AccountStatus
-  crypto_status: AccountStatus
+  status: string
+  crypto_status: string
   cash: string
   created_at: string
   currency: string
-  daytrade_count: string
+  daytrade_count: number
   daytrading_buying_power: string
   non_marginable_buying_power: string
   accrued_fees: string

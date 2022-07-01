@@ -1,25 +1,16 @@
-import { Announcement, RawAnnouncement } from '../types'
+import {
+  Announcement,
+  AnnouncementCaType,
+  AnnouncementDateType,
+  RawAnnouncement,
+} from '../types'
 import { getTradeData } from '../../http'
 import { cleanAnnouncement } from '../helpers'
 import { isAfter, isBefore, subDays } from 'date-fns'
 import { cleanSymbol, formatISODate } from '../../../common'
 
-export enum AnnouncementCaTypes {
-  Dividend = 'Dividend',
-  Spinoff = 'Spinoff',
-  Merger = 'Merger',
-  Split = 'Split',
-}
-
-export enum AnnouncementDateType {
-  declaration_date = 'declaration_date',
-  expiration_date = 'expiration_date',
-  record_date = 'record_date',
-  payable_date = 'payable_date',
-}
-
 export type AnnouncementsArgs = {
-  ca_types: AnnouncementCaTypes[]
+  ca_types: AnnouncementCaType[]
   since: Date
   until: Date
   symbol?: string
