@@ -21,11 +21,13 @@ export type ActivitiesArgs = {
   until?: Date
   after?: Date
   direction?: 'asc' | 'desc'
-  absoluteLimit?: number
+  pageLimit?: number
 }
 
+// TODO: build get activities query
 export const getActivities = (args: ActivitiesArgs): Promise<Activities> => {
   const { activityType } = args
+
   const url = `/account/activities/${activityType}`
 
   return getTradeData<RawActivities>(url).then((rawActivities) => {
