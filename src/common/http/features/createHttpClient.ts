@@ -1,15 +1,22 @@
-import rateLimit from 'axios-rate-limit'
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import axiosRetry from 'axios-retry'
 import { options } from '../../../options'
 import { HttpClient } from '../types'
 
 export const createHttpClient = (baseURL: string): HttpClient => {
-  const instance = rateLimit(
-    axios.create({
-      baseURL,
-    }),
-    { maxRPS: 3 },
-  )
+  const instance = axios.create({
+    baseURL,
+  })
+
+  axiosRetry(instance, {
+    retryDelay: axiosRetry.exponentialDelay,
+    retryCondition: (error: AxiosError) => error.response?.status === 429,
+    onRetry: (retryCount, error, requestConfig) => {
+      const { url } = requestConfig
+      const { status, statusText } = error.response as AxiosResponse
+      console.debug(`Retrying ${url} (${retryCount}): ${status} ${statusText}`)
+    },
+  })
 
   instance.interceptors.request.use((config) => {
     const { key, secret } = options.get()

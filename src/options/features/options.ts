@@ -30,6 +30,11 @@ export const options = {
       )
     }
 
+    if (options.paper) {
+      const paper = String.fromCodePoint(0x1f4f0)
+      console.warn(paper + ' Paper trading is enabled.')
+    }
+
     _options = options
   },
 }
