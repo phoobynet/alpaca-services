@@ -1,68 +1,139 @@
+/**
+ * Activity types for account trade and non-trade activities.
+ *
+ * See https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types
+ */
 export enum ActivityType {
-  // Order fills (both partial and full fills)
+  /**
+   * Order fills (both partial and full fills)
+   */
   FILL = 'FILL',
-  // Cash transactions (both CSD and CSW)
+  /**
+   * Cash transactions (both CSD and CSW)
+   */
   TRANS = 'TRANS',
-  // Miscellaneous or rarely used activity types (All types except those in TRANS, DIV, or FILL)
+  /**
+   * Miscellaneous or rarely used activity types (All types except those in TRANS, DIV, or FILL)
+   */
   MISC = 'MISC',
-  // ACATS IN/OUT (Cash)
+  /**
+   * ACATS IN/OUT (Cash)
+   */
   ACATC = 'ACATC',
-  // ACATS IN/OUT (Securities)
+  /**
+   * ACATS IN/OUT (Securities)
+   */
   ACATS = 'ACATS',
-  // Cash deposit(+)
+  /**
+   * Cash deposit(+)
+   */
   CSD = 'CSD',
-  // Cash withdrawal(-)
+  /**
+   * Cash withdrawal(-)
+   */
   CSW = 'CSW',
-  // Dividends
+  /**
+   * Dividends
+   */
   DIV = 'DIV',
-  // Dividend (capital gain long term)
+  /**
+   * Dividend (capital gain long term)
+   */
   DIVCGL = 'DIVCGL',
-  // Dividend (capital gain short term)
+  /**
+   * Dividend (capital gain short term)
+   */
   DIVCGS = 'DIVCGS',
-  // Dividend fee
+  /**
+   * Dividend fee
+   */
   DIVFEE = 'DIVFEE',
-  // Dividend adjusted (Foreign Tax Withheld)
+  /**
+   * Dividend adjusted (Foreign Tax Withheld)
+   */
   DIVFT = 'DIVFT',
-  // Dividend adjusted (NRA Withheld)
+  /**
+   * Dividend adjusted (NRA Withheld)
+   */
   DIVNRA = 'DIVNRA',
-  // Dividend return of capital
+  /**
+   * Dividend return of capital
+   */
   DIVROC = 'DIVROC',
-  // Dividend adjusted (Tefra Withheld)
+  /**
+   * Dividend adjusted (Tefra Withheld)
+   */
   DIVTW = 'DIVTW',
-  // Dividend (tax exempt)
+  /**
+   * Dividend (tax exempt)
+   */
   DIVTXEX = 'DIVTXEX',
-  // Interest (credit/margin)
+  /**
+   * Interest (credit/margin)
+   */
   INT = 'INT',
-  // Interest adjusted (NRA Withheld)
+  /**
+   * Interest adjusted (NRA Withheld)
+   */
   INTNRA = 'INTNRA',
-  // Interest adjusted (Tefra Withheld)
+  /**
+   * Interest adjusted (Tefra Withheld)
+   */
   INTTW = 'INTTW',
-  // Journal entry
+  /**
+   * Journal entry
+   */
   JNL = 'JNL',
-  // Journal entry (cash)
+  /**
+   * Journal entry (cash)
+   */
   JNLC = 'JNLC',
-  // Journal entry (stock)
+  /**
+   * Journal entry (stock)
+   */
   JNLS = 'JNLS',
-  // Merger/Acquisition
+  /**
+   * Merger/Acquisition
+   */
   MA = 'MA',
-  // Name change
+  /**
+   * Name change
+   */
   NC = 'NC',
-  // Option assignment
+  /**
+   * Option assignment
+   */
   OPASN = 'OPASN',
-  // Option expiration
+  /**
+   * Option expiration
+   */
   OPEXP = 'OPEXP',
-  // Option exercise
+  /**
+   * Option exercise
+   */
   OPXRC = 'OPXRC',
-  // Pass Thru Charge
+  /**
+   * Pass Thru Charge
+   */
   PTC = 'PTC',
-  // Pass Thru Rebate
+  /**
+   * Pass Thru Rebate
+   */
   PTR = 'PTR',
-  // Reorg CA
+  /**
+   * Reorg CA
+   */
   REORG = 'REORG',
-  // Symbol change
+  /**
+   * Symbol change
+   */
   SC = 'SC',
-  // Stock spinoff
+  /**
+   * Stock spinoff
+   */
   SSO = 'SSO',
-  // Stock split
+  /**
+   * Stock split
+   */
   SSP = 'SSP',
 }

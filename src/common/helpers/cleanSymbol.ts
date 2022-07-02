@@ -1,3 +1,15 @@
+/**
+ *
+ * @param {string} symbol
+ * @example
+ * ```ts
+ * const symbol = '   aapl  '
+ *
+ * const cleanedSymbol = cleanSymbol(symbol)
+ *
+ * expect(cleanedSymbol).toBe('AAPL')
+ * ```
+ */
 export const cleanSymbol = (symbol: string): string => {
   // runtime type check
   // noinspection SuspiciousTypeOfGuard

@@ -1,4 +1,5 @@
 export * from './account'
+export * from './activities'
 export * from './announcements'
 export * from './assets'
 export * from './calendars'

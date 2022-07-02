@@ -1,5 +1,10 @@
 /**
  *
+ * @example
+ * ```ts
+ * const arr = [1, 2, 3, 4, 5, 6]
+ * const [even, odd] = filteredWithRemaining(arr, (x) => x % 2 === 0)
+ * ```
  * @param {Array<T>} arr - array being filtered
  * @param {(t: T) => boolean} fn - the filter function
  * @returns {[T[], T[]]} - the results, index 0 contains values that matched your filter, index 1 contains any remaining values that did NOT match your filter

@@ -7,7 +7,7 @@ import {
 } from '../types'
 import { cleanSymbol, filteredWithRemaining } from '../../common'
 
-type MarketDataSocketMessageFilter = (
+export type MarketDataSocketMessageFilter = (
   message: MarketDataSocketMessage,
 ) => boolean
 export type MarketDataSocketMessageHandlerCancellation = () => void

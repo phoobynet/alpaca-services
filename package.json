@@ -4,7 +4,7 @@
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run typedoc && npm run build",
     "build": "npm run lint:fix && npm run clean && npm run build:types && npm run build:ts",
     "clean": "rimraf dist",
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly",
@@ -16,7 +16,7 @@
     "test:clear": "jest --clearCache",
     "test:config": "jest --showConfig",
     "workflow:test": "jest --forceExit --detectOpenHandles",
-    "examples": "ts-node src/_examples/snapshot/getMultiSnapshots.ts"
+    "typedoc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -49,6 +49,7 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
+    "typedoc": "^0.23.5",
     "typescript": "^4.7.4"
   },
   "repository": {

@@ -10,15 +10,14 @@ Provides simple functions to access historical and real-time data from Alpaca's 
 npm i @phoobynet/alpaca-services
 ```
 
-# Usage
-
-## Options
+# Quick Example
 
 ```typescript
 import {
   options,
   stockDataSource,
   getLatestTrade,
+  cryptoMarketDataSource,
 } from '@phoobynet/alpaca-services'
 
 // options only need to be set once
@@ -29,8 +28,15 @@ options.set({
 })
 
 async function main() {
-  const latestTrade = await getLatestTrade(stockDataSource, 'AAPL')
-  console.log(latestTrade)
+  // trades
+  const latestAppleTrade = await getLatestTrade(stockDataSource, 'AAPL')
+  console.log(lastestAppleTrade)
+
+  const latestCryptoTrade = await getLatestTrade(
+    cryptoMarketDataSource,
+    'BTCUSD',
+  )
+  console.log(lastestCryptoTrade)
 }
 
 main().catch(console.error)
