@@ -16,7 +16,7 @@
     "test:clear": "jest --clearCache",
     "test:config": "jest --showConfig",
     "workflow:test": "jest --forceExit --detectOpenHandles",
-    "typedoc": "typedoc --out docs src/index.ts"
+    "typedoc": "typedoc"
   },
   "dependencies": {
     "axios": "^0.27.2",
