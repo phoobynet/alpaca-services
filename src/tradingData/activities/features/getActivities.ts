@@ -8,6 +8,8 @@ import {
 import { getTradeData } from '../../http'
 import { isNonTradeActivity } from '../helpers/isNonTradeActivity'
 import { cleanNonTradeActivity, cleanTradeActivity } from '../helpers'
+import { trimEnd } from 'lodash'
+import { isAfter } from 'date-fns'
 
 type Activity = NonTradeActivity | TradeActivity
 type Activities = Activity[]
@@ -16,21 +18,70 @@ type RawActivity = RawNonTradeActivity | RawTradeActivity
 type RawActivities = RawActivity[]
 
 export type ActivitiesArgs = {
-  activityType?: ActivityType
+  activity_type?: ActivityType
   date?: Date
   until?: Date
   after?: Date
   direction?: 'asc' | 'desc'
-  pageLimit?: number
+  page_size?: number
+  // page_token represents the ID of the end of your current page of results
+  page_token?: string
 }
 
-// TODO: build get activities query
+/**
+ * https://alpaca.markets/docs/api-references/trading-api/account-activities/
+ * @param {ActivitiesArgs} args
+ */
 export const getActivities = (args: ActivitiesArgs): Promise<Activities> => {
-  const { activityType } = args
+  const {
+    activity_type,
+    date,
+    until,
+    after,
+    direction,
+    page_token,
+    page_size,
+  } = args
 
-  const url = `/account/activities/${activityType}`
+  const queryParams: Record<string, string> = {}
 
-  return getTradeData<RawActivities>(url).then((rawActivities) => {
+  if (date) {
+    queryParams.date = date.toISOString()
+  }
+
+  if (until && date) {
+    throw new Error('Cannot specify both date and until')
+  } else if (until) {
+    queryParams.until = until.toISOString()
+  }
+
+  if (after && date) {
+    throw new Error('Cannot specify both date and after')
+  } else if (after) {
+    queryParams.after = after.toISOString()
+  }
+
+  if (after && until) {
+    if (isAfter(after, until)) {
+      throw new Error('until cannot be before after')
+    }
+  }
+
+  if (direction) {
+    queryParams.direction = direction
+  }
+
+  if (page_size) {
+    queryParams.page_size = page_size.toString()
+  }
+
+  if (page_token) {
+    queryParams.page_token = page_token
+  }
+
+  const url = trimEnd(`/account/activities/${activity_type}`, '/')
+
+  return getTradeData<RawActivities>(url, queryParams).then((rawActivities) => {
     const activities: Activities = []
 
     for (const rawActivity of rawActivities) {

@@ -4,7 +4,7 @@ let _options: Options
 
 export const options = {
   get(): Options {
-    if (!options) {
+    if (!_options) {
       throw new Error('Options not set')
     }
 
