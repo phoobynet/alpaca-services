@@ -41,7 +41,7 @@ describe('cleanAccount', () => {
       account_number: '010203ABCD',
       buying_power: 262113.632,
       cash: -23140.2,
-      created_at: '2019-06-12T22:47:07.996Z',
+      created_at: new Date('2019-06-12T22:47:07.996Z'),
       currency: 'USD',
       daytrade_count: 0,
       daytrading_buying_power: 262113.632,

@@ -9,15 +9,66 @@ import { cleanAnnouncement } from '../helpers'
 import { isAfter, isBefore, subDays } from 'date-fns'
 import { cleanSymbol, formatISODate } from '../../../common'
 
+/**
+ * Corporate announcements query arguments
+ */
 export type AnnouncementsArgs = {
+  /**
+   * A list of {@link AnnouncementCaType} values.
+   */
   ca_types: AnnouncementCaType[]
+  /**
+   * The start (inclusive) of the date range when searching corporate action announcements.
+   * @remarks Limited to 90 days
+   */
   since: Date
+  /**
+   * The end (inclusive) of the date range when searching corporate action announcements.
+   * @remarks Limited to 90 days
+   */
   until: Date
+  /**
+   * The symbol of the company initiating the announcement.
+   */
   symbol?: string
+  /**
+   * The CUSIP (Committee on Uniform Securities Identification Procedures) of the company initiating the announcement.
+   * @see https://www.investopedia.com/terms/c/cusipnumber.asp
+   */
   cusip?: string
+  /**
+   * The {@link AnnouncementDateType} of the announcement to query.
+   * @example
+   * ```ts
+   * const announcements = await getAnnouncements({
+   *   ca_types: [AnnouncementCaType.dividend],
+   *   since: new Date('2022-07-01'),
+   *   until: new Date('2022-07-31'),
+   *   date_type: AnnouncementDateType.declaration_date,
+   * })
+   * ```
+   */
   date_type?: AnnouncementDateType
 }
 
+/**
+ * Get corporate announcements
+ * @group Trading Data
+ * @category Announcements
+ * @param {AnnouncementsArgs} args
+ * @see https://alpaca.markets/docs/api-references/trading-api/corporate-actions-announcements/#get-announcements
+ * @example
+ * ```ts
+ * //
+ * const announcements = await getAnnouncements({
+ *   ca_types: [AnnouncementCaType.dividend, AnnouncementCaType.split],
+ *   since: new Date('2022-07-01'),
+ *   until: new Date('2022-07-31'),
+ *   symbol: 'AAPL',
+ *   date_type: AnnouncementDateType.declaration_date,
+ * })
+ * ```
+ */
 export const getAnnouncements = (
   args: AnnouncementsArgs,
 ): Promise<Announcement[]> => {

@@ -3,6 +3,14 @@ import axiosRetry from 'axios-retry'
 import { options } from '../../../options'
 import { HttpClient } from '../types'
 
+/**
+ * Create an HTTP client for the given base URL.
+ * @internal
+ * @group Common
+ * @category HTTP
+ * @remarks This function is a wrapper around the axios library.  If the status code returned is 429, the function will retry the request.
+ * @param baseURL
+ */
 export const createHttpClient = (baseURL: string): HttpClient => {
   const instance = axios.create({
     baseURL,
@@ -91,6 +99,10 @@ export const createHttpClient = (baseURL: string): HttpClient => {
   }
 }
 
+/**
+ * @group Common
+ * @category HTTP
+ */
 export class HttpClientError extends Error {
   constructor(
     message: string,

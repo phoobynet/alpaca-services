@@ -1,3 +1,8 @@
+/**
+ * @group Trading Data
+ * @category Assets
+ * @see https://alpaca.markets/docs/api-references/trading-api/assets/#asset-entity
+ */
 export interface Asset {
   id: string
   symbol: string

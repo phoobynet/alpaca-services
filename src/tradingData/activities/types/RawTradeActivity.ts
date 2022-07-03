@@ -1,3 +1,9 @@
+/**
+ * Raw HTTP response from Alpaca.
+ * @group Trading Data
+ * @category Account Activity
+ * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#tradeactivity-entity
+ */
 export interface RawTradeActivity {
   activity_type: string
   cum_qty: string

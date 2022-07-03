@@ -1,5 +1,10 @@
 import { AccountStatus } from './AccountStatus'
 
+/**
+ * @group Trading Data
+ * @category Account
+ * @see https://alpaca.markets/docs/api-references/trading-api/account/#account-model
+ */
 export interface Account {
   account_blocked: boolean
   account_number: string
@@ -7,7 +12,7 @@ export interface Account {
   status: AccountStatus
   crypto_status: AccountStatus
   cash: number
-  created_at: string
+  created_at: Date
   currency: string
   daytrade_count: number
   daytrading_buying_power: number

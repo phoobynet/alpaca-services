@@ -8,7 +8,6 @@ import {
 import { getTradeData } from '../../http'
 import { isNonTradeActivity } from '../helpers/isNonTradeActivity'
 import { cleanNonTradeActivity, cleanTradeActivity } from '../helpers'
-import { trimEnd } from 'lodash'
 import { isAfter } from 'date-fns'
 
 export type Activity = NonTradeActivity | TradeActivity
@@ -18,11 +17,13 @@ type RawActivity = RawNonTradeActivity | RawTradeActivity
 type RawActivities = RawActivity[]
 
 /**
- * See https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types
- * for a list of activity types and the rules for making requests.
+ * Activity query arguments.
+ * @group Trading Data
+ * @category Account Activity
+ * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types
  */
 export type ActivitiesArgs = {
-  activity_type?: ActivityType
+  activity_types?: ActivityType[]
   date?: Date
   until?: Date
   after?: Date
@@ -33,12 +34,13 @@ export type ActivitiesArgs = {
 }
 
 /**
- * https://alpaca.markets/docs/api-references/trading-api/account-activities/
- *
+ * @group Trading Data
+ * @category Account Activity
+ * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/
  * @example
  * ```ts
  * const activities = await getActivities({
- *   activity_type: ActivityType.FILL,
+ *   activity_types: [ActivityType.FILL],
  *   date: new Date('2022-07-01'),
  * })
  * ```
@@ -46,7 +48,7 @@ export type ActivitiesArgs = {
  */
 export const getActivities = (args: ActivitiesArgs): Promise<Activities> => {
   const {
-    activity_type,
+    activity_types,
     date,
     until,
     after,
@@ -91,21 +93,25 @@ export const getActivities = (args: ActivitiesArgs): Promise<Activities> => {
     queryParams.page_token = page_token
   }
 
-  const url = trimEnd(`/account/activities/${activity_type}`, '/')
+  if (activity_types) {
+    queryParams.activity_types = activity_types.join(',')
+  }
 
-  return getTradeData<RawActivities>(url, queryParams).then((rawActivities) => {
-    const activities: Activities = []
+  return getTradeData<RawActivities>('/account/activities', queryParams).then(
+    (rawActivities) => {
+      const activities: Activities = []
 
-    for (const rawActivity of rawActivities) {
-      if (isNonTradeActivity(rawActivity)) {
-        activities.push(
-          cleanNonTradeActivity(rawActivity as RawNonTradeActivity),
-        )
-      } else {
-        activities.push(cleanTradeActivity(rawActivity as RawTradeActivity))
+      for (const rawActivity of rawActivities) {
+        if (isNonTradeActivity(rawActivity)) {
+          activities.push(
+            cleanNonTradeActivity(rawActivity as RawNonTradeActivity),
+          )
+        } else {
+          activities.push(cleanTradeActivity(rawActivity as RawTradeActivity))
+        }
       }
-    }
 
-    return activities
-  })
+      return activities
+    },
+  )
 }

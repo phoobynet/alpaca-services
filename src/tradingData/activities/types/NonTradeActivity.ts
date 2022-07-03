@@ -1,5 +1,10 @@
 import { ActivityType } from './ActivityType'
 
+/**
+ * @group Trading Data
+ * @category Account Activity
+ * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#nontradeactivity-entity
+ */
 export interface NonTradeActivity {
   activity_type: ActivityType
   id: string

@@ -5,6 +5,10 @@ import {
   RawAnnouncement,
 } from '../types'
 
+/**
+ * Clean up a raw announcement, parsing date like fields to Date objects, and numeric like fields to numbers.
+ * @param rawAnnouncement
+ */
 export const cleanAnnouncement = (
   rawAnnouncement: RawAnnouncement,
 ): Announcement => {

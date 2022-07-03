@@ -1,6 +1,9 @@
 /**
  *
+ * @group Common
+ * @category Helpers
  * @param {string} symbol
+ * @throws {CleanSymbolError} - thrown when the symbol is not a valid symbol
  * @example
  * ```ts
  * const symbol = '   aapl  '
@@ -26,6 +29,10 @@ export const cleanSymbol = (symbol: string): string => {
   return symbol
 }
 
+/**
+ * @group Common
+ * @category Helpers
+ */
 export class CleanSymbolError extends Error {
   constructor(message: string, public symbol: unknown) {
     super(message)

@@ -1,6 +1,12 @@
 import { Account, AccountStatus, RawAccount } from '../types'
 import { parseISO } from 'date-fns'
 
+/**
+ * Clean up a raw account, parsing date like fields to Date objects, and numeric like fields to number's.
+ * @group Trading Data
+ * @category Account
+ * @param {RawAccount} rawAccount - raw http response from Alpaca
+ */
 export const cleanAccount = (rawAccount: RawAccount): Account => {
   return {
     id: rawAccount.id,
@@ -12,7 +18,7 @@ export const cleanAccount = (rawAccount: RawAccount): Account => {
     trading_blocked: rawAccount.trading_blocked,
     transfers_blocked: rawAccount.transfers_blocked,
     account_blocked: rawAccount.account_blocked,
-    created_at: parseISO(rawAccount.created_at).toISOString(),
+    created_at: parseISO(rawAccount.created_at),
     trade_suspended_by_user: rawAccount.trade_suspended_by_user,
     shorting_enabled: rawAccount.shorting_enabled,
 

@@ -1,5 +1,8 @@
 /**
  *
+ * @group Common
+ * @category Helpers
+ * @internal
  * @example
  * ```ts
  * const arr = [1, 2, 3, 4, 5, 6]

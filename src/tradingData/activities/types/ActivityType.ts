@@ -1,7 +1,8 @@
 /**
  * Activity types for account trade and non-trade activities.
- *
- * See https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types
+ * @group Trading Data
+ * @category Account Activity
+ * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types
  */
 export enum ActivityType {
   /**

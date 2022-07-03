@@ -102,6 +102,7 @@
           <ul class="tsd-descriptions">
             <li class="tsd-description">
               <div class="tsd-comment tsd-typography">
+                <h3>See</h3>
                 <p>
                   <a
                     href="https://alpaca.markets/docs/api-references/trading-api/account-activities/"
@@ -110,7 +111,7 @@
                 </p>
 
                 <h3>Example</h3>
-                <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">activities</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getActivities</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">activity_type:</span><span class="hl-0"> </span><span class="hl-2">ActivityType</span><span class="hl-0">.</span><span class="hl-6">FILL</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">date:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-07-01&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">})</span>
+                <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">activities</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getActivities</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">activity_types:</span><span class="hl-0"> [</span><span class="hl-2">ActivityType</span><span class="hl-0">.</span><span class="hl-6">FILL</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-2">date:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-07-01&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">})</span>
 </code></pre>
               </div>
               <div class="tsd-parameters">

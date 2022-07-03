@@ -1,5 +1,12 @@
 import { isDate } from 'date-fns'
 
+/**
+ * @group Common
+ * @category Helpers
+ * @internal
+ * @param d1
+ * @param d2
+ */
 export const isDateEqual = (d1: Date, d2: Date): boolean => {
   if (isDate(d1) && isDate(d2)) {
     return (

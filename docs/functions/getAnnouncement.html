@@ -87,6 +87,8 @@
               ><span class="tsd-signature-symbol">: </span
               ><span class="tsd-signature-type">Promise</span
               ><span class="tsd-signature-symbol">&lt;</span
+              ><span class="tsd-signature-type">undefined</span
+              ><span class="tsd-signature-symbol"> | </span
               ><a
                 href="../interfaces/Announcement.html"
                 class="tsd-signature-type"
@@ -97,17 +99,42 @@
           </ul>
           <ul class="tsd-descriptions">
             <li class="tsd-description">
+              <div class="tsd-comment tsd-typography">
+                <p>Get a corporate announcement by id</p>
+
+                <h3>Returns</h3>
+                <ul>
+                  <li>returns the Announcement or undefined if not found</li>
+                </ul>
+
+                <h3>See</h3>
+                <p>
+                  <a
+                    href="https://alpaca.markets/docs/api-references/trading-api/corporate-actions-announcements/"
+                    >https://alpaca.markets/docs/api-references/trading-api/corporate-actions-announcements/</a
+                  >
+                </p>
+
+                <h3>Example</h3>
+                <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">announcement</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getAnnouncement</span><span class="hl-0">(</span><span class="hl-3">&#39;be3c368a-4c7c-4384-808e-f02c9f5a8afe&#39;</span><span class="hl-0">)</span>
+</code></pre>
+              </div>
               <div class="tsd-parameters">
                 <h4 class="tsd-parameters-title">Parameters</h4>
                 <ul class="tsd-parameter-list">
                   <li>
                     <h5>id: <span class="tsd-signature-type">string</span></h5>
+                    <div class="tsd-comment tsd-typography">
+                      <p>with a specific announcement id</p>
+                    </div>
                   </li>
                 </ul>
               </div>
               <h4 class="tsd-returns-title">
                 Returns <span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type">undefined</span
+                ><span class="tsd-signature-symbol"> | </span
                 ><a
                   href="../interfaces/Announcement.html"
                   class="tsd-signature-type"

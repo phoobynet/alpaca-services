@@ -105,6 +105,35 @@
           </ul>
           <ul class="tsd-descriptions">
             <li class="tsd-description">
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  Retrieve the <a href="../interfaces/Asset.html">Asset</a> for
+                  the given symbol.
+                </p>
+
+                <h3>Remarks</h3>
+                <p>
+                  If an
+                  <a href="../interfaces/AssetRepository.html"
+                    >AssetRepository</a
+                  >
+                  is provided, and no
+                  <a href="../interfaces/Asset.html">Asset</a> is found, the
+                  function WILL NOT fall back to HTTP.
+                </p>
+
+                <h3>See</h3>
+                <p>
+                  <a
+                    href="https://alpaca.markets/docs/api-references/trading-api/assets/"
+                    >https://alpaca.markets/docs/api-references/trading-api/assets/</a
+                  >
+                </p>
+
+                <h3>Example</h3>
+                <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">asset</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getAsset</span><span class="hl-0">(</span><span class="hl-3">&#39;AAPL&#39;</span><span class="hl-0">)</span>
+</code></pre>
+              </div>
               <div class="tsd-parameters">
                 <h4 class="tsd-parameters-title">Parameters</h4>
                 <ul class="tsd-parameter-list">
@@ -112,6 +141,12 @@
                     <h5>
                       symbol: <span class="tsd-signature-type">string</span>
                     </h5>
+                    <div class="tsd-comment tsd-typography">
+                      <p>
+                        A valid ticker symbol, e.g. AAPL or BTCUSD for an
+                        <a href="../interfaces/Asset.html">Asset</a>
+                      </p>
+                    </div>
                   </li>
                   <li>
                     <h5>
@@ -124,6 +159,15 @@
                         >AssetRepository</a
                       >
                     </h5>
+                    <div class="tsd-comment tsd-typography">
+                      <p>
+                        Provide an implementation of
+                        <a href="../interfaces/AssetRepository.html"
+                          >AssetRepository</a
+                        >
+                        to bypass HTTP request.
+                      </p>
+                    </div>
                   </li>
                 </ul>
               </div>

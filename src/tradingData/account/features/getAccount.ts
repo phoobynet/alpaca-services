@@ -4,6 +4,8 @@ import { cleanAccount } from '../helpers'
 
 /**
  * Get the account information
+ * @group Trading Data
+ * @category Account
  * @example
  * ```ts
  * const account = await getAccount()

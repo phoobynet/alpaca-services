@@ -1,5 +1,12 @@
 import { ActivityType, NonTradeActivity, RawNonTradeActivity } from '../types'
 
+/**
+ * Clean up a raw non-trade activity, parsing date like fields to Date objects, and numeric like fields to number's.
+ * @group Trading Data
+ * @category Account Activity
+ * @internal
+ * @param rawNonTradeActivity
+ */
 export const cleanNonTradeActivity = (
   rawNonTradeActivity: RawNonTradeActivity,
 ): NonTradeActivity => {

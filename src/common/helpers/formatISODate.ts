@@ -1,6 +1,9 @@
 import { formatISO } from 'date-fns'
 
 /**
+ * @group Common
+ * @category Helpers
+ * @internal
  * Formats a date in ISO format.
  * @example
  * ```ts
