@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Announcements
+ */
 export enum AnnouncementCaSubType {
   cash = 'cash',
   stock = 'stock',

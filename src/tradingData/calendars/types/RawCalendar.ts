@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Calendars
+ */
 export interface RawCalendar {
   date: string
   session_open: string

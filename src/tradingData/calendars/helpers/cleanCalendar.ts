@@ -3,7 +3,9 @@ import { toDate } from 'date-fns-tz'
 import { AMERICA_NEW_YORK_TZ } from '../../../common'
 
 /**
- * Converts the raw calendar form Alpaca to something using actual Date instances.
+ * Converts the raw calendar from Alpaca to something using actual Date instances.
+ * @group Trading Data
+ * @category Calendars
  * @param {RawCalendar} calendar
  * @return {Calendar | undefined}
  */

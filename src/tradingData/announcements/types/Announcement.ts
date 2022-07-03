@@ -1,6 +1,10 @@
 import { AnnouncementCaType } from './AnnouncementCaType'
 import { AnnouncementCaSubType } from './AnnouncementCaSubType'
 
+/**
+ * @group Trading Data
+ * @category Announcements
+ */
 export interface Announcement {
   id: string
   corporate_action_id: string

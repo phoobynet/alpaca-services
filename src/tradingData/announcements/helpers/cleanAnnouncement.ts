@@ -6,7 +6,9 @@ import {
 } from '../types'
 
 /**
- * Clean up a raw announcement, parsing date like fields to Date objects, and numeric like fields to numbers.
+ * Clean up a raw announcement, parsing date like fields to Date objects, and numeric like fields to number's.
+ * @group Trading Data
+ * @category Announcements
  * @param rawAnnouncement
  */
 export const cleanAnnouncement = (

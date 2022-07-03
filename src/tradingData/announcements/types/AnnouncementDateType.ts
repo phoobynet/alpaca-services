@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Announcements
+ */
 export enum AnnouncementDateType {
   declaration_date = 'declaration_date',
   expiration_date = 'expiration_date',

@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Announcements
+ */
 export interface RawAnnouncement {
   id: string
   corporate_action_id: string
