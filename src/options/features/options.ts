@@ -2,7 +2,14 @@ import { Options } from '../types'
 
 let _options: Options
 
+/**
+ * @group Options
+ */
 export const options = {
+  /**
+   * @returns {Options}
+   * @throws {Error} if options have not been set
+   */
   get(): Options {
     if (!_options) {
       throw new Error('Options not set')
@@ -10,6 +17,11 @@ export const options = {
 
     return _options
   },
+  /**
+   * Sets the options globally
+   * @param {Options} options
+   * @throws {OptionsError} if options are invalid
+   */
   set(options: Options) {
     const key = (options.key || '').trim()
 
@@ -39,6 +51,9 @@ export const options = {
   },
 }
 
+/**
+ * @group Options
+ */
 export class OptionsError extends Error {
   constructor(message: string, public options: Options) {
     super(message)

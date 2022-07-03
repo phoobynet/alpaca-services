@@ -89,6 +89,9 @@
                 data-tsd-kind="Interface"
                 >MarketDataSource</a
               >, symbol<span class="tsd-signature-symbol">: </span
+              ><span class="tsd-signature-type">string</span>, exchange<span
+                class="tsd-signature-symbol"
+                >?: </span
               ><span class="tsd-signature-type">string</span
               ><span class="tsd-signature-symbol">)</span
               ><span class="tsd-signature-symbol">: </span
@@ -104,6 +107,18 @@
           </ul>
           <ul class="tsd-descriptions">
             <li class="tsd-description">
+              <div class="tsd-comment tsd-typography">
+                <p>Retrieves the latest trade for a given symbol.</p>
+
+                <h3>Remarks</h3>
+                <p>
+                  For
+                  <a href="../variables/cryptoMarketDataSource.html"
+                    >cryptoMarketDataSource</a
+                  >
+                  an exchange must be provided
+                </p>
+              </div>
               <div class="tsd-parameters">
                 <h4 class="tsd-parameters-title">Parameters</h4>
                 <ul class="tsd-parameter-list">
@@ -122,6 +137,15 @@
                     <h5>
                       symbol: <span class="tsd-signature-type">string</span>
                     </h5>
+                  </li>
+                  <li>
+                    <h5>
+                      <code class="tsd-tag ts-flagOptional">Optional</code>
+                      exchange: <span class="tsd-signature-type">string</span>
+                    </h5>
+                    <div class="tsd-comment tsd-typography">
+                      <p>required for crypto requests</p>
+                    </div>
                   </li>
                 </ul>
               </div>
