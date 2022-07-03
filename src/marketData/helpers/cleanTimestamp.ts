@@ -1,10 +1,16 @@
-import { parseISO, isValid } from 'date-fns'
+import { isValid, parseISO } from 'date-fns'
 import { MarketDataEntity } from '../types'
 
 export const cleanTimestamp = <T extends MarketDataEntity>(
   marketDataEntity: T,
 ): T => {
-  const t = parseISO(marketDataEntity.t)
+  let t: Date
+
+  if (typeof marketDataEntity.t === 'string') {
+    t = parseISO(marketDataEntity.t)
+  } else {
+    t = marketDataEntity.t
+  }
 
   if (!isValid(t)) {
     throw new CleanTimestampError(
@@ -14,7 +20,7 @@ export const cleanTimestamp = <T extends MarketDataEntity>(
   }
   return {
     ...marketDataEntity,
-    t: t.toISOString(),
+    t,
   }
 }
 
