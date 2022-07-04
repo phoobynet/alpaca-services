@@ -1,4 +1,4 @@
-import { isDate } from 'date-fns'
+import { isDate, isEqual, startOfDay } from 'date-fns'
 
 /**
  * @group Common
@@ -9,11 +9,7 @@ import { isDate } from 'date-fns'
  */
 export const isDateEqual = (d1: Date, d2: Date): boolean => {
   if (isDate(d1) && isDate(d2)) {
-    return (
-      d1.getFullYear() === d2.getFullYear() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getDate() === d2.getDate()
-    )
+    return isEqual(startOfDay(d1), startOfDay(d2))
   }
 
   throw new Error('Expected both arguments to be dates')

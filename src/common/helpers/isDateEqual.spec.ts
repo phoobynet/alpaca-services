@@ -1,4 +1,4 @@
-import { isDateEqual } from './isDateEqual'
+const { isDateEqual } = jest.requireActual('./isDateEqual')
 
 describe('isDateEqual', () => {
   const testCases: Array<[Date, Date, boolean]> = [
@@ -23,11 +23,11 @@ describe('isDateEqual', () => {
     expect(isDateEqual(d1, d2)).toBe(expected)
   })
 
-  it('should throw an error when one of the arguments is not a Date', () => {
+  test('should throw an error when one of the arguments is not a Date', () => {
     // eslint-disable-next-line
     // @ts-ignore
     expect(() => isDateEqual(new Date(), 'not a date')).toThrow(
-      'Expected both arguments to be dates',
+      new Error('Expected both arguments to be dates'),
     )
   })
 })

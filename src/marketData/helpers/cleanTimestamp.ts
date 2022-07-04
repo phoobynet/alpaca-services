@@ -1,32 +1,17 @@
 import { isValid, parseISO } from 'date-fns'
-import { MarketDataEntity } from '../types'
+import { ArgumentValidationError } from '../../common'
 
-export const cleanTimestamp = <T extends MarketDataEntity>(
-  marketDataEntity: T,
-): T => {
-  let t: Date
-
-  if (typeof marketDataEntity.t === 'string') {
-    t = parseISO(marketDataEntity.t)
-  } else {
-    t = marketDataEntity.t
-  }
+export const cleanTimestamp = <T extends { t: string }>(entity: T): T => {
+  const t = parseISO(entity.t)
 
   if (!isValid(t)) {
-    throw new CleanTimestampError(
+    throw new ArgumentValidationError(
       'Invalid .t value cannot be parsed using ISO format',
-      marketDataEntity,
     )
   }
-  return {
-    ...marketDataEntity,
-    t,
-  }
-}
 
-export class CleanTimestampError extends Error {
-  constructor(message: string, public marketDataEntity?: unknown) {
-    super(message)
-    this.name = 'CleanTimestampError'
+  return {
+    ...entity,
+    t: t.toISOString(),
   }
 }

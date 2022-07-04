@@ -2,11 +2,16 @@ import { MarketDataSource } from '../../types'
 import { Bar, BarAdjustment } from '../types'
 import { getMarketDataPagedMultiArray } from '../../http'
 import { cleanSymbol } from '../../../common'
-import { cleanBar, isValidTimeframe } from '../helpers'
-import z from 'zod'
+import { cleanBar } from '../helpers'
+import { validateTimeframe } from '../validators'
+import { startIsBeforeEnd } from '../../../common/validators'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
+/**
+ * @group Market Data
+ * @category Bar
+ */
 export type MultiBarsArgs = {
   symbols: string[]
   timeframe: string
@@ -17,33 +22,14 @@ export type MultiBarsArgs = {
   absoluteLimit: number
 }
 
-const MultiBarsArgsValidation = z.object({
-  symbols: z.array(z.string()).nonempty({
-    message: 'symbols is required',
-  }),
-  timeframe: z.custom((value) => isValidTimeframe(value as string), {
-    message: 'timeframe is invalid',
-  }),
-  adjustment: z.nativeEnum(BarAdjustment),
-  start: z.date(),
-  end: z.date(),
-  absoluteLimit: z
-    .number()
-    .min(1, {
-      message: 'absoluteLimit must be greater than 0',
-    })
-    .max(DEFAULT_ABSOLUTE_LIMIT, {
-      message: 'absoluteLimit must be between 1 and 1,000',
-    })
-    .default(DEFAULT_ABSOLUTE_LIMIT),
-})
-
 export const getMultiBars = async (
   marketDataSource: MarketDataSource,
   args: MultiBarsArgs,
 ): Promise<Record<string, Bar[]>> => {
-  const { symbols, timeframe, start, end, absoluteLimit, adjustment } =
-    MultiBarsArgsValidation.parse(args)
+  const { symbols, timeframe, start, end, absoluteLimit, adjustment } = args
+
+  validateTimeframe(timeframe)
+  startIsBeforeEnd(start, end)
 
   const queryParams: Record<string, string> = {
     symbols: symbols.map(cleanSymbol).join(','),

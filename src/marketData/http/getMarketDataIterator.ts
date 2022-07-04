@@ -49,6 +49,7 @@ export const getMarketDataIterator = <T>(
 
     const result = await marketDataSource.get<Record<string, unknown>>(url, qp)
 
+    // extract nested data property, e.g trades, quotes or bars
     if (!nestedDataProperty) {
       nestedDataProperty =
         first(

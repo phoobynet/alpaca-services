@@ -8,9 +8,11 @@ options.set({
 })
 
 async function main() {
-  const bar = await getLatestBar(stockMarketDataSource, 'FOOBAR')
+  const latestBar = await getLatestBar(stockMarketDataSource, {
+    symbol: 'AAPL',
+  })
 
-  console.log(bar)
+  console.log(latestBar)
   process.exit(0)
 }
 

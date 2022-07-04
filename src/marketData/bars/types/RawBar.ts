@@ -1,9 +1,17 @@
-import { Bar } from './Bar'
-
 /**
  * @internal
  */
 export interface RawBar {
   symbol: string
-  bar: Bar
+  bar: {
+    o: number
+    h: number
+    l: number
+    c: number
+    v: number
+    t: string
+    vw?: number
+    n?: number
+    x?: string
+  }
 }

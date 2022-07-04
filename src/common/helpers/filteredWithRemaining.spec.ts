@@ -1,7 +1,7 @@
-import { filteredWithRemaining } from './filteredWithRemaining'
+const { filteredWithRemaining } = jest.requireActual('./filteredWithRemaining')
 
 describe('filteredWithRemaining', () => {
-  it('should correctly filter and return the remaining values', () => {
+  test('should correctly filter and return the remaining values', () => {
     const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     const filter = (t: number) => t % 2 === 0

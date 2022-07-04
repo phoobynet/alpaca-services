@@ -6,7 +6,7 @@ describe('getBarsBetween', () => {
   beforeEach(() => {
     jest.resetModules()
   })
-  it('should invoke market data with correct URL', async () => {
+  test('should invoke market data with correct URL', async () => {
     const mockedDataSource: jest.Mocked<MarketDataSource> = {
       get: jest.fn().mockResolvedValue({
         bars: [],
@@ -36,7 +36,7 @@ describe('getBarsBetween', () => {
     })
   })
 
-  it('should throw error if timeframe is invalid', async () => {
+  test('should throw error if timeframe is invalid', async () => {
     const mockedDataSource: jest.Mocked<MarketDataSource> = {
       get: jest.fn().mockResolvedValue({
         bars: [],
@@ -58,7 +58,7 @@ describe('getBarsBetween', () => {
     }).rejects.toThrowError('Invalid timeframe')
   })
 
-  it('should throw error if source is crypto and exchange is not defined', async () => {
+  test('should throw error if source is crypto and exchange is not defined', async () => {
     const mockedDataSource: jest.Mocked<MarketDataSource> = {
       get: jest.fn().mockResolvedValue({
         bars: [],
@@ -81,7 +81,7 @@ describe('getBarsBetween', () => {
   })
 
   // TODO: async iterators are in issue for testing
-  it.skip('should invoke iterator', async () => {
+  test.todo('should invoke iterator', async () => {
     jest.doMock('../../http', () => {
       return {
         __esModule: true,

@@ -1,9 +1,11 @@
-import { cleanBar, isValidTimeframe } from '../helpers'
+import { cleanBar } from '../helpers'
 import { getMarketDataIterator } from '../../http'
 import { Bar } from '../types'
-import { cleanSymbol } from '../../../common'
+import { ArgumentValidationError, cleanSymbol } from '../../../common'
 import { MarketDataSource } from '../../types'
-import { isAfter } from 'date-fns'
+import { startIsBeforeEnd } from '../../../common/validators'
+import { validateTimeframe } from '../validators'
+import { isCryptoMarketDataSource } from '../../helpers'
 
 /**
  * @group Market Data
@@ -57,19 +59,13 @@ export const getBarsBetween = (
   const symbol = cleanSymbol(args.symbol)
 
   const { start, end, timeframe, exchange, absoluteLimit } = args
+  validateTimeframe(timeframe)
+  startIsBeforeEnd(start, end)
 
-  if (!isValidTimeframe(timeframe)) {
-    throw new Error(
-      `Invalid timeframe, expected something like 1Min, 1Hour, 1Day, 1Week, 1Year etc., but got ${timeframe}`,
+  if (isCryptoMarketDataSource(marketDataSource) && !exchange) {
+    throw new ArgumentValidationError(
+      'Exchange is required for crypto market data',
     )
-  }
-
-  if (marketDataSource.type === 'crypto' && !exchange) {
-    throw new Error('Exchange is required for crypto market data')
-  }
-
-  if (isAfter(start, end)) {
-    throw new Error('Start date cannot be after end date')
   }
 
   const url = `/${symbol}/bars`

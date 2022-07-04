@@ -1,4 +1,4 @@
-import { cleanSymbol } from './cleanSymbol'
+const { cleanSymbol } = jest.requireActual('./cleanSymbol')
 
 describe('cleanSymbol throws error when symbol is', () => {
   // description, symbol, expectedError

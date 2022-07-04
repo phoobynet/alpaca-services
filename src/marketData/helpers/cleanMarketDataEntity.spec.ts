@@ -16,8 +16,7 @@ const MARKET_DATA_ENTITY_BASE_WITH_SYMBOL: MarketDataEntity = Object.freeze({
 
 describe('cleanMarketDataEntity', () => {
   describe('should error when the .S is not present and symbol is', () => {
-    const expectedNoSymbolError =
-      'Entity has no .S property.  Please provide a valid symbol so that it can be populated.'
+    const expectedNoSymbolError = 'symbol arg must be a non-empty string'
     const testCases: Array<
       [string, MarketDataEntity, string | null | undefined, string]
     > = [
@@ -54,7 +53,7 @@ describe('cleanMarketDataEntity', () => {
         ...MARKET_DATA_ENTITY_BASE_WITH_SYMBOL,
         t: 'badZ',
       })
-    }).toThrow('entity.t value is not a valid ISO formatted date string')
+    }).toThrow('Invalid .t value cannot be parsed using ISO format')
   })
 
   it('if a symbol arg is used, but the entity.S property is not empty, the entity.S property wins', () => {

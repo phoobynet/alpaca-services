@@ -3,9 +3,9 @@ export interface RawQuote {
   quote: {
     t: string
     ap: number
-    as: 1
-    bp: 165.5
-    bs: 1
+    as: number
+    bp: number
+    bs: number
 
     // crypto only
     x?: string

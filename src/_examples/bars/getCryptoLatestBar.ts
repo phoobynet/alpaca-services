@@ -8,7 +8,10 @@ options.set({
 })
 
 async function main() {
-  const bar = await getLatestBar(cryptoMarketDataSource, 'BTCUSD', 'CBSE')
+  const bar = await getLatestBar(cryptoMarketDataSource, {
+    symbol: 'BTCUSD',
+    exchange: 'CBSE',
+  })
 
   console.log(bar)
   process.exit(0)

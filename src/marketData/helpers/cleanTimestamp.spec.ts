@@ -12,7 +12,7 @@ describe('cleanTimestamp', () => {
 
     const expected: MarketDataEntity = {
       ...marketDataEntity,
-      t: new Date('2020-01-01T00:00:00.66666Z'),
+      t: '2020-01-01T00:00:00.666Z',
     }
 
     const actual = cleanTimestamp(marketDataEntity)

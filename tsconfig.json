@@ -17,8 +17,13 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "paths": {
+      "@marketData/*": ["src/marketData/*"],
+      "@tradeData/*": ["src/tradeData/*"]
+    }
   },
-  "include": ["src/**/*", ".eslintrc.js", "jest.config.js"],
+  "include": ["src/**/*", "tests/**/*", ".eslintrc.js", "jest.config.js"],
   "exclude": ["node_modules", "dist"]
 }

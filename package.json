@@ -28,8 +28,7 @@
     "isomorphic-ws": "^4.0.1",
     "lodash": "^4.17.21",
     "qs": "^6.11.0",
-    "ws": "^8.8.0",
-    "zod": "^3.17.3"
+    "ws": "^8.8.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",

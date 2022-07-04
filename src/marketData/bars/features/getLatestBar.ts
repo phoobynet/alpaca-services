@@ -1,32 +1,66 @@
 import { Bar, RawBar } from '../types'
 import { cleanBar } from '../helpers'
-import { cleanSymbol } from '../../../common'
-import { MarketDataClass, MarketDataSource } from '../../types'
+import { ArgumentValidationError, cleanSymbol } from '../../../common'
+import { MarketDataFeed, MarketDataSource } from '../../types'
+import {
+  isCryptoMarketDataSource,
+  isStockMarketDataSource,
+} from '../../helpers'
+
+export type LatestBarArgs = {
+  symbol: string
+  /**
+   * Stock only
+   */
+  feed?: MarketDataFeed
+  /**
+   * Crypto only
+   */
+  exchange?: string
+}
 
 /**
- *
+ * @group Market Data
+ * @category Bar
  * @param {MarketDataSource} marketDataSource
- * @param {string} symbol
- * @param {string} exchange - see https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/
+ * @param {LatestBarArgs} args
  */
 export const getLatestBar = (
   marketDataSource: MarketDataSource,
-  symbol: string,
-  exchange = '',
+  args: LatestBarArgs,
 ): Promise<Bar> => {
-  if (marketDataSource.type === MarketDataClass.crypto && exchange === '') {
-    throw new Error('Exchange is required for crypto market data')
-  } else if (marketDataSource.type === MarketDataClass.stock && exchange) {
-    throw new Error('Exchange should not be provided for stock market data')
-  }
-
+  const exchange = (args.exchange || '').trim()
+  const feed = (args.feed || '').trim()
+  const symbol = cleanSymbol(args.symbol)
   const queryParams: Record<string, string> = {}
 
-  if (exchange && marketDataSource.type === MarketDataClass.crypto) {
+  if (isCryptoMarketDataSource(marketDataSource)) {
+    if (!exchange) {
+      throw new ArgumentValidationError(
+        'Exchange is required for crypto market data',
+      )
+    }
+
+    if (feed) {
+      throw new ArgumentValidationError(
+        'Feed should not be provided for crypto market data',
+      )
+    }
+
     queryParams.exchange = exchange
+  } else if (isStockMarketDataSource(marketDataSource)) {
+    if (exchange) {
+      throw new ArgumentValidationError(
+        'Exchange should not be provided for stock market data',
+      )
+    }
+
+    if (feed) {
+      queryParams.feed = feed
+    }
   }
 
   return marketDataSource
-    .get<RawBar>(`/${cleanSymbol(symbol)}/bars/latest`, queryParams)
+    .get<RawBar>(`/${symbol}/bars/latest`, queryParams)
     .then(cleanBar)
 }

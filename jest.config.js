@@ -3,7 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   clearMocks: true,
-  automock: false,
-  cache: false,
+  automock: true,
+  unmockedModulePathPatterns: ['node_modules'],
   testMatch: ['**/*.spec.ts'],
 }

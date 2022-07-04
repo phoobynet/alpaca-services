@@ -1,102 +1,162 @@
-import { MarketDataClass, MarketDataSource } from '../../types'
+import { MarketDataClass, MarketDataFeed, MarketDataSource } from '../../types'
 import { getLatestBar } from './getLatestBar'
-import { RawBar } from '../types'
+import { ArgumentValidationError, cleanSymbol } from '../../../common'
+import { Bar, RawBar } from '../types'
+import { cleanBar } from '../helpers'
+
+jest.mock('../../../common')
+jest.mock('../helpers')
+
+const rawCryptoBar: RawBar = {
+  bar: {
+    o: 1,
+    h: 1,
+    l: 1,
+    c: 1,
+    v: 1,
+    x: 'CBSE',
+    t: '2020-01-01T12:00:00.555777',
+  },
+  symbol: 'BTCUSD',
+}
+
+const rawStockBar: RawBar = {
+  bar: {
+    o: 1,
+    h: 1,
+    l: 1,
+    c: 1,
+    v: 1,
+    vw: 1,
+    n: 1,
+    t: '2020-01-01T12:00:00.555777',
+  },
+  symbol: 'AAPL',
+}
+
+const cryptoBar: Bar = {
+  o: 1,
+  h: 1,
+  l: 1,
+  c: 1,
+  v: 1,
+  x: 'CBSE',
+  t: '2020-01-01T12:00:00.555',
+}
+
+const stockBar: Bar = {
+  o: 1,
+  h: 1,
+  l: 1,
+  c: 1,
+  v: 1,
+  vw: 1,
+  n: 1,
+  t: '2020-01-01T12:00:00.555',
+}
 
 describe('getLatestBar', () => {
-  afterEach(() => jest.clearAllMocks())
+  ;(cleanSymbol as jest.Mock).mockImplementation((symbol: string) => symbol)
 
-  describe('for stock market data source', () => {
-    const mockStockBar: RawBar = {
-      symbol: 'AAPL',
-      bar: {
-        o: 100,
-        h: 100,
-        l: 100,
-        c: 100,
-        v: 1_000,
-        t: '2020-01-01T12:00:00.666666Z',
-      },
-    }
-
-    const mockStockDataSource: jest.Mocked<MarketDataSource> = {
-      get: jest.fn().mockResolvedValue(mockStockBar),
-      type: MarketDataClass.stock,
-    }
-
-    it('should throw error if exchange is provided', async () => {
-      await expect(async () => {
-        await getLatestBar(mockStockDataSource, 'AAPL', 'NYSE')
-      }).rejects.toThrowError(
-        'Exchange should not be provided for stock market data',
-      )
-    })
-
-    it('should invoke market data with correct args', async () => {
-      await getLatestBar(mockStockDataSource, 'AAPL')
-      expect(mockStockDataSource.get).toHaveBeenCalledWith(
-        '/AAPL/bars/latest',
-        {},
-      )
-    })
-
-    it('should add S property containing symbol', async () => {
-      const actual = await getLatestBar(mockStockDataSource, 'AAPL')
-
-      expect(actual.S).toBe('AAPL')
-    })
-
-    it('should add t property to be parsed to 1,000th of a second', async () => {
-      const actual = await getLatestBar(mockStockDataSource, 'AAPL')
-
-      expect(actual.t).toBe('2020-01-01T12:00:00.666Z')
-    })
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
-  describe('for crypto market data source', () => {
-    const mockCryptoBar: RawBar = {
-      symbol: 'BTCUSD',
-      bar: {
-        o: 100,
-        h: 100,
-        l: 100,
-        c: 100,
-        v: 1_000,
-        x: 'CBSE',
-        t: '2020-01-01T12:00:00.666666Z',
-      },
-    }
+  describe('crypto', () => {
+    ;(cleanBar as jest.Mock).mockReturnValue(cryptoBar)
 
-    const mockCryptoDataSource: jest.Mocked<MarketDataSource> = {
-      get: jest.fn().mockResolvedValue(mockCryptoBar),
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
+    const marketDataSource: MarketDataSource = {
+      get: jest.fn().mockResolvedValue(rawCryptoBar),
       type: MarketDataClass.crypto,
     }
 
-    it('should throw error if exchange is not provided', async () => {
-      await expect(async () => {
-        await getLatestBar(mockCryptoDataSource, 'BTCUSD')
-      }).rejects.toThrowError('Exchange is required for crypto market data')
-    })
-
-    it('should invoke market data with correct args', async () => {
-      await getLatestBar(mockCryptoDataSource, 'BTCUSD', 'CBSE')
-      expect(mockCryptoDataSource.get).toHaveBeenCalledWith(
-        '/BTCUSD/bars/latest',
-        {
-          exchange: 'CBSE',
-        },
+    test('throw error if exchange is not provided', async () => {
+      await expect(() =>
+        getLatestBar(marketDataSource, {
+          symbol: 'BTCUSD',
+          exchange: '',
+        }),
+      ).toThrowError(
+        new ArgumentValidationError(
+          'Exchange is required for crypto market data',
+        ),
       )
     })
 
-    it('should add S property containing symbol', async () => {
-      const actual = await getLatestBar(mockCryptoDataSource, 'BTCUSD', 'CBSE')
-
-      expect(actual.S).toBe('BTCUSD')
+    test('throw error if feed is provided', async () => {
+      await expect(() =>
+        getLatestBar(marketDataSource, {
+          symbol: 'BTCUSD',
+          exchange: 'CBSE',
+          feed: MarketDataFeed.sip,
+        }),
+      ).toThrowError(
+        new ArgumentValidationError(
+          'Feed should not be provided for crypto market data',
+        ),
+      )
     })
 
-    it('should add t property to be parsed to 1,000th of a second', async () => {
-      const actual = await getLatestBar(mockCryptoDataSource, 'BTCUSD', 'CBSE')
+    test('should clean symbol', async () => {
+      await getLatestBar(marketDataSource, {
+        symbol: 'BTCUSD',
+        exchange: 'CBSE',
+      })
 
-      expect(actual.t).toBe('2020-01-01T12:00:00.666Z')
+      expect(cleanSymbol).toHaveBeenCalledWith('BTCUSD')
+    })
+
+    test('should clean bar', async () => {
+      await getLatestBar(marketDataSource, {
+        symbol: 'BTCUSD',
+        exchange: 'CBSE',
+      })
+      expect(cleanBar).toHaveBeenCalledWith(rawCryptoBar)
+    })
+  })
+
+  describe('stock', () => {
+    ;(cleanBar as jest.Mock).mockReturnValue(stockBar)
+
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
+    const marketDataSource: MarketDataSource = {
+      get: jest.fn().mockResolvedValue(rawStockBar),
+      type: MarketDataClass.stock,
+    }
+
+    test('throw error if exchange is provided', async () => {
+      await expect(() =>
+        getLatestBar(marketDataSource, {
+          symbol: 'AAPL',
+          exchange: 'CBSE',
+        }),
+      ).toThrowError(
+        new ArgumentValidationError(
+          'Exchange should not be provided for stock market data',
+        ),
+      )
+    })
+
+    test('should clean symbol', async () => {
+      await getLatestBar(marketDataSource, {
+        symbol: 'AAPL',
+        feed: MarketDataFeed.sip,
+      })
+
+      expect(cleanSymbol).toHaveBeenCalledWith('AAPL')
+    })
+
+    test('should clean bar', async () => {
+      await getLatestBar(marketDataSource, {
+        symbol: 'AAPL',
+        feed: MarketDataFeed.sip,
+      })
+      expect(cleanBar).toHaveBeenCalledWith(rawStockBar)
     })
   })
 })

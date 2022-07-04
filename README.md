@@ -8,11 +8,9 @@ Provides simple functions to access historical and real-time data from Alpaca's 
 
 ## Historical Data
 
-### Bars
-
-| Category | Description                | Endpoint                                                              |
-| :------- | :------------------------- | :-------------------------------------------------------------------- |
-| Bars     | Get bars between two dates | [getBarsBetween](/alpaca-services/docs/functions/getBarsBetween.html) |
+| Group | Description                | Function                                                              |
+| :---- | :------------------------- | :-------------------------------------------------------------------- |
+| Bars  | Get bars between two dates | [getBarsBetween](/alpaca-services/docs/functions/getBarsBetween.html) |
 
 # What does this package do?
 
