@@ -4,6 +4,16 @@ Provides simple functions to access historical and real-time data from Alpaca's 
 
 [![Publish Package to npm](https://github.com/phoobynet/alpaca-services/actions/workflows/release.yml/badge.svg)](https://github.com/phoobynet/alpaca-services/actions/workflows/release.yml)
 
+# Market Data API
+
+## Historical Data
+
+### Bars
+
+| Category | Description                | Endpoint                                                              |
+| :------- | :------------------------- | :-------------------------------------------------------------------- |
+| Bars     | Get bars between two dates | [getBarsBetween](/alpaca-services/docs/functions/getBarsBetween.html) |
+
 # What does this package do?
 
 Just a bunch of functions that give access to the various Alpaca Markets endpoints, e.g. historical data, real-time data, and more.
