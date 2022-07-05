@@ -3,7 +3,7 @@
  * @group Common
  * @category Helpers
  * @param {string} symbol
- * @throws {ArgumentValidationError} - thrown when the symbol is not a valid parseable symbol
+ * @throws {Error} - thrown when the symbol is not a valid parseable symbol
  * @example
  * ```ts
  * const symbol = '   aapl  '

@@ -1,26 +1,11 @@
 import { MarketDataSource } from '../../types'
-import { Bar, BarAdjustment } from '../types'
+import { Bar } from '../types'
 import { getMarketDataPagedMultiArray } from '../../http'
 import { cleanSymbol } from '../../../common'
 import { cleanBar } from '../helpers'
-import { validateTimeframe } from '../validators'
-import { startIsBeforeEnd } from '../../../common/validators'
-
-const DEFAULT_ABSOLUTE_LIMIT = 1_000
-
-/**
- * @group Market Data
- * @category Bar
- */
-export type MultiBarsArgs = {
-  symbols: string[]
-  timeframe: string
-  adjustment: BarAdjustment
-  start: Date
-  end: Date
-  // absolute limit per symbol (max: 1_000)
-  absoluteLimit: number
-}
+import { assetTimeframe } from '../assertions'
+import { assertStartBeforeEnd } from '../../../common'
+import { MultiBarsArgs } from '../types'
 
 export const getMultiBars = async (
   marketDataSource: MarketDataSource,
@@ -28,8 +13,8 @@ export const getMultiBars = async (
 ): Promise<Record<string, Bar[]>> => {
   const { symbols, timeframe, start, end, absoluteLimit, adjustment } = args
 
-  validateTimeframe(timeframe)
-  startIsBeforeEnd(start, end)
+  assetTimeframe(timeframe)
+  assertStartBeforeEnd(start, end)
 
   const queryParams: Record<string, string> = {
     symbols: symbols.map(cleanSymbol).join(','),

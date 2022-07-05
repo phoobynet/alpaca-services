@@ -1,28 +1,13 @@
 import { Bar } from '../types'
-import { MarketDataFeed, MarketDataSource } from '../../types'
+import { MarketDataSource } from '../../types'
 import { getMarketDataPagedMultiObject } from '../../http'
-import { ArgumentValidationError, cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../common'
 import { cleanLatestMultiBars } from '../helpers'
 import {
   isCryptoMarketDataSource,
   isStockMarketDataSource,
 } from '../../helpers'
-
-/**
- * @group Market Data
- * @category Bar
- */
-export type LatestMultiBarsArgs = {
-  symbols: string[]
-  /**
-   * Stock only
-   */
-  feed?: MarketDataFeed
-  /**
-   * Crypto only
-   */
-  exchange?: string
-}
+import { LatestMultiBarsArgs } from '../types'
 
 /**
  * @group Market Data
@@ -35,7 +20,7 @@ export const getLatestMultiBars = async (
   args: LatestMultiBarsArgs,
 ): Promise<Record<string, Bar>> => {
   if (args.symbols.length === 0) {
-    throw new ArgumentValidationError('LatestMultiBarsArgs.symbols was empty')
+    throw new Error('LatestMultiBarsArgs.symbols was empty')
   }
   const symbols = args.symbols.map(cleanSymbol)
   const exchange = (args.exchange || '').trim()
@@ -47,23 +32,17 @@ export const getLatestMultiBars = async (
   // noinspection DuplicatedCode
   if (isCryptoMarketDataSource(marketDataSource)) {
     if (!exchange) {
-      throw new ArgumentValidationError(
-        'Exchange is required for crypto market data',
-      )
+      throw new Error('Exchange is required for crypto market data')
     }
 
     if (feed) {
-      throw new ArgumentValidationError(
-        'Feed should not be provided for crypto market data',
-      )
+      throw new Error('Feed should not be provided for crypto market data')
     }
 
     queryParams.exchange = exchange
   } else if (isStockMarketDataSource(marketDataSource)) {
     if (exchange) {
-      throw new ArgumentValidationError(
-        'Exchange should not be provided for stock market data',
-      )
+      throw new Error('Exchange should not be provided for stock market data')
     }
 
     if (feed) {

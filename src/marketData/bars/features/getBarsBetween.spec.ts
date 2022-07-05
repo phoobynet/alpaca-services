@@ -1,119 +1,63 @@
+import { cleanSymbol } from '../../../common'
 import { MarketDataClass, MarketDataSource } from '../../types'
-import { BarsBetweenArgs, getBarsBetween } from './getBarsBetween'
-import { parseISO } from 'date-fns'
+import { assetTimeframe } from '../assertions'
+import { BarsBetweenArgs } from '../types'
+import { isCryptoMarketDataSource } from '../../helpers'
+import { getMarketDataIterator } from '../../http'
+
+const { getBarsBetween } = jest.requireActual('./getBarsBetween')
 
 describe('getBarsBetween', () => {
-  beforeEach(() => {
-    jest.resetModules()
-  })
-  test('should invoke market data with correct URL', async () => {
-    const mockedDataSource: jest.Mocked<MarketDataSource> = {
-      get: jest.fn().mockResolvedValue({
-        bars: [],
-        next_page_token: '',
-      }),
-      type: MarketDataClass.stock,
-    }
+  const mockMarketDataSource: MarketDataSource = {
+    get: jest.fn(),
+    type: MarketDataClass.crypto,
+  }
+  const symbol = 'BTCUSD'
 
-    const args: BarsBetweenArgs = {
-      symbol: 'AAPL',
-      start: parseISO('2020-01-01'),
-      end: parseISO('2020-01-02'),
-      absoluteLimit: 1_000,
-      timeframe: '1Min',
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for await (const _ of getBarsBetween(mockedDataSource, args)) {
-      // do nothing
-    }
-
-    expect(mockedDataSource.get).toHaveBeenCalledWith('/AAPL/bars', {
-      start: '2020-01-01T00:00:00.000Z',
-      end: '2020-01-02T00:00:00.000Z',
-      limit: '1000',
-      timeframe: '1Min',
+  const args: BarsBetweenArgs = {
+    symbol,
+    start: new Date('2020-01-01'),
+    end: new Date('2020-01-02'),
+    timeframe: '1Hour',
+    exchange: 'CBSE',
+  }
+  describe('validation', () => {
+    test('should clean the symbol', async () => {
+      await getBarsBetween(mockMarketDataSource, args)
+      expect(cleanSymbol).toHaveBeenCalledWith(symbol)
     })
-  })
 
-  test('should throw error if timeframe is invalid', async () => {
-    const mockedDataSource: jest.Mocked<MarketDataSource> = {
-      get: jest.fn().mockResolvedValue({
-        bars: [],
-        next_page_token: '',
-      }),
-      type: MarketDataClass.stock,
-    }
+    test('should assert the timeframe is valid', async () => {
+      await getBarsBetween(mockMarketDataSource, args)
+      expect(assetTimeframe).toHaveBeenCalledWith(args.timeframe)
+    })
 
-    const args: BarsBetweenArgs = {
-      symbol: 'AAPL',
-      start: parseISO('2020-01-01'),
-      end: parseISO('2020-01-02'),
-      absoluteLimit: 1_000,
-      timeframe: '1Foo',
-    }
+    test('should throw if source is crypto and exchange is not provided', async () => {
+      ;(isCryptoMarketDataSource as jest.Mock).mockReturnValueOnce(true)
 
-    await expect(async () => {
-      await getBarsBetween(mockedDataSource, args)
-    }).rejects.toThrowError('Invalid timeframe')
-  })
-
-  test('should throw error if source is crypto and exchange is not defined', async () => {
-    const mockedDataSource: jest.Mocked<MarketDataSource> = {
-      get: jest.fn().mockResolvedValue({
-        bars: [],
-        next_page_token: '',
-      }),
-      type: MarketDataClass.crypto,
-    }
-
-    const args: BarsBetweenArgs = {
-      symbol: 'BTCUSD',
-      start: parseISO('2020-01-01'),
-      end: parseISO('2020-01-02'),
-      absoluteLimit: 1_000,
-      timeframe: '1Min',
-    }
-
-    await expect(() => {
-      getBarsBetween(mockedDataSource, args)
-    }).toThrowError('Exchange is required for crypto market data')
-  })
-
-  // TODO: async iterators are in issue for testing
-  test.todo('should invoke iterator', async () => {
-    jest.doMock('../../http', () => {
-      return {
-        __esModule: true,
-        getMarketDataIterator: jest.fn().mockResolvedValueOnce({
-          [Symbol.asyncIterator]() {
-            return Promise.resolve({
-              next: jest.fn().mockResolvedValue(undefined),
-              done: true,
-            })
-          },
-        }),
+      const noExchangeArgs = {
+        ...args,
+        exchange: undefined,
       }
-    })
-    const mockedDataSource: jest.Mocked<MarketDataSource> = {
-      get: jest.fn().mockResolvedValue({
-        bars: [],
-        next_page_token: '',
-      }),
-      type: MarketDataClass.stock,
-    }
 
-    const args: BarsBetweenArgs = {
-      symbol: 'AAPL',
-      start: parseISO('2020-01-01'),
-      end: parseISO('2020-01-02'),
+      await expect(async () =>
+        getBarsBetween(mockMarketDataSource, noExchangeArgs),
+      ).rejects.toThrow('Exchange is required for crypto market data')
+    })
+  })
+
+  test('should invoke iterator', async () => {
+    ;(cleanSymbol as jest.Mock).mockReturnValueOnce(symbol)
+    await getBarsBetween(mockMarketDataSource, args)
+    expect(getMarketDataIterator).toHaveBeenCalledWith(expect.anything(), {
+      url: '/BTCUSD/bars',
+      queryParams: {
+        start: '2020-01-01T00:00:00.000Z',
+        end: '2020-01-02T00:00:00.000Z',
+        timeframe: '1Hour',
+      },
       absoluteLimit: 1_000,
-      timeframe: '1Min',
-    }
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    return import('../../http').then(async (module) => {
-      await getBarsBetween(mockedDataSource, args)
-      expect(module.getMarketDataIterator).toHaveBeenCalled()
+      tidy: expect.any(Function),
     })
   })
 })

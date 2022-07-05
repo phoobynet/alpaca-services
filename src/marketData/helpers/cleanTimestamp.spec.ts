@@ -1,5 +1,6 @@
 import { MarketDataEntity } from '../types'
-import { cleanTimestamp } from './cleanTimestamp'
+
+const { cleanTimestamp } = jest.requireActual('./cleanTimestamp')
 
 describe('cleanTimestamp', () => {
   it('should clean the timestamp', () => {

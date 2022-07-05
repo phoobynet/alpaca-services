@@ -1,6 +1,5 @@
 import { Quote, RawQuote } from '../types'
 import { cleanMarketDataEntity, cleanTimestamp } from '../../helpers'
-import { ArgumentValidationError } from '../../../common'
 
 export const cleanQuote = (quote: RawQuote | Quote, symbol?: string): Quote => {
   if ('quote' in quote) {
@@ -9,7 +8,7 @@ export const cleanQuote = (quote: RawQuote | Quote, symbol?: string): Quote => {
   }
 
   if (!quote.S && !symbol) {
-    throw new ArgumentValidationError('Symbol is required to clean a Quote')
+    throw new Error('Symbol is required to clean a Quote')
   }
 
   const isCryptoQuote = 'x' in quote

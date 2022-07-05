@@ -1,6 +1,6 @@
 import { MarketDataSource } from '../../types'
 import { Quote } from '../types'
-import { ArgumentValidationError, cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../common'
 import { getMarketDataIterator } from '../../http'
 import { cleanQuote } from '../helpers'
 
@@ -20,9 +20,7 @@ export const getQuotesBetween = (
 ): AsyncIterable<Quote> => {
   if (marketDataSource.type === 'crypto') {
     if (!args.exchanges || args.exchanges.length === 0) {
-      throw new ArgumentValidationError(
-        'Crypto market data requires at least one exchange',
-      )
+      throw new Error('Crypto market data requires at least one exchange')
     }
   }
 

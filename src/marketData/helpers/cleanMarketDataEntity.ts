@@ -1,6 +1,6 @@
 import { cleanSymbol } from '../../common'
-import { MarketDataEntity } from '../types'
 import { cleanTimestamp } from './cleanTimestamp'
+import { MarketDataEntity } from '../types'
 
 export const cleanMarketDataEntity = <T extends MarketDataEntity>(
   entity: T,
@@ -10,10 +10,13 @@ export const cleanMarketDataEntity = <T extends MarketDataEntity>(
     ...entity,
   })
 
-  if (!result.S) {
-    symbol = cleanSymbol(symbol)
-    result.S = symbol
+  if (!entity.S && !(symbol || '').trim()) {
+    throw new Error(
+      'Entity does not have an existing .S property and no symbol was supplied',
+    )
   }
+
+  result.S = cleanSymbol(entity.S || symbol)
 
   return result
 }

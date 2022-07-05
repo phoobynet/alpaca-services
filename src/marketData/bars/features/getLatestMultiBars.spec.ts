@@ -2,17 +2,9 @@ import { cleanSymbol } from '../../../common'
 import { getMarketDataPagedMultiObject } from '../../http'
 import type { MarketDataSource } from '../../types'
 import { MarketDataClass, MarketDataFeed } from '../../types'
-import type { LatestMultiBarsArgs } from './getLatestMultiBars'
-import { getLatestMultiBars } from './getLatestMultiBars'
 import { cleanLatestMultiBars } from '../helpers'
-
-jest.mock('../../http')
-jest.mock('../helpers')
-jest.mock('../../../common', () => ({
-  cleanSymbol: jest.fn().mockImplementation((symbol: string) => symbol),
-  ArgumentValidationError:
-    jest.requireActual('../../../common').ArgumentValidationError,
-}))
+import { LatestMultiBarsArgs } from '../types'
+const { getLatestMultiBars } = jest.requireActual('./getLatestMultiBars')
 
 describe('getLatestMultiBars', () => {
   ;(cleanSymbol as jest.Mock).mockImplementation((symbol: string) => symbol)

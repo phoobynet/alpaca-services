@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: 'node',
   clearMocks: true,
   automock: true,
-  unmockedModulePathPatterns: ['node_modules'],
+  unmockedModulePathPatterns: ['node_modules', '/types/'],
   testMatch: ['**/*.spec.ts'],
 }
