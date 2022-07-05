@@ -17,7 +17,7 @@ import { formatISODate } from '../../../helpers'
  * @param {CalendarRepository} [calendarRepository] -  Provide an implementation of {@link CalendarRepository} to bypass HTTP request.
  * @returns {Promise<Calendar | undefined>} - when not found, returns undefined indicating the calendar is not available, e.g. 4th July 2022.
  */
-export const getCalendarsBetween = (
+export const getCalendarsBetween = async (
   start: Date,
   end: Date,
   calendarRepository?: CalendarRepository,
@@ -25,8 +25,16 @@ export const getCalendarsBetween = (
   if (calendarRepository) {
     return calendarRepository.findBetween(start, end)
   }
-  return getTradeData<RawCalendar[]>('/calendar', {
+
+  const httpResponse = await getTradeData<RawCalendar[]>('/calendar', {
     start: formatISODate(start),
     end: formatISODate(end),
-  }).then((rawCalendars) => rawCalendars.map(cleanCalendar) as Calendar[])
+  })
+
+  if (httpResponse.ok) {
+    const rawCalendars = httpResponse.data || []
+    return rawCalendars.map((calendar) => cleanCalendar(calendar)) as Calendar[]
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

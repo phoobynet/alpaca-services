@@ -14,10 +14,20 @@ export type OrdersArgs = {
   symbols?: string[]
 }
 
-export const getOrders = (args: OrdersArgs): Promise<Order[]> => {
+export const getOrders = async (args: OrdersArgs): Promise<Order[]> => {
   const queryString = qs.stringify(args, { arrayFormat: 'comma' })
 
-  return getTradeData<RawOrder[]>(`/orders?${queryString}`).then((rawOrders) =>
-    rawOrders.map(cleanOrder),
-  )
+  const httpResponse = await getTradeData<RawOrder[]>(`/orders?${queryString}`)
+
+  if (httpResponse.ok) {
+    const rawOrders = httpResponse.data
+
+    if (rawOrders) {
+      return rawOrders.map(cleanOrder)
+    }
+
+    return []
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

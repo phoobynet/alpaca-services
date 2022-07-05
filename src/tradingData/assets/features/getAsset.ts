@@ -16,7 +16,7 @@ import { cleanSymbol } from '../../../helpers'
  * @param {string} symbol - A valid ticker symbol, e.g. AAPL or BTCUSD for an {@link Asset}
  * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.
  */
-export const getAsset = (
+export const getAsset = async (
   symbol: string,
   assetRepository?: AssetRepository,
 ): Promise<Asset | undefined> => {
@@ -26,5 +26,11 @@ export const getAsset = (
     return assetRepository.find(symbol)
   }
 
-  return getTradeData<Asset>(`/assets/${symbol}`)
+  const httpResponse = await getTradeData<Asset>(`/assets/${symbol}`)
+
+  if (httpResponse.ok) {
+    return httpResponse.data
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

@@ -9,12 +9,18 @@ import { getTradeData } from '../../http'
  * @see https://alpaca.markets/docs/api-references/trading-api/assets/
  * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.
  */
-export const getAssets = (
+export const getAssets = async (
   assetRepository?: AssetRepository,
 ): Promise<Asset[]> => {
   if (assetRepository) {
     return assetRepository.findAll()
   }
 
-  return getTradeData<Asset[]>('/assets')
+  const httpResponse = await getTradeData<Asset[]>('/assets')
+
+  if (httpResponse.ok) {
+    return httpResponse.data || []
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

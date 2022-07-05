@@ -3,14 +3,22 @@ import { getTradeData } from '../../http'
 import { cleanSymbol } from '../../../helpers'
 import { cleanPosition } from '../helpers'
 
-export const getAnOpenPosition = (
+export const getAnOpenPosition = async (
   symbol: string,
-): Promise<Position | undefined> =>
-  getTradeData<RawPosition>(`/positions/${cleanSymbol(symbol)}`).then(
-    (rawPosition) => {
-      if (rawPosition) {
-        cleanPosition(rawPosition)
-      }
-      return undefined
-    },
+): Promise<Position | undefined> => {
+  const httpResponse = await getTradeData<RawPosition>(
+    `/positions/${cleanSymbol(symbol)}`,
   )
+
+  if (httpResponse.ok) {
+    const rawPosition = httpResponse.data
+
+    if (rawPosition) {
+      return cleanPosition(rawPosition)
+    }
+
+    return undefined
+  } else {
+    throw new Error(httpResponse.message)
+  }
+}

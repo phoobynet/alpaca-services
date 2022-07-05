@@ -4,5 +4,11 @@ import { getTradeData } from '../../http'
 export const getWatchlist = async (
   id: string,
 ): Promise<Watchlist | undefined> => {
-  return getTradeData<Watchlist>(`/watchlists/${id}`)
+  const httpResponse = await getTradeData<Watchlist>(`/watchlists/${id}`)
+
+  if (httpResponse.ok) {
+    return httpResponse.data
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

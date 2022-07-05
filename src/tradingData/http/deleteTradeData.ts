@@ -1,8 +1,7 @@
 import { getTradeHttpClient } from './getTradingHttpClient'
+import { HttpResponse } from '../../http'
 
 export const deleteTradeData = async (
   url: string,
   queryParams: Record<string, string>,
-): Promise<void> => {
-  await getTradeHttpClient().delete(url, queryParams)
-}
+): Promise<HttpResponse<void>> => getTradeHttpClient().delete(url, queryParams)
