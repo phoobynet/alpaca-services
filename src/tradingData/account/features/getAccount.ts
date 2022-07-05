@@ -11,5 +11,12 @@ import { cleanAccount } from '../helpers'
  * const account = await getAccount()
  * ```
  */
-export const getAccount = async (): Promise<Account> =>
-  getTradeData<RawAccount>('/account').then(cleanAccount)
+export const getAccount = async (): Promise<Account> => {
+  const httpResponse = await getTradeData<RawAccount>('/account')
+
+  if (httpResponse.ok) {
+    return cleanAccount(httpResponse.data as RawAccount)
+  } else {
+    throw new Error(httpResponse.message)
+  }
+}

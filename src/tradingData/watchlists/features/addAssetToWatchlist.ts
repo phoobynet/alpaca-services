@@ -1,36 +1,27 @@
 import { postTradeData } from '../../http'
-import { Watchlist } from '../types'
-import { cleanSymbol, HttpClientError } from '../../../common'
-
-export type AddAssetToWatchlistArgs = {
-  watchlistId: string
-  symbol: string
-}
+import { AddAssetToWatchlistArgs, Watchlist } from '../types'
+import { cleanSymbol } from '../../../helpers'
 
 /**
  * Appends an asset to a watchlist.
+ * @group Trading Data
+ * @category Watchlists
  * @param args
  */
 export const addAssetToWatchlist = async (args: AddAssetToWatchlistArgs) => {
-  try {
-    return await postTradeData<Watchlist>(
-      `/watchlists/${args.watchlistId}`,
-      undefined,
-      {
-        symbol: cleanSymbol(args.symbol),
-      },
-    )
-  } catch (e) {
-    if (e instanceof HttpClientError) {
-      if (e.statusCode === 404) {
-        throw new Error(
-          'The requested watchlist is not found, or the symbol is not found in the assets',
-        )
-      } else if (e.statusCode === 422) {
-        throw new Error('Some parameters are not valid')
-      }
-    } else {
-      throw e
-    }
+  const symbol = cleanSymbol(args.symbol)
+
+  const httpResponse = await postTradeData<Watchlist>(
+    `/watchlists/${args.watchlistId}`,
+    undefined,
+    {
+      symbol,
+    },
+  )
+
+  if (httpResponse.ok) {
+    return httpResponse.data
+  } else {
+    throw new Error(httpResponse.message)
   }
 }

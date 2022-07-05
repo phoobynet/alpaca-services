@@ -1,12 +1,14 @@
 const { cleanSymbol } = jest.requireActual('./cleanSymbol')
 import { cleanString } from './cleanString'
 
+const cleanStringMock = cleanString as jest.Mock
+
 describe('cleanSymbol', () => {
   describe('validation', () => {
     test('should invoke cleanString', () => {
-      ;(cleanString as jest.Mock).mockImplementationOnce(() => 'FOO')
+      cleanStringMock.mockImplementationOnce(() => 'FOO')
       cleanSymbol('FOO')
-      expect(cleanString).toHaveBeenCalledWith('FOO')
+      expect(cleanStringMock).toHaveBeenCalledWith('FOO')
     })
   })
 
@@ -29,16 +31,14 @@ describe('cleanSymbol', () => {
     test.each(testCases)(
       'Should convert $symbol to $expected',
       (testCase: TestCase) => {
-        ;(cleanString as jest.Mock).mockImplementationOnce(
-          () => testCase.symbol,
-        )
+        cleanStringMock.mockImplementationOnce(() => testCase.symbol)
         expect(cleanSymbol(testCase.symbol)).toBe(testCase.expected)
       },
     )
   })
 
   test('should throw if symbol is empty', () => {
-    ;(cleanString as jest.Mock).mockImplementationOnce(() => '')
+    cleanStringMock.mockImplementationOnce(() => '')
     expect(() => cleanSymbol('')).toThrow(
       'symbol arg must be a non-empty string',
     )

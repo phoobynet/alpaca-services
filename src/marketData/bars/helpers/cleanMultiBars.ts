@@ -1,5 +1,5 @@
 import { Bar } from '../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 
 export const cleanMultiBars = (
   multiBars: Record<string, unknown[]>,

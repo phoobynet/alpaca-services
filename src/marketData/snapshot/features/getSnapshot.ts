@@ -1,6 +1,6 @@
 import { Snapshot } from '../types'
 import { MarketDataSource } from '../../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { cleanSnapshot } from '../helpers'
 import {
   isCryptoMarketDataSource,

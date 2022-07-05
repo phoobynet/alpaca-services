@@ -1,11 +1,14 @@
 import { getTradeData } from '../../http'
-import { getAccountConfiguration } from './getAccountConfiguration'
 
-jest.mock('../../http')
+const { getAccountConfiguration } = jest.requireActual(
+  './getAccountConfiguration',
+)
+
+const getTradeDataMock = getTradeData as jest.Mock
 
 describe('getAccountConfiguration', () => {
   it('should be called with the correct URL', async () => {
-    ;(getTradeData as jest.Mock).mockResolvedValueOnce({
+    getTradeDataMock.mockResolvedValueOnce({
       dtbp_check: 'entry',
       no_shorting: false,
       suspend_trade: false,

@@ -1,6 +1,6 @@
 import { Asset, AssetRepository } from '../types'
 import { getTradeData } from '../../http'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 
 /**
  * Retrieve the {@link Asset} for the given symbol.

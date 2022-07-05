@@ -1,11 +1,11 @@
 import { Bar, LatestBarArgs, RawBar } from '../types'
 import { cleanBar } from '../helpers'
-import { cleanSymbol } from '../../../common'
 import { MarketDataSource } from '../../types'
 import {
   isCryptoMarketDataSource,
   isStockMarketDataSource,
 } from '../../helpers'
+import { cleanString, cleanSymbol } from '../../../helpers'
 
 /**
  * @group Market Data
@@ -18,8 +18,8 @@ export const getLatestBar = (
   args: LatestBarArgs,
 ): Promise<Bar> => {
   const symbol = cleanSymbol(args.symbol)
-  const exchange = (args.exchange || '').trim()
-  const feed = (args.feed || '').trim()
+  const exchange = cleanString(args.exchange)
+  const feed = cleanString(args.feed)
   const queryParams: Record<string, string> = {}
 
   if (isCryptoMarketDataSource(marketDataSource)) {

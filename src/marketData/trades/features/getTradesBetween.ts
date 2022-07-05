@@ -1,6 +1,6 @@
 import { MarketDataSource } from '../../types'
 import { Trade } from '../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { getMarketDataIterator } from '../../http'
 import { cleanTrade } from '../helpers'
 

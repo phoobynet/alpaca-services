@@ -1,6 +1,6 @@
 import { MarketDataSource } from '../../types'
 import { RawTrade, Trade } from '../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { cleanTrade } from '../helpers'
 import { isCryptoMarketDataSource } from '../../helpers'
 

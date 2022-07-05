@@ -1,6 +1,6 @@
 import { getCalendarsBetween } from './getCalendarsBetween'
-import { isDateEqual } from '../../../common'
 import { Calendar, CalendarRepository } from '../types'
+import { isDateEqual } from '../../../helpers'
 
 /**
  * Get a calendar, if available, for a given date

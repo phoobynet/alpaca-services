@@ -1,6 +1,6 @@
 import { Calendar, RawCalendar } from '../types'
 import { toDate } from 'date-fns-tz'
-import { AMERICA_NEW_YORK_TZ } from '../../../common'
+import { AMERICA_NEW_YORK_TZ } from '../../../constants'
 
 /**
  * Converts the raw calendar from Alpaca to something using actual Date instances.

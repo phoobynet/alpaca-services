@@ -9,7 +9,7 @@ import {
 import { Bar } from '../types'
 import { isCryptoMarketDataSource } from '../../helpers'
 import { cleanBar } from '../helpers'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 
 export const observeBars = (
   marketDataSourceType: MarketDataSourceType,

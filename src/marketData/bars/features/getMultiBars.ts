@@ -1,10 +1,10 @@
 import { MarketDataSource } from '../../types'
 import { Bar } from '../types'
 import { getMarketDataPagedMultiArray } from '../../http'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { cleanBar } from '../helpers'
 import { assertTimeframe } from '../assertions'
-import { assertStartBeforeEnd } from '../../../common'
+import { assertStartBeforeEnd } from '../../../assertions'
 import { MultiBarsArgs } from '../types'
 
 export const getMultiBars = async (

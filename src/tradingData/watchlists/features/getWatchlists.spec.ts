@@ -1,7 +1,6 @@
 import { getTradeData } from '../../http'
-import { getWatchlists } from './getWatchlists'
 
-jest.mock('../../http')
+const { getWatchlists } = jest.requireActual('./getWatchlists')
 
 describe('getWatchlists', () => {
   it('check URL', async () => {

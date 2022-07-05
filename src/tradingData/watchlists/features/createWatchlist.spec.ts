@@ -1,20 +1,19 @@
 import { postTradeData } from '../../http'
-import { HttpClientError } from '../../../common'
-import { createWatchlist, CreateWatchlistArgs } from './createWatchlist'
 
-jest.mock('../../http')
+const { createWatchlist } = jest.requireActual('./createWatchlist')
+const { HttpClientError } = jest.requireActual('../../../http')
+
+const postTradeDataMock = postTradeData as jest.Mock
 
 describe('createWatchlist', () => {
   describe('URL parameters check', () => {
-    it('should send the correct URLs and query parameters', async () => {
-      const args: CreateWatchlistArgs = {
+    test('should send the correct URLs and query parameters', async () => {
+      await createWatchlist({
         name: 'foo',
         symbols: ['AAPL', 'MSFT'],
-      }
+      })
 
-      await createWatchlist(args)
-
-      expect(postTradeData).toHaveBeenCalledWith('/watchlists', {
+      expect(postTradeDataMock).toHaveBeenCalledWith('/watchlists', {
         name: 'foo',
         symbols: 'AAPL,MSFT',
       })
@@ -22,33 +21,34 @@ describe('createWatchlist', () => {
   })
 
   describe('alpaca error handling', () => {
-    it('Watchlist name is not unique, or some parameters are not valid', async () => {
-      ;(postTradeData as jest.Mock).mockRejectedValueOnce(
+    test('Watchlist name is not unique, or some parameters are not valid', async () => {
+      postTradeDataMock.mockRejectedValueOnce(
         new HttpClientError('some sort of error', '/watchlists', 422),
       )
-      const args: CreateWatchlistArgs = {
-        name: 'foo',
-        symbols: ['AAPL', 'MSFT'],
-      }
 
-      await expect(() => createWatchlist(args)).rejects.toThrowError(
+      await expect(
+        async () =>
+          await createWatchlist({
+            name: 'foo',
+            symbols: ['AAPL', 'MSFT'],
+          }),
+      ).rejects.toThrowError(
         'Watchlist name is not unique, or some parameters are not valid',
       )
     })
 
     it('One of the symbol is not found in the assets', async () => {
-      ;(postTradeData as jest.Mock).mockRejectedValueOnce(
+      postTradeDataMock.mockRejectedValueOnce(
         new HttpClientError('some sort of error', '/watchlists', 404),
       )
 
-      const args: CreateWatchlistArgs = {
-        name: 'foo',
-        symbols: ['AAPL', 'MSFT'],
-      }
-
-      await expect(() => createWatchlist(args)).rejects.toThrowError(
-        'One of the symbol is not found in the assets',
-      )
+      await expect(
+        async () =>
+          await createWatchlist({
+            name: 'foo',
+            symbols: ['AAPL', 'MSFT'],
+          }),
+      ).rejects.toThrowError('One of the symbol is not found in the assets')
     })
   })
 })

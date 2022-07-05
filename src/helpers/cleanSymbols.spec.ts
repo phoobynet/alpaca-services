@@ -2,8 +2,10 @@ import { cleanSymbol } from './cleanSymbol'
 
 const { cleanSymbols } = jest.requireActual('./cleanSymbols')
 
+const cleanSymbolMock = cleanSymbol as jest.Mock
+
 describe('cleanSymbols', () => {
-  ;(cleanSymbol as jest.Mock).mockImplementation((symbol: string) => symbol)
+  cleanSymbolMock.mockImplementation((symbol: string) => symbol)
   test('should call clean symbol for each symbol', () => {
     const symbols = ['AAPL', 'AMZN']
 

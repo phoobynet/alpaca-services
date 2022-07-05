@@ -1,13 +1,13 @@
 import { Bar } from '../types'
 import { MarketDataSource } from '../../types'
 import { getMarketDataPagedMultiObject } from '../../http'
-import { cleanString, cleanSymbol, cleanSymbols } from '../../../common'
 import { cleanLatestMultiBars } from '../helpers'
 import {
   isCryptoMarketDataSource,
   isStockMarketDataSource,
 } from '../../helpers'
 import { LatestMultiBarsArgs } from '../types'
+import { cleanString, cleanSymbols } from '../../../helpers'
 
 /**
  * @group Market Data

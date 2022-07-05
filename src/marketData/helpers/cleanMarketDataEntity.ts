@@ -1,4 +1,4 @@
-import { cleanSymbol } from '../../common'
+import { cleanSymbol } from '../../helpers'
 import { cleanTimestamp } from './cleanTimestamp'
 import { MarketDataEntity } from '../types'
 

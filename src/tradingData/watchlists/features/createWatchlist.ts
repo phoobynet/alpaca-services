@@ -1,11 +1,7 @@
 import { Watchlist } from '../types'
 import { postTradeData } from '../../http'
-import { cleanSymbol, HttpClientError } from '../../../common'
-
-export type CreateWatchlistArgs = {
-  name: string
-  symbols: string[]
-}
+import { cleanSymbol } from '../../../helpers'
+import { CreateWatchlistArgs } from '../types'
 
 export const createWatchlist = async (
   args: CreateWatchlistArgs,
@@ -15,19 +11,14 @@ export const createWatchlist = async (
     symbols: args.symbols.map(cleanSymbol).join(','),
   }
 
-  try {
-    return await postTradeData<Watchlist>('/watchlists', queryParams)
-  } catch (err) {
-    if (err instanceof HttpClientError) {
-      if (err.statusCode === 404) {
-        throw new Error('One of the symbol is not found in the assets')
-      } else if (err.statusCode === 422) {
-        throw new Error(
-          'Watchlist name is not unique, or some parameters are not valid',
-        )
-      }
-    }
+  const httpResponse = await postTradeData<Watchlist>(
+    '/watchlists',
+    queryParams,
+  )
 
-    throw err
+  if (httpResponse.ok) {
+    return httpResponse.data as Watchlist
+  } else {
+    throw new Error(httpResponse.message)
   }
 }

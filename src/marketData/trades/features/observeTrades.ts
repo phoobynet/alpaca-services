@@ -7,7 +7,7 @@ import {
   getCryptoMarketDataRealTime,
   getStockMarketDataRealTime,
 } from '../../http'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { Trade } from '../types'
 import { cleanTrade } from '../helpers'
 import throttle from 'lodash/throttle'

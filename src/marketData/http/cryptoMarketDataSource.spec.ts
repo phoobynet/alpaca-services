@@ -1,19 +1,17 @@
 import { cryptoMarketDataSource } from './cryptoMarketDataSource'
 import { MarketDataClass } from '../types'
-import { createHttpClient } from '../../common/http/features/createHttpClient'
-import { HttpClient } from '../../common'
+import { createHttpClient } from '../../http'
 
-jest.mock('../../common/http/features/createHttpClient')
-const mockHttpClient = createHttpClient as jest.Mock<HttpClient>
-const mockHttpClientGet = jest.fn()
+const createHttpClientMock = createHttpClient as jest.Mock
+const createHttpClientGetMock = jest.fn()
 
 describe('cryptoMarketDataSource', () => {
   beforeEach(() => {
-    mockHttpClient.mockClear()
-    mockHttpClientGet.mockClear()
-    mockHttpClient.mockImplementation(() => {
+    createHttpClientMock.mockClear()
+    createHttpClientGetMock.mockClear()
+    createHttpClientMock.mockImplementation(() => {
       return {
-        get: mockHttpClientGet,
+        get: createHttpClientGetMock,
         post: jest.fn(),
         put: jest.fn(),
         delete: jest.fn(),
@@ -35,14 +33,14 @@ describe('cryptoMarketDataSource', () => {
 
   it('should invoke the http client get method with the correct URL', async () => {
     await cryptoMarketDataSource.get('/hello')
-    expect(mockHttpClientGet).toHaveBeenCalledWith('/hello', undefined)
+    expect(createHttpClientGetMock).toHaveBeenCalledWith('/hello', undefined)
   })
 
   it('should invoke the http client get method with the correct URL and query params', async () => {
     await cryptoMarketDataSource.get('/hello', {
       foo: 'bar',
     })
-    expect(mockHttpClientGet).toHaveBeenCalledWith('/hello', {
+    expect(createHttpClientGetMock).toHaveBeenCalledWith('/hello', {
       foo: 'bar',
     })
   })

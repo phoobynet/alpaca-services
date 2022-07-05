@@ -1,10 +1,10 @@
 import { MarketDataClass, MarketDataFeed, MarketDataSource } from '../../types'
-import { cleanSymbol } from '../../../common'
 import {
   isCryptoMarketDataSource,
   isStockMarketDataSource,
 } from '../../helpers'
 import { cleanBar } from '../helpers'
+import { cleanSymbol } from '../../../helpers'
 
 const { getLatestBar } = jest.requireActual('./getLatestBar')
 

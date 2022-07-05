@@ -13,7 +13,7 @@ import {
 } from '../../calendars'
 import type { Calendar } from '../../calendars'
 import { MarketStatus, MarketStatusDuration } from '../types'
-import { AMERICA_NEW_YORK_TZ } from '../../../common'
+import { AMERICA_NEW_YORK_TZ } from '../../../constants'
 
 const DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss'
 

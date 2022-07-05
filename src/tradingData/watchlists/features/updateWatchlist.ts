@@ -1,6 +1,7 @@
 import { UpdateWatchlistArgs, Watchlist } from '../types'
 import { putTradeData } from '../../http'
-import { cleanSymbol, HttpClientError } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
+import { HttpClientError } from '../../../http'
 
 export const updateWatchlist = async (
   args: UpdateWatchlistArgs,

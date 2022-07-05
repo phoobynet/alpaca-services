@@ -46,7 +46,9 @@ export type ActivitiesArgs = {
  * ```
  * @param {ActivitiesArgs} args
  */
-export const getActivities = (args: ActivitiesArgs): Promise<Activities> => {
+export const getActivities = async (
+  args: ActivitiesArgs,
+): Promise<Activities> => {
   const {
     activity_types,
     date,
@@ -97,21 +99,28 @@ export const getActivities = (args: ActivitiesArgs): Promise<Activities> => {
     queryParams.activity_types = activity_types.join(',')
   }
 
-  return getTradeData<RawActivities>('/account/activities', queryParams).then(
-    (rawActivities) => {
-      const activities: Activities = []
-
-      for (const rawActivity of rawActivities) {
-        if (isNonTradeActivity(rawActivity)) {
-          activities.push(
-            cleanNonTradeActivity(rawActivity as RawNonTradeActivity),
-          )
-        } else {
-          activities.push(cleanTradeActivity(rawActivity as RawTradeActivity))
-        }
-      }
-
-      return activities
-    },
+  const httpResponse = await getTradeData<RawActivities>(
+    '/account/activities',
+    queryParams,
   )
+
+  if (httpResponse.ok) {
+    const rawActivities = httpResponse.data as RawActivities
+
+    const activities: Activities = []
+
+    for (const rawActivity of rawActivities) {
+      if (isNonTradeActivity(rawActivity)) {
+        activities.push(
+          cleanNonTradeActivity(rawActivity as RawNonTradeActivity),
+        )
+      } else {
+        activities.push(cleanTradeActivity(rawActivity as RawTradeActivity))
+      }
+    }
+
+    return activities
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

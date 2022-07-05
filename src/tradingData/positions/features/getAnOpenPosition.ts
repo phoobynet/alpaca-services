@@ -1,6 +1,6 @@
 import { Position, RawPosition } from '../types'
 import { getTradeData } from '../../http'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { cleanPosition } from '../helpers'
 
 export const getAnOpenPosition = (

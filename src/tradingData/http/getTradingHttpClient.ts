@@ -1,5 +1,5 @@
-import { createHttpClient, HttpClient } from '../../common'
 import { options } from '../../options'
+import { createHttpClient, HttpClient } from '../../http'
 
 let httpClient: HttpClient
 

@@ -1,7 +1,7 @@
 import { Order, RawOrder } from '../types'
 import { getTradeData } from '../../http'
 import { cleanOrder } from '../helpers'
-import { HttpClientError } from '../../../common'
+import { HttpClientError } from '../../../http'
 
 export const getOrderByClientId = (
   clientId: string,

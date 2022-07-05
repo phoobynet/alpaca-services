@@ -1,7 +1,6 @@
 import { Announcement, RawAnnouncement } from '../types'
 import { getTradeData } from '../../http'
 import { cleanAnnouncement } from '../helpers'
-import { HttpClientError } from '../../../common'
 
 /**
  * Get a corporate announcement by id
@@ -19,17 +18,17 @@ import { HttpClientError } from '../../../common'
 export const getAnnouncement = async (
   id: string,
 ): Promise<Announcement | undefined> => {
-  try {
-    return await getTradeData<RawAnnouncement>(`/announcements/${id}`).then(
-      cleanAnnouncement,
-    )
-  } catch (err) {
-    if (err instanceof HttpClientError) {
-      if (err.statusCode === 404) {
-        return undefined
-      }
-    }
+  const httpResponse = await getTradeData<RawAnnouncement>(
+    `/announcements/${id}`,
+  )
 
-    throw err
+  if (httpResponse.ok) {
+    if (httpResponse.data) {
+      return cleanAnnouncement(httpResponse.data)
+    } else {
+      return undefined
+    }
+  } else {
+    throw new Error(httpResponse.message)
   }
 }

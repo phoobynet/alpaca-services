@@ -1,4 +1,4 @@
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { MarketDataClass, MarketDataSource } from '../../types'
 import { assertTimeframe } from '../assertions'
 import { BarsBetweenArgs } from '../types'

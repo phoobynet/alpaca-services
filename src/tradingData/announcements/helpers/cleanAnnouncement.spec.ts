@@ -4,7 +4,8 @@ import {
   AnnouncementCaType,
   RawAnnouncement,
 } from '../types'
-import { cleanAnnouncement } from './cleanAnnouncement'
+
+const { cleanAnnouncement } = jest.requireActual('./cleanAnnouncement')
 
 const rawAnnouncement: RawAnnouncement = {
   id: '1cb2ed66-a58d-454c-8a6e-5a0c6665d9c9',

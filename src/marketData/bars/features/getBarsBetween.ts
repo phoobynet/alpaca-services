@@ -2,9 +2,10 @@ import { cleanBar } from '../helpers'
 import { getMarketDataIterator } from '../../http'
 import { Bar, BarsBetweenArgs } from '../types'
 import { MarketDataSource } from '../../types'
-import { cleanSymbol, assertStartBeforeEnd } from '../../../common'
 import { assertTimeframe } from '../assertions'
 import { isCryptoMarketDataSource } from '../../helpers'
+import { cleanSymbol } from '../../../helpers'
+import { assertStartBeforeEnd } from '../../../assertions'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 

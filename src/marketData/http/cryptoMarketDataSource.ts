@@ -1,5 +1,5 @@
 import { MarketDataClass, MarketDataSource } from '../types'
-import { createHttpClient, HttpClient } from '../../common'
+import { createHttpClient, HttpClient } from '../../http'
 
 let httpClient: HttpClient
 
@@ -13,7 +13,13 @@ const getHttpClient = (): HttpClient => {
 
 export const cryptoMarketDataSource: MarketDataSource = {
   async get<T>(url: string, queryParams?: Record<string, string>): Promise<T> {
-    return getHttpClient().get<T>(url, queryParams)
+    const httpResponse = await getHttpClient().get<T>(url, queryParams)
+
+    if (httpResponse.ok) {
+      return httpResponse.data as T
+    } else {
+      throw new Error(httpResponse.message)
+    }
   },
   type: MarketDataClass.crypto,
 }

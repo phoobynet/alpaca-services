@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import axiosRetry from 'axios-retry'
-import { options } from '../../../options'
-import { HttpClient, HttpClientError } from '../types'
+import { options } from '../../options'
+import { HttpClient, HttpResponse } from '../types'
 
 /**
  * Create an HTTP client for the given base URL.
@@ -14,6 +14,7 @@ import { HttpClient, HttpClientError } from '../types'
 export const createHttpClient = (baseURL: string): HttpClient => {
   const instance = axios.create({
     baseURL,
+    validateStatus: (status) => status !== 429,
   })
 
   axiosRetry(instance, {
@@ -40,80 +41,65 @@ export const createHttpClient = (baseURL: string): HttpClient => {
     async get<T>(
       url: string,
       queryParams?: Record<string, string>,
-    ): Promise<T> {
-      return instance
-        .get(url, { params: queryParams })
-        .then((r) => r.data)
-        .catch((err) => {
-          if (err instanceof AxiosError) {
-            throw toHttpClientError(err)
-          } else {
-            throw err
-          }
-        })
+    ): Promise<HttpResponse<T>> {
+      return instance.get<T>(url, { params: queryParams }).then(toHttpResponse)
     },
     async post<T>(
       url: string,
       queryParams?: Record<string, string>,
       data?: unknown,
-    ): Promise<T> {
+    ): Promise<HttpResponse<T>> {
       return instance
         .post<T>(url, data, { params: queryParams })
-        .then((r) => r.data)
-        .catch((err) => {
-          if (err instanceof AxiosError) {
-            throw toHttpClientError(err)
-          } else {
-            throw err
-          }
-        })
+        .then(toHttpResponse)
     },
     async put<T>(
       url: string,
       queryParams?: Record<string, string>,
       data?: unknown,
-    ): Promise<T> {
+    ): Promise<HttpResponse<T>> {
       return instance
         .put<T>(url, data, { params: queryParams })
-        .then((r) => r.data)
-        .catch((err) => {
-          if (err instanceof AxiosError) {
-            throw toHttpClientError(err)
-          } else {
-            throw err
-          }
-        })
+        .then(toHttpResponse)
     },
     async delete(
       url: string,
       queryParams?: Record<string, string>,
-    ): Promise<void> {
-      await instance.delete(url, { params: queryParams }).catch((err) => {
-        if (err instanceof AxiosError) {
-          throw toHttpClientError(err)
-        } else {
-          throw err
-        }
-      })
+    ): Promise<HttpResponse<void>> {
+      return instance.delete(url, { params: queryParams }).then(toHttpResponse)
     },
   }
 }
 
-function toHttpClientError(err: AxiosError): HttpClientError {
-  const r = err.response as AxiosResponse
-  const { status, statusText, request } = r
+function toHttpResponse<T>(response: AxiosResponse<T>): HttpResponse<T> {
+  const { status: statusCode, statusText, data } = response
 
-  let code = 0
-  let message = statusText
-  const data = r.data as Record<string, unknown>
+  if (statusCode >= 400 && statusCode !== 429) {
+    let message = statusText
+    let alpacaCode = 0
+    const data = response.data as Record<string, unknown>
 
-  if ('code' in data) {
-    code = data.code as number
+    if ('code' in data) {
+      alpacaCode = data.code as number
+    }
+
+    if ('message' in data) {
+      message = data.message as string
+    }
+    return {
+      ok: false,
+      alpacaCode,
+      statusCode,
+      statusText,
+      message: message || statusText,
+      data: undefined,
+    }
+  } else {
+    return {
+      ok: false,
+      statusCode,
+      statusText,
+      data,
+    }
   }
-
-  if ('message' in data) {
-    message = data.message as string
-  }
-
-  return new HttpClientError(message, request.url, status, code)
 }

@@ -1,5 +1,5 @@
 import { Trade } from '../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 
 export const cleanMultiTrades = (
   multiTrades: Record<string, unknown[]>,

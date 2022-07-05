@@ -1,5 +1,5 @@
 import { MarketDataEntity } from '../types'
-import { cleanSymbol } from '../../common'
+import { cleanSymbol } from '../../helpers'
 import { cleanTimestamp } from './cleanTimestamp'
 
 const { cleanMarketDataEntity } = jest.requireActual('./cleanMarketDataEntity')

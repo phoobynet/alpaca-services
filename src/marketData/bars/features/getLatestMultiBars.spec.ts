@@ -1,11 +1,11 @@
 import { MarketDataClass, MarketDataFeed, MarketDataSource } from '../../types'
 import { LatestMultiBarsArgs } from '../types'
-import { cleanString, cleanSymbols } from '../../../common'
 import {
   isCryptoMarketDataSource,
   isStockMarketDataSource,
 } from '../../helpers'
 import { getMarketDataPagedMultiObject } from '../../http'
+import { cleanString, cleanSymbols } from '../../../helpers'
 
 const { getLatestMultiBars } = jest.requireActual('./getLatestMultiBars')
 

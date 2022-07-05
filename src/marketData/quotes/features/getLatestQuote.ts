@@ -1,6 +1,6 @@
 import { MarketDataSource } from '../../types'
 import { Quote, RawQuote } from '../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 import { cleanQuote } from '../helpers'
 
 export const getLatestQuote = (

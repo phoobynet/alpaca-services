@@ -7,7 +7,7 @@ import {
 import { getTradeData } from '../../http'
 import { cleanAnnouncement } from '../helpers'
 import { isAfter, isBefore, subDays } from 'date-fns'
-import { cleanSymbol, formatISODate } from '../../../common'
+import { cleanSymbol, formatISODate } from '../../../helpers'
 
 /**
  * Corporate announcements query arguments
@@ -69,7 +69,7 @@ export type AnnouncementsArgs = {
  * })
  * ```
  */
-export const getAnnouncements = (
+export const getAnnouncements = async (
   args: AnnouncementsArgs,
 ): Promise<Announcement[]> => {
   const { ca_types, since, until, symbol, cusip, date_type } = args
@@ -123,8 +123,15 @@ export const getAnnouncements = (
     queryParams.date_type = date_type
   }
 
-  return getTradeData<RawAnnouncement[]>(
+  const httpResponse = await getTradeData<RawAnnouncement[]>(
     '/corporate_actions/announcements',
     queryParams,
-  ).then((rawAnnouncements) => rawAnnouncements.map(cleanAnnouncement))
+  )
+
+  if (httpResponse.ok) {
+    const rawAnnouncements = httpResponse.data as RawAnnouncement[]
+    return rawAnnouncements.map(cleanAnnouncement)
+  } else {
+    throw new Error(httpResponse.message)
+  }
 }

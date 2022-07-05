@@ -1,5 +1,5 @@
 import { Quote } from '../types'
-import { cleanSymbol } from '../../../common'
+import { cleanSymbol } from '../../../helpers'
 
 export const cleanMultiQuotes = (
   multiQuotes: Record<string, unknown[]>,
