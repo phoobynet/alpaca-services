@@ -1,186 +1,210 @@
-import { cleanSymbol } from '../../../common'
-import { getMarketDataPagedMultiObject } from '../../http'
-import type { MarketDataSource } from '../../types'
-import { MarketDataClass, MarketDataFeed } from '../../types'
-import { cleanLatestMultiBars } from '../helpers'
+import { MarketDataClass, MarketDataFeed, MarketDataSource } from '../../types'
 import { LatestMultiBarsArgs } from '../types'
+import { cleanString, cleanSymbols } from '../../../common'
+import {
+  isCryptoMarketDataSource,
+  isStockMarketDataSource,
+} from '../../helpers'
+import { getMarketDataPagedMultiObject } from '../../http'
+
 const { getLatestMultiBars } = jest.requireActual('./getLatestMultiBars')
 
+const cleanStringMock = cleanString as jest.Mock
+const cleanSymbolsMock = cleanSymbols as jest.Mock
+const isCryptoMarketDataSourceMock = isCryptoMarketDataSource as jest.Mock
+const isStockMarketDataSourceMock = isStockMarketDataSource as jest.Mock
+const getMarketDataPagedMultiObjectMock =
+  getMarketDataPagedMultiObject as jest.Mock
+
 describe('getLatestMultiBars', () => {
-  ;(cleanSymbol as jest.Mock).mockImplementation((symbol: string) => symbol)
-  ;(getMarketDataPagedMultiObject as jest.Mock).mockResolvedValue({
-    BTCUSD: {
-      o: 1,
-      h: 1,
-      l: 1,
-      c: 1,
-      v: 1,
-      x: 'CBSE',
-      t: '2020-01-01T12:00:00.555777Z',
-    },
+  beforeAll(() => {
+    cleanStringMock.mockImplementation((v: string) => v)
   })
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  test('should throw if symbols is empty', () => {
-    const args: LatestMultiBarsArgs = {
-      symbols: [],
-      exchange: 'CBSE',
+  describe('for stocks', () => {
+    const rawLatestMultiBarsResult = {
+      bars: {
+        AMZN: {
+          t: '2022-04-11T17:33:00Z',
+          o: 144.29,
+          h: 144.56,
+          l: 144.29,
+          c: 144.55,
+          v: 304,
+          n: 4,
+          vw: 144.467895,
+        },
+        AAPL: {
+          t: '2022-04-11T17:34:00Z',
+          o: 166.87,
+          h: 166.98,
+          l: 166.81,
+          c: 166.98,
+          v: 1765,
+          n: 25,
+          vw: 166.871524,
+        },
+      },
+    }
+    const stockMarketDataSource: MarketDataSource = {
+      get: jest.fn().mockResolvedValue(rawLatestMultiBarsResult),
+      type: MarketDataClass.stock,
     }
 
-    return expect(
-      getLatestMultiBars(
-        {
-          get: jest.fn(),
-          type: MarketDataClass.stock,
-        },
-        args,
-      ),
-    ).rejects.toThrow('LatestMultiBarsArgs.symbols was empty')
-  })
-  describe('crypto', () => {
-    const marketDataSource: MarketDataSource = {
-      get: jest.fn().mockResolvedValue({
-        bars: {
-          BTCUSD: {
-            o: 1,
-            h: 1,
-            l: 1,
-            c: 1,
-            v: 1,
-            x: 'CBSE',
-            t: '2020-01-01T12:00:00.555777Z',
+    const stockArgs: LatestMultiBarsArgs = {
+      symbols: ['AAPL', 'AMZN'],
+      feed: MarketDataFeed.sip,
+    }
+
+    beforeAll(() => {
+      isStockMarketDataSourceMock.mockReturnValue(true)
+      isCryptoMarketDataSourceMock.mockReturnValue(false)
+      getMarketDataPagedMultiObjectMock.mockResolvedValue(
+        rawLatestMultiBarsResult,
+      )
+      cleanSymbolsMock.mockReturnValue(['AAPL', 'AMZN'])
+    })
+
+    describe('validation', () => {
+      test('throw when symbols is empty', async () => {
+        await expect(async () =>
+          getLatestMultiBars(stockMarketDataSource, {
+            symbols: [],
+          }),
+        ).rejects.toThrow('symbols is empty')
+      })
+
+      test('should clean symbols', async () => {
+        await getLatestMultiBars(stockMarketDataSource, stockArgs)
+        expect(cleanSymbolsMock).toHaveBeenCalledWith(stockArgs.symbols)
+      })
+
+      test('should clean feed', async () => {
+        await getLatestMultiBars(stockMarketDataSource, stockArgs)
+        expect(cleanStringMock).toHaveBeenCalledWith(stockArgs.feed)
+      })
+
+      test('if exchange is provided, throw', async () => {
+        await expect(async () =>
+          getLatestMultiBars(stockMarketDataSource, {
+            symbols: ['AAPL'],
+            exchange: 'CBSE',
+          }),
+        ).rejects.toThrow(
+          'Exchange should not be provided for stock market data',
+        )
+      })
+    })
+
+    describe('http request', () => {
+      test('should include feed query params when feed in args', async () => {
+        await getLatestMultiBars(stockMarketDataSource, stockArgs)
+        expect(getMarketDataPagedMultiObjectMock).toHaveBeenCalledWith(
+          stockMarketDataSource,
+          '/bars/latest',
+          {
+            symbols: 'AAPL,AMZN',
+            feed: 'sip',
           },
-        },
-      }),
-      type: MarketDataClass.crypto,
-    }
-
-    test('should throw if exchange is empty', () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['BTCUSD'],
-        exchange: '',
-      }
-
-      return expect(getLatestMultiBars(marketDataSource, args)).rejects.toThrow(
-        'Exchange is required for crypto market data',
-      )
-    })
-
-    test('should throw if feed is provided', () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['BTCUSD'],
-        feed: MarketDataFeed.sip,
-        exchange: 'CBSE',
-      }
-
-      return expect(getLatestMultiBars(marketDataSource, args)).rejects.toThrow(
-        'Feed should not be provided for crypto market data',
-      )
-    })
-
-    test('should invoke getMarketDataPagedMultiObject with the correct args', async () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['BTCUSD', 'ETHUSD'],
-        exchange: 'CBSE',
-      }
-
-      await getLatestMultiBars(marketDataSource, args)
-
-      expect(getMarketDataPagedMultiObject).toHaveBeenCalledWith(
-        marketDataSource,
-        '/bars/latest',
-        {
-          symbols: 'BTCUSD,ETHUSD',
-          exchange: 'CBSE',
-        },
-      )
-    })
-    test('should clean latest mulit bars', async () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['BTCUSD', 'ETHUSD'],
-        exchange: 'CBSE',
-      }
-
-      await getLatestMultiBars(marketDataSource, args)
-
-      expect(cleanLatestMultiBars).toHaveBeenCalledWith({
-        BTCUSD: {
-          o: 1,
-          h: 1,
-          l: 1,
-          c: 1,
-          v: 1,
-          x: 'CBSE',
-          t: '2020-01-01T12:00:00.555777Z',
-        },
+        )
       })
     })
   })
 
-  describe('stock', () => {
-    const marketDataSource: MarketDataSource = {
-      get: jest.fn().mockResolvedValue({
-        bars: {
-          BTCUSD: {
-            o: 1,
-            h: 1,
-            l: 1,
-            c: 1,
-            v: 1,
-            vw: 1,
-            n: 1,
-            t: '2020-01-01T12:00:00.555777Z',
-          },
-        },
-      }),
-      type: MarketDataClass.stock,
+  describe('for crypto', () => {
+    const cryptoMarketDataSource: MarketDataSource = {
+      get: jest.fn().mockResolvedValue({}),
+      type: MarketDataClass.crypto,
     }
-    test('should throw if exchange is provided', () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['AAPL'],
-        exchange: 'CBSE',
-        feed: MarketDataFeed.sip,
-      }
+    const cryptoArgs: LatestMultiBarsArgs = {
+      symbols: ['BTCUSD', 'ETHUSD'],
+      exchange: 'CBSE',
+    }
 
-      return expect(getLatestMultiBars(marketDataSource, args)).rejects.toThrow(
-        'Exchange should not be provided for stock market data',
+    const rawLatestMultiBarsResult = {
+      bars: {
+        BTCUSD: {
+          t: '2022-04-11T17:33:00Z',
+          o: 144.29,
+          h: 144.56,
+          l: 144.29,
+          c: 144.55,
+          v: 304,
+          n: 4,
+          vw: 144.467895,
+        },
+        ETHUSD: {
+          t: '2022-04-11T17:34:00Z',
+          o: 166.87,
+          h: 166.98,
+          l: 166.81,
+          c: 166.98,
+          v: 1765,
+          n: 25,
+          vw: 166.871524,
+        },
+      },
+    }
+
+    beforeAll(() => {
+      isCryptoMarketDataSourceMock.mockReturnValue(true)
+      isStockMarketDataSourceMock.mockReturnValue(false)
+      getMarketDataPagedMultiObjectMock.mockResolvedValue(
+        rawLatestMultiBarsResult,
       )
+      cleanSymbolsMock.mockReturnValueOnce(['BTCUSD', 'ETHUSD'])
     })
 
-    test('if feed is not provided, feed should not be a query param', async () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['AAPL'],
-      }
+    describe('validation', () => {
+      test('throw when symbols is empty', async () => {
+        await expect(async () =>
+          getLatestMultiBars(cryptoMarketDataSource, {
+            symbols: [],
+          }),
+        ).rejects.toThrow('symbols is empty')
+      })
 
-      await getLatestMultiBars(marketDataSource, args)
+      test('should clean symbols', async () => {
+        await getLatestMultiBars(cryptoMarketDataSource, cryptoArgs)
+        expect(cleanSymbolsMock).toHaveBeenCalledWith(cryptoArgs.symbols)
+      })
 
-      expect(getMarketDataPagedMultiObject).toHaveBeenCalledWith(
-        marketDataSource,
-        '/bars/latest',
-        {
-          symbols: 'AAPL',
-        },
-      )
+      test('should clean exchange', async () => {
+        await getLatestMultiBars(cryptoMarketDataSource, cryptoArgs)
+        expect(cleanStringMock).toHaveBeenCalledWith(cryptoArgs.exchange)
+      })
+
+      test('if exchange is not provied, throw', async () => {
+        await expect(async () => {
+          await getLatestMultiBars(cryptoMarketDataSource, {
+            symbols: ['BTCUSD', 'ETHUSD'],
+          })
+        }).rejects.toThrow('Exchange is required for crypto market data')
+      })
+
+      test('if feed is provided, throw', async () => {
+        await expect(async () =>
+          getLatestMultiBars(cryptoMarketDataSource, {
+            symbols: ['BTCUSD', 'ETHUSD'],
+            exchange: 'CBSE',
+            feed: MarketDataFeed.sip,
+          }),
+        ).rejects.toThrow('Feed should not be provided for crypto market data')
+      })
     })
 
-    test('if feed is provided, feed should be a query param', async () => {
-      const args: LatestMultiBarsArgs = {
-        symbols: ['AAPL'],
-        feed: MarketDataFeed.sip,
-      }
-
-      await getLatestMultiBars(marketDataSource, args)
-
-      expect(getMarketDataPagedMultiObject).toHaveBeenCalledWith(
-        marketDataSource,
-        '/bars/latest',
-        {
-          symbols: 'AAPL',
-          feed: 'sip',
-        },
-      )
+    describe('http request', () => {
+      test('should include feed query params when feed in args', async () => {
+        await getLatestMultiBars(cryptoMarketDataSource, cryptoArgs)
+        expect(getMarketDataPagedMultiObjectMock).toHaveBeenCalledWith(
+          cryptoMarketDataSource,
+          '/bars/latest',
+          {
+            symbols: 'BTCUSD,ETHUSD',
+            exchange: 'CBSE',
+          },
+        )
+      })
     })
   })
 })

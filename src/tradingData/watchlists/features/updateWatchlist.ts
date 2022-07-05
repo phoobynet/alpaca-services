@@ -1,12 +1,6 @@
-import { Watchlist } from '../types'
+import { UpdateWatchlistArgs, Watchlist } from '../types'
 import { putTradeData } from '../../http'
 import { cleanSymbol, HttpClientError } from '../../../common'
-
-export type UpdateWatchlistArgs = {
-  watchlistId: string
-  name?: string
-  symbols?: string[]
-}
 
 export const updateWatchlist = async (
   args: UpdateWatchlistArgs,

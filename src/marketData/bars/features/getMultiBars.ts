@@ -3,7 +3,7 @@ import { Bar } from '../types'
 import { getMarketDataPagedMultiArray } from '../../http'
 import { cleanSymbol } from '../../../common'
 import { cleanBar } from '../helpers'
-import { assetTimeframe } from '../assertions'
+import { assertTimeframe } from '../assertions'
 import { assertStartBeforeEnd } from '../../../common'
 import { MultiBarsArgs } from '../types'
 
@@ -13,7 +13,7 @@ export const getMultiBars = async (
 ): Promise<Record<string, Bar[]>> => {
   const { symbols, timeframe, start, end, absoluteLimit, adjustment } = args
 
-  assetTimeframe(timeframe)
+  assertTimeframe(timeframe)
   assertStartBeforeEnd(start, end)
 
   const queryParams: Record<string, string> = {

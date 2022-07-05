@@ -1,1 +1,1 @@
-export * from './assetTimeframe'
+export * from './assertTimeframe'

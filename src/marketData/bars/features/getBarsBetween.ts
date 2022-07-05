@@ -3,7 +3,7 @@ import { getMarketDataIterator } from '../../http'
 import { Bar, BarsBetweenArgs } from '../types'
 import { MarketDataSource } from '../../types'
 import { cleanSymbol, assertStartBeforeEnd } from '../../../common'
-import { assetTimeframe } from '../assertions'
+import { assertTimeframe } from '../assertions'
 import { isCryptoMarketDataSource } from '../../helpers'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
@@ -37,7 +37,7 @@ export const getBarsBetween = (
 
   const { start, end, timeframe, exchange, absoluteLimit } = args
 
-  assetTimeframe(timeframe)
+  assertTimeframe(timeframe)
   assertStartBeforeEnd(start, end)
 
   if (isCryptoMarketDataSource(marketDataSource) && !exchange) {

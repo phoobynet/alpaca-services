@@ -1,6 +1,6 @@
 import { cleanSymbol } from '../../../common'
 import { MarketDataClass, MarketDataSource } from '../../types'
-import { assetTimeframe } from '../assertions'
+import { assertTimeframe } from '../assertions'
 import { BarsBetweenArgs } from '../types'
 import { isCryptoMarketDataSource } from '../../helpers'
 import { getMarketDataIterator } from '../../http'
@@ -29,7 +29,7 @@ describe('getBarsBetween', () => {
 
     test('should assert the timeframe is valid', async () => {
       await getBarsBetween(mockMarketDataSource, args)
-      expect(assetTimeframe).toHaveBeenCalledWith(args.timeframe)
+      expect(assertTimeframe).toHaveBeenCalledWith(args.timeframe)
     })
 
     test('should throw if source is crypto and exchange is not provided', async () => {

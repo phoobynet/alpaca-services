@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import axiosRetry from 'axios-retry'
 import { options } from '../../../options'
-import { HttpClient } from '../types'
+import { HttpClient, HttpClientError } from '../types'
 
 /**
  * Create an HTTP client for the given base URL.
@@ -96,22 +96,6 @@ export const createHttpClient = (baseURL: string): HttpClient => {
         }
       })
     },
-  }
-}
-
-/**
- * @group Common
- * @category HTTP
- */
-export class HttpClientError extends Error {
-  constructor(
-    message: string,
-    public url: string,
-    public statusCode: number,
-    public code?: number,
-  ) {
-    super(message)
-    this.name = 'HttpClientError'
   }
 }
 

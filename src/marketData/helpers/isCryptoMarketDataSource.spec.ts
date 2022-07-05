@@ -3,21 +3,46 @@ import {
   MarketDataSource,
   MarketDataSourceType,
 } from '../types'
-import { isCryptoMarketDataSource } from './isCryptoMarketDataSource'
+
+const { isCryptoMarketDataSource } = jest.requireActual(
+  './isCryptoMarketDataSource',
+)
 
 describe('isCryptoMarketDataSource', () => {
-  const testCases: Array<[MarketDataSourceType, boolean]> = [
-    [MarketDataClass.crypto, true],
-    [MarketDataClass.stock, false],
-    [{ type: MarketDataClass.crypto } as MarketDataSource, true],
-    [{ type: MarketDataClass.stock } as MarketDataSource, false],
+  type TestCase = {
+    marketDataSourceType: MarketDataSourceType
+    expected: boolean
+  }
+  const testCases: TestCase[] = [
+    {
+      marketDataSourceType: MarketDataClass.crypto,
+      expected: true,
+    },
+    {
+      marketDataSourceType: MarketDataClass.stock,
+      expected: false,
+    },
+    {
+      marketDataSourceType: {
+        get: jest.fn(),
+        type: MarketDataClass.crypto,
+      } as MarketDataSource,
+      expected: true,
+    },
+    {
+      marketDataSourceType: {
+        get: jest.fn(),
+        type: MarketDataClass.stock,
+      } as MarketDataSource,
+      expected: false,
+    },
   ]
 
   test.each(testCases)(
-    'For source "%s" the result should be "%s"',
-    (marketDataSource, expected) => {
-      const actual = isCryptoMarketDataSource(marketDataSource)
-      expect(actual).toBe(expected)
+    'For source "$marketDataSourceType" the result should be "$expected"',
+    (testCase: TestCase) => {
+      const actual = isCryptoMarketDataSource(testCase.marketDataSourceType)
+      expect(actual).toBe(testCase.expected)
     },
   )
 })

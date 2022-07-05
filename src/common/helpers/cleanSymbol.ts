@@ -1,3 +1,5 @@
+import { cleanString } from './cleanString'
+
 /**
  *
  * @group Common
@@ -14,13 +16,7 @@
  * ```
  */
 export const cleanSymbol = (symbol: string): string => {
-  // runtime type check
-  // noinspection SuspiciousTypeOfGuard
-  if (typeof symbol !== 'string') {
-    throw new Error('symbol arg must be a string')
-  }
-
-  symbol = (symbol || '').trim().toUpperCase()
+  symbol = cleanString(symbol).toUpperCase()
 
   if (!symbol) {
     throw new Error('symbol arg must be a non-empty string')

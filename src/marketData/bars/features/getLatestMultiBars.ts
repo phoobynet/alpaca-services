@@ -1,7 +1,7 @@
 import { Bar } from '../types'
 import { MarketDataSource } from '../../types'
 import { getMarketDataPagedMultiObject } from '../../http'
-import { cleanSymbol } from '../../../common'
+import { cleanString, cleanSymbol, cleanSymbols } from '../../../common'
 import { cleanLatestMultiBars } from '../helpers'
 import {
   isCryptoMarketDataSource,
@@ -20,11 +20,12 @@ export const getLatestMultiBars = async (
   args: LatestMultiBarsArgs,
 ): Promise<Record<string, Bar>> => {
   if (args.symbols.length === 0) {
-    throw new Error('LatestMultiBarsArgs.symbols was empty')
+    throw new Error('symbols is empty')
   }
-  const symbols = args.symbols.map(cleanSymbol)
-  const exchange = (args.exchange || '').trim()
-  const feed = (args.feed || '').trim()
+
+  const symbols = cleanSymbols(args.symbols)
+  const exchange = cleanString(args.exchange)
+  const feed = cleanString(args.feed)
   const queryParams: Record<string, string> = {}
 
   queryParams.symbols = symbols.join(',')
