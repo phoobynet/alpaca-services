@@ -245,6 +245,8 @@ webtalk_impact.xml
 # Core Generator generated files
 xaw2verilog.log
 
+isolate-*.log
+
 # project-wide generated files
 *.gise
 par_usage_statistics.html

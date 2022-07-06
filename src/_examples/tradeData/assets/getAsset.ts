@@ -1,5 +1,5 @@
-import { options } from '../../options'
-import { getAssets } from '../../tradingData'
+import { options } from '../../../options'
+import { getAsset } from '../../../tradingData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -8,8 +8,8 @@ options.set({
 })
 
 async function main() {
-  const assets = await getAssets()
-  console.log(assets.length)
+  const asset = await getAsset('AAPL')
+  console.log(asset)
   process.exit(0)
 }
 

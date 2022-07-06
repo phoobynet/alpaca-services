@@ -1,49 +1,57 @@
 import { getTradeData } from '../../http'
-import { ActivitiesArgs, getActivities } from './getActivities'
 import { subDays } from 'date-fns'
-import { ActivityType } from '../types'
+import { ActivityType, ActivitiesArgs } from '../types'
+import { cleanTradeActivity, cleanNonTradeActivity } from '../helpers'
 
-jest.mock('../../http')
+const { getActivities } = jest.requireActual('./getActivities')
+
+const getTradeDataMock = getTradeData as jest.Mock
+const cleanTradeActivityMock = cleanTradeActivity as jest.Mock
+const cleanNonTradeActivityMock = cleanNonTradeActivity as jest.Mock
 
 describe('getActivities', () => {
-  describe('validation', () => {
-    it('should throw if both date and until are specified', () => {
+  test('check URL', async () => {
+    getTradeDataMock.mockResolvedValueOnce({
+      ok: true,
+      data: [],
+    })
+
+    await getActivities({})
+
+    expect(getTradeDataMock).toHaveBeenCalledWith(
+      '/account/activities',
+      expect.anything(),
+    )
+  })
+
+  describe('when date is specified', () => {
+    test('and until is specified, throw', async () => {
       const args: ActivitiesArgs = {
-        date: new Date(),
-        until: new Date(),
+        date: new Date('2022-07-01'),
+        until: subDays(new Date('2022-07-01'), 1),
       }
 
-      expect(() => getActivities(args)).toThrowError(
+      await expect(getActivities(args)).rejects.toThrow(
         'Cannot specify both date and until',
       )
     })
 
-    it('should throw if both date and after are specified', () => {
+    test('and after is specified, throw', async () => {
       const args: ActivitiesArgs = {
-        date: new Date(),
-        after: new Date(),
+        date: new Date('2022-07-01'),
+        after: subDays(new Date('2022-07-01'), 1),
       }
 
-      expect(() => getActivities(args)).toThrowError(
+      await expect(getActivities(args)).rejects.toThrow(
         'Cannot specify both date and after',
       )
     })
 
-    it('should throw if until is before after', () => {
-      const args: ActivitiesArgs = {
-        after: new Date(),
-        until: subDays(new Date(), 1),
-      }
-
-      expect(() => getActivities(args)).toThrowError(
-        'until cannot be before after',
-      )
-    })
-  })
-
-  describe('query params', () => {
-    it('should assign date', async () => {
-      ;(getTradeData as jest.Mock).mockResolvedValueOnce([])
+    test('queryParams.date should be set', async () => {
+      getTradeDataMock.mockResolvedValueOnce({
+        ok: true,
+        data: [],
+      })
 
       const args: ActivitiesArgs = {
         date: new Date('2022-07-01'),
@@ -51,134 +59,78 @@ describe('getActivities', () => {
 
       await getActivities(args)
 
-      expect(getTradeData).toHaveBeenCalledWith(expect.any(String), {
-        date: '2022-07-01T00:00:00.000Z',
-      })
-    })
-
-    it('should assign until', async () => {
-      ;(getTradeData as jest.Mock).mockResolvedValueOnce([])
-
-      const args: ActivitiesArgs = {
-        until: new Date('2022-07-01'),
-      }
-
-      await getActivities(args)
-
-      expect(getTradeData).toHaveBeenCalledWith(expect.any(String), {
-        until: '2022-07-01T00:00:00.000Z',
-      })
-    })
-
-    it('should assign until and after', async () => {
-      ;(getTradeData as jest.Mock).mockResolvedValueOnce([])
-
-      const args: ActivitiesArgs = {
-        until: new Date('2022-07-01'),
-        after: new Date('2022-06-01'),
-      }
-
-      await getActivities(args)
-
-      expect(getTradeData).toHaveBeenCalledWith(expect.any(String), {
-        until: '2022-07-01T00:00:00.000Z',
-        after: '2022-06-01T00:00:00.000Z',
-      })
-    })
-
-    it('should assign direction', async () => {
-      ;(getTradeData as jest.Mock).mockResolvedValueOnce([])
-
-      const args: ActivitiesArgs = {
-        direction: 'asc',
-      }
-
-      await getActivities(args)
-
-      expect(getTradeData).toHaveBeenCalledWith(expect.any(String), {
-        direction: 'asc',
-      })
-    })
-
-    it('should assign page_size', async () => {
-      ;(getTradeData as jest.Mock).mockResolvedValueOnce([])
-
-      const args: ActivitiesArgs = {
-        page_size: 10,
-      }
-
-      await getActivities(args)
-
-      expect(getTradeData).toHaveBeenCalledWith(expect.any(String), {
-        page_size: '10',
-      })
-    })
-
-    it('should assign page_token', async () => {
-      ;(getTradeData as jest.Mock).mockResolvedValueOnce([])
-
-      const args: ActivitiesArgs = {
-        page_token: 'blah',
-      }
-
-      await getActivities(args)
-
-      expect(getTradeData).toHaveBeenCalledWith(expect.any(String), {
-        page_token: 'blah',
+      expect(getTradeDataMock).toHaveBeenCalledWith(expect.any(String), {
+        date: new Date('2022-07-01').toISOString(),
       })
     })
   })
 
-  it('should clean results', async () => {
-    ;(getTradeData as jest.Mock).mockResolvedValueOnce([
-      {
-        activity_type: 'FILL',
-        cum_qty: '1',
-        id: '20190524113406977::8efc7b9a-8b2b-4000-9955-d36e7db0df74',
-        leaves_qty: '0',
-        price: '1.63',
-        qty: '1',
-        side: 'buy',
-        symbol: 'LPCN',
-        transaction_time: '2019-05-24T15:34:06.977Z',
-        order_id: '904837e3-3b76-47ec-b432-046db621571b',
-        type: 'fill',
-      },
-      {
-        activity_type: 'DIV',
-        id: '20190801011955195::5f596936-6f23-4cef-bdf1-3806aae57dbf',
-        date: '2019-08-01',
-        net_amount: '1.02',
-        symbol: 'T',
-        qty: '2',
-        per_share_amount: '0.51',
-      },
-    ])
+  describe('when until is specified', () => {
+    test('queryParams.until should be set', async () => {
+      getTradeDataMock.mockResolvedValueOnce({
+        ok: true,
+        data: [],
+      })
 
-    const actual = await getActivities({})
-    expect(actual).toEqual([
-      {
-        activity_type: 'FILL' as ActivityType,
-        cum_qty: 1,
-        id: '20190524113406977::8efc7b9a-8b2b-4000-9955-d36e7db0df74',
-        leaves_qty: 0,
-        price: 1.63,
-        qty: 1,
-        side: 'buy',
-        symbol: 'LPCN',
-        transaction_time: new Date('2019-05-24T15:34:06.977Z'),
-        order_id: '904837e3-3b76-47ec-b432-046db621571b',
-        type: 'fill',
-      },
-      {
-        activity_type: 'DIV' as ActivityType,
-        id: '20190801011955195::5f596936-6f23-4cef-bdf1-3806aae57dbf',
-        date: new Date('2019-08-01'),
-        net_amount: 1.02,
-        symbol: 'T',
-        qty: 2,
-        per_share_amount: 0.51,
-      },
-    ])
+      const args: ActivitiesArgs = {
+        until: subDays(new Date('2022-07-01'), 1),
+      }
+
+      await getActivities(args)
+
+      expect(getTradeDataMock).toHaveBeenCalledWith(expect.any(String), {
+        until: subDays(new Date('2022-07-01'), 1).toISOString(),
+      })
+    })
+  })
+  describe('when after is specified', () => {
+    test('queryParams.after should be set', async () => {
+      getTradeDataMock.mockResolvedValueOnce({
+        ok: true,
+        data: [],
+      })
+
+      const args: ActivitiesArgs = {
+        after: subDays(new Date('2022-07-01'), 1),
+      }
+
+      await getActivities(args)
+
+      expect(getTradeDataMock).toHaveBeenCalledWith(expect.any(String), {
+        after: subDays(new Date('2022-07-01'), 1).toISOString(),
+      })
+    })
+  })
+
+  describe('when after and until are specified', () => {
+    test('but after is after until, throw', async () => {
+      const args: ActivitiesArgs = {
+        after: subDays(new Date('2022-07-01'), 1),
+        until: subDays(new Date('2022-07-01'), 2),
+      }
+
+      await expect(getActivities(args)).rejects.toThrow(
+        'until cannot be before after',
+      )
+    })
+
+    test('queryParams.after and queryParams.until should be set', async () => {
+      getTradeDataMock.mockResolvedValueOnce({
+        ok: true,
+        data: [],
+      })
+
+      const args: ActivitiesArgs = {
+        after: subDays(new Date('2022-07-01'), 1),
+        until: new Date('2022-07-01'),
+      }
+
+      await getActivities(args)
+
+      expect(getTradeDataMock).toHaveBeenCalledWith(expect.any(String), {
+        after: subDays(new Date('2022-07-01'), 1).toISOString(),
+        until: new Date('2022-07-01').toISOString(),
+      })
+    })
   })
 })

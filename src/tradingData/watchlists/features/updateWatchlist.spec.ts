@@ -1,7 +1,6 @@
 import { putTradeData } from '../../http'
 import { UpdateWatchlistArgs } from '../types'
 import { cleanSymbol } from '../../../helpers'
-import { HttpClientError } from '../../../http'
 const { updateWatchlist } = jest.requireActual('./updateWatchlist')
 
 describe('updateWatchlist', () => {

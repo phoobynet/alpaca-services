@@ -1,6 +1,11 @@
 import { getTradeData } from '../../http'
-import { getAccount } from './getAccount'
 import { RawAccount } from '../types'
+import { cleanAccount } from '../helpers'
+
+const { getAccount } = jest.requireActual('./getAccount')
+
+const getTradeDataMock = getTradeData as jest.Mock
+const cleanAccountMock = cleanAccount as jest.Mock
 
 const rawAccount: RawAccount = {
   account_blocked: false,
@@ -38,9 +43,35 @@ const rawAccount: RawAccount = {
 jest.mock('../../http')
 
 describe('getAccount', () => {
-  it('should send the correct URL', async () => {
-    ;(getTradeData as jest.Mock).mockResolvedValueOnce(rawAccount)
+  test('should send the correct URL', async () => {
+    getTradeDataMock.mockResolvedValueOnce({
+      ok: true,
+    })
+
     await getAccount()
+
     expect(getTradeData).toHaveBeenCalledWith('/account')
+  })
+
+  test('should clean the account response', async () => {
+    getTradeDataMock.mockReturnValueOnce({
+      ok: true,
+      data: rawAccount,
+    })
+
+    await getAccount()
+
+    expect(cleanAccountMock).toHaveBeenCalledWith(rawAccount)
+  })
+
+  test('throws the correct error message when something goes wrong', async () => {
+    getTradeDataMock.mockReturnValueOnce({
+      ok: false,
+      message: 'Some error',
+    })
+
+    await expect(async () => await getAccount()).rejects.toThrowError(
+      'Some error',
+    )
   })
 })

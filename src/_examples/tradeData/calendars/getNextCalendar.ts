@@ -1,5 +1,5 @@
-import { options } from '../../options'
-import { getPreviousCalendar } from '../../tradingData'
+import { options } from '../../../options'
+import { getNextCalendar } from '../../../tradingData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -8,9 +8,9 @@ options.set({
 })
 
 async function main() {
-  const cal = await getPreviousCalendar()
+  const nextCalendar = await getNextCalendar()
 
-  console.log(cal)
+  console.log(nextCalendar)
   process.exit(0)
 }
 

@@ -1,5 +1,5 @@
-import { options } from '../../options'
-import { getAccount } from '../../tradingData'
+import { options } from '../../../options'
+import { getAccount } from '../../../tradingData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,

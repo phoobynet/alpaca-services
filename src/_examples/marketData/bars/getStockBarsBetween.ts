@@ -1,9 +1,9 @@
-import { options } from '../../options'
+import { options } from '../../../options'
 import {
   BarsBetweenArgs,
   getBarsBetween,
   stockMarketDataSource,
-} from '../../marketData'
+} from '../../../marketData'
 import { subWeeks } from 'date-fns'
 
 options.set({

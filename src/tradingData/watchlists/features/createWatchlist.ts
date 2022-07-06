@@ -6,15 +6,12 @@ import { CreateWatchlistArgs } from '../types'
 export const createWatchlist = async (
   args: CreateWatchlistArgs,
 ): Promise<Watchlist> => {
-  const queryParams: Record<string, string> = {
+  const data: Record<string, unknown> = {
     name: args.name,
-    symbols: args.symbols.map(cleanSymbol).join(','),
+    symbols: args.symbols.map(cleanSymbol),
   }
 
-  const httpResponse = await postTradeData<Watchlist>(
-    '/watchlists',
-    queryParams,
-  )
+  const httpResponse = await postTradeData<Watchlist>('/watchlists', {}, data)
 
   if (httpResponse.ok) {
     return httpResponse.data as Watchlist

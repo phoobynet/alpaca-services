@@ -10,6 +10,7 @@ import { HttpClient, HttpResponse } from '../types'
  * @category HTTP
  * @remarks This function is a wrapper around the axios library.  If the status code returned is 429, the function will retry the request.
  * @param baseURL
+ * @returns {@link HttpClient}
  */
 export const createHttpClient = (baseURL: string): HttpClient => {
   const instance = axios.create({
@@ -96,7 +97,7 @@ function toHttpResponse<T>(response: AxiosResponse<T>): HttpResponse<T> {
     }
   } else {
     return {
-      ok: false,
+      ok: true,
       statusCode,
       statusText,
       data,

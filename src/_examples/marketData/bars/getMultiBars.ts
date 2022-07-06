@@ -1,10 +1,10 @@
-import { options } from '../../options'
+import { options } from '../../../options'
 import {
   BarAdjustment,
   getMultiBars,
   MultiBarsArgs,
   stockMarketDataSource,
-} from '../../marketData'
+} from '../../../marketData'
 import { subWeeks } from 'date-fns'
 
 options.set({

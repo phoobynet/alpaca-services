@@ -2,8 +2,8 @@ import {
   stockMarketDataSource,
   getTradesBetween,
   Trade,
-} from '../../marketData'
-import { options } from '../../options'
+} from '../../../marketData'
+import { options } from '../../../options'
 import { parseISO } from 'date-fns'
 
 options.set({

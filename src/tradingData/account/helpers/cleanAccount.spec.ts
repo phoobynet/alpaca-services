@@ -1,8 +1,9 @@
-import { cleanAccount } from './cleanAccount'
 import { Account, AccountStatus, RawAccount } from '../types'
 
+const { cleanAccount } = jest.requireActual('./cleanAccount')
+
 describe('cleanAccount', () => {
-  it('should return a cleaned account', () => {
+  test('should return a cleaned account', () => {
     const rawAccount: RawAccount = {
       account_blocked: false,
       account_number: '010203ABCD',

@@ -1,67 +1,66 @@
 import { getCalendarsBetween } from './getCalendarsBetween'
-import { getCalendarFor } from './getCalendarFor'
-import { cleanCalendar } from '../helpers'
-import { CalendarRepository, RawCalendar } from '../types'
+import { isDateEqual } from '../../../helpers'
+import { Calendar, CalendarRepository } from '../types'
 
-jest.mock('./getCalendarsBetween')
+const { getCalendarFor } = jest.requireActual('./getCalendarFor')
 
-const rawCalendar: RawCalendar = {
-  date: '2022-07-01',
-  open: '09:30',
-  close: '16:00',
-  session_open: '0400',
-  session_close: '2000',
-}
+const getCalendarsBetweenMock = getCalendarsBetween as jest.Mock
+const isDateEqualMock = isDateEqual as jest.Mock
 
 describe('getCalendarFor', () => {
-  describe('when no calendarRepository is supplied', () => {
-    it('should return a calendar for a known trading date', async () => {
-      ;(getCalendarsBetween as jest.Mock).mockReturnValueOnce(
-        [
-          {
-            ...rawCalendar,
-          },
-        ].map(cleanCalendar),
-      )
-
-      const actual = await getCalendarFor(new Date('2022-07-01'))
-      expect(actual).not.toBeUndefined()
+  describe('with calendarRepository', () => {
+    let calendarRepository: CalendarRepository
+    beforeAll(() => {
+      calendarRepository = {
+        find: jest.fn(),
+        findAll: jest.fn(),
+        findBetween: jest.fn(),
+      }
     })
 
-    it('should return undefined for an unknown trading date', async () => {
-      ;(getCalendarsBetween as jest.Mock).mockReturnValueOnce(
-        [].map(cleanCalendar),
-      )
-
-      const actual = await getCalendarFor(new Date('2022-07-04'))
-      expect(actual).toBeUndefined()
+    test('no http request is made', async () => {
+      getCalendarFor(new Date('2022-07-01'), calendarRepository)
+      expect(getCalendarsBetweenMock).not.toHaveBeenCalled()
     })
 
-    it('should invoke getCalendarsBetween with the correct arguments', async () => {
-      ;(getCalendarsBetween as jest.Mock).mockReturnValueOnce(
-        [].map(cleanCalendar),
+    test('should invoke calendarRepository.find', async () => {
+      getCalendarFor(new Date('2022-07-01'), calendarRepository)
+      expect(calendarRepository.find).toHaveBeenCalledWith(
+        new Date('2022-07-01'),
       )
-
-      const date = new Date('2022-07-04')
-
-      await getCalendarFor(date, undefined)
-      expect(getCalendarsBetween).toHaveBeenCalledWith(date, date, undefined)
     })
   })
 
-  describe('when a calendarRepository is supplied', () => {
-    it('should invoke .find() on the calendarRepository with the date', async () => {
-      const calendarRepository: CalendarRepository = {
-        find: jest.fn(),
-        findBetween: jest.fn(),
-        findAll: jest.fn(),
+  describe('without calendarRepository', () => {
+    test('should invoke getCalendarsBetween', async () => {
+      getCalendarsBetweenMock.mockResolvedValueOnce([])
+
+      await getCalendarFor(new Date('2022-07-01'))
+
+      expect(getCalendarsBetweenMock).toHaveBeenCalledWith(
+        new Date('2022-07-01'),
+        new Date('2022-07-01'),
+        undefined,
+      )
+    })
+
+    test('should find the calendar', async () => {
+      const calendar: Calendar = {
+        date: new Date('2022-07-01'),
+        open: new Date('2022-07-01 13:30'),
+        close: new Date('2022-07-01 19:00'),
+        session_open: new Date('2022-07-01 08:00'),
+        session_close: new Date('2022-07-02 00:00'),
       }
 
-      const date = new Date('2022-07-04')
+      getCalendarsBetweenMock.mockReturnValueOnce([calendar])
 
-      await getCalendarFor(date, calendarRepository)
+      await getCalendarFor(new Date('2022-07-01'))
 
-      expect(calendarRepository.find).toHaveBeenCalledWith(date)
+      expect(isDateEqualMock).toHaveBeenCalledWith(
+        calendar.date,
+        new Date('2022-07-01'),
+      )
     })
   })
 })

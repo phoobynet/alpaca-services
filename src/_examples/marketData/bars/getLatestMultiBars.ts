@@ -1,10 +1,10 @@
-import { options } from '../../options'
+import { options } from '../../../options'
 import {
   cryptoMarketDataSource,
   getLatestMultiBars,
   MarketDataFeed,
   stockMarketDataSource,
-} from '../../marketData'
+} from '../../../marketData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
