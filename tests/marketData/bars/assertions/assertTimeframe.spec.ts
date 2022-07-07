@@ -1,6 +1,7 @@
-import { isValidTimeframe } from '../helpers'
+import { assertTimeframe } from '@/marketData'
+import { isValidTimeframe } from '@/marketData/bars/helpers'
 
-const { assertTimeframe } = jest.requireActual('./assertTimeframe')
+jest.mock('@/marketData/bars/helpers')
 
 const isValidTimeframeMock = isValidTimeframe as jest.Mock
 
@@ -8,7 +9,7 @@ describe('assertTimeframe', () => {
   test('should invoke isValidTimeframe', () => {
     isValidTimeframeMock.mockReturnValueOnce(true)
     assertTimeframe('1Min')
-    expect(isValidTimeframe).toHaveBeenCalledWith('1Min')
+    expect(isValidTimeframeMock).toHaveBeenCalledWith('1Min')
   })
 
   test('should throw if timeframe is not valid', () => {

@@ -1,6 +1,7 @@
-import { assertDate } from './assertDate'
+import { assertDate } from '@/assertions/assertDate'
+import { assertStartBeforeEnd } from '@/assertions'
 
-const { assertStartBeforeEnd } = jest.requireActual('./assertStartBeforeEnd')
+jest.mock('@/assertions/assertDate')
 
 describe('assertStartBeforeEnd', () => {
   test('if start date is before end date, do not throw', () => {

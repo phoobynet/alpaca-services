@@ -1,12 +1,16 @@
 import { putTradeData } from '../../http'
 import { UpdateWatchlistArgs } from '../types'
-import { cleanSymbol } from '../../../helpers'
+import { cleanSymbol } from '@/helpers'
+
 const { updateWatchlist } = jest.requireActual('./updateWatchlist')
+
+const cleanSymbolMock = cleanSymbol as jest.Mock
+const putTradeDataMock = putTradeData as jest.Mock
 
 describe('updateWatchlist', () => {
   describe('URL parameters check', () => {
     test('update a watchlist using both the name and symbols', async () => {
-      ;(cleanSymbol as jest.Mock).mockImplementationOnce((v: string) => v)
+      cleanSymbolMock.mockImplementationOnce((v: string) => v)
 
       const args: UpdateWatchlistArgs = {
         watchlistId: '123',
@@ -25,7 +29,7 @@ describe('updateWatchlist', () => {
       )
     })
 
-    it('update a watchlist name', async () => {
+    test('update a watchlist name', async () => {
       const args: UpdateWatchlistArgs = {
         watchlistId: '123',
         name: 'foo',
@@ -41,7 +45,7 @@ describe('updateWatchlist', () => {
       )
     })
 
-    it('update a watchlists symbols', async () => {
+    test('update a watchlists symbols', async () => {
       const args: UpdateWatchlistArgs = {
         watchlistId: '123',
         symbols: ['AAPL', 'msft'],
@@ -59,10 +63,8 @@ describe('updateWatchlist', () => {
   })
 
   describe('alpaca error handling', () => {
-    it('Watchlist name is not unique, or some parameters are not valid', async () => {
-      ;(putTradeData as jest.Mock).mockRejectedValue(
-        new HttpClientError('some sort of error', '/watchlists', 422),
-      )
+    test('Watchlist name is not unique, or some parameters are not valid', async () => {
+      putTradeDataMock.mockRejectedValue(new Error('some sort of error'))
 
       const args: UpdateWatchlistArgs = {
         watchlistId: '123',
@@ -76,9 +78,7 @@ describe('updateWatchlist', () => {
     })
 
     it('One of the symbol is not found in the assets', async () => {
-      ;(putTradeData as jest.Mock).mockRejectedValue(
-        new HttpClientError('some sort of error', '/watchlists', 404),
-      )
+      putTradeDataMock.mockRejectedValue(new Error('some sort of error'))
 
       const args: UpdateWatchlistArgs = {
         watchlistId: '123',

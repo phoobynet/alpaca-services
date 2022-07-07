@@ -1,11 +1,13 @@
-import { cleanSymbol } from '../../../helpers'
-import { MarketDataClass, MarketDataSource } from '../../types'
-import { assertTimeframe } from '../assertions'
-import { BarsBetweenArgs } from '../types'
-import { isCryptoMarketDataSource } from '../../helpers'
-import { getMarketDataIterator } from '../../http'
+import { cleanSymbol } from '@/helpers'
+import { MarketDataClass, MarketDataSource } from '@/marketData/types'
+import { assertTimeframe } from '@/marketData/bars/assertions'
+import { BarsBetweenArgs } from '@/marketData/bars/types'
+import { isCryptoMarketDataSource } from '@/marketData/helpers'
+import { getMarketDataIterator } from '@/marketData/http'
+import { getBarsBetween } from '@/marketData'
 
-const { getBarsBetween } = jest.requireActual('./getBarsBetween')
+jest.mock('@/marketData/bars/assertions')
+jest.mock('@/helpers')
 
 describe('getBarsBetween', () => {
   const mockMarketDataSource: MarketDataSource = {

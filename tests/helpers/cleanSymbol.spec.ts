@@ -1,5 +1,7 @@
-const { cleanSymbol } = jest.requireActual('./cleanSymbol')
-import { cleanString } from './cleanString'
+import { cleanString } from '@/helpers/cleanString'
+import { cleanSymbol } from '@/helpers'
+
+jest.mock('@/helpers/cleanString')
 
 const cleanStringMock = cleanString as jest.Mock
 

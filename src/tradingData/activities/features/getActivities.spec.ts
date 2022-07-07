@@ -1,13 +1,13 @@
 import { getTradeData } from '../../http'
 import { subDays } from 'date-fns'
-import { ActivityType, ActivitiesArgs } from '../types'
-import { cleanTradeActivity, cleanNonTradeActivity } from '../helpers'
+import { ActivitiesArgs } from '../types'
+// import { cleanTradeActivity, cleanNonTradeActivity } from '../helpers'
 
 const { getActivities } = jest.requireActual('./getActivities')
 
 const getTradeDataMock = getTradeData as jest.Mock
-const cleanTradeActivityMock = cleanTradeActivity as jest.Mock
-const cleanNonTradeActivityMock = cleanNonTradeActivity as jest.Mock
+// const cleanTradeActivityMock = cleanTradeActivity as jest.Mock
+// const cleanNonTradeActivityMock = cleanNonTradeActivity as jest.Mock
 
 describe('getActivities', () => {
   test('check URL', async () => {

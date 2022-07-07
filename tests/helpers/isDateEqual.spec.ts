@@ -1,4 +1,4 @@
-const { isDateEqual } = jest.requireActual('./isDateEqual')
+import { isDateEqual } from '@/helpers'
 
 describe('isDateEqual', () => {
   const testCases: Array<[Date, Date, boolean]> = [

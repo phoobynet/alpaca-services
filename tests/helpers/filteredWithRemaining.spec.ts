@@ -1,4 +1,4 @@
-const { filteredWithRemaining } = jest.requireActual('./filteredWithRemaining')
+import { filteredWithRemaining } from '@/helpers'
 
 describe('filteredWithRemaining', () => {
   test('should correctly filter and return the remaining values', () => {

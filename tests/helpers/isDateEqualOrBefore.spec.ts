@@ -1,4 +1,4 @@
-const { isDateBeforeOrEqualTo } = jest.requireActual('./isDateEqualOrBefore')
+import { isDateBeforeOrEqualTo } from '@/helpers/isDateEqualOrBefore'
 
 describe('isDateEqualOrBefore', () => {
   const testCases = [
@@ -32,23 +32,31 @@ describe('isDateEqualOrBefore', () => {
   test.each(testCases)(
     'is %p <= %p where level is %p: %p',
     (start, end, level, expected) => {
+      // eslint-disable-next-line
+      // @ts-ignore
       expect(isDateBeforeOrEqualTo(start, end, level)).toBe(expected)
     },
   )
 
   test('throw if d1 is not a date', () => {
     expect(() =>
+      // eslint-disable-next-line
+      // @ts-ignore
       isDateBeforeOrEqualTo('not a date', new Date(), 'date'),
     ).toThrow('Expected dates got something else')
   })
 
   test('throw if d2 is not a date', () => {
     expect(() =>
+      // eslint-disable-next-line
+      // @ts-ignore
       isDateBeforeOrEqualTo(new Date(), 'not a date', 'date'),
     ).toThrow('Expected dates got something else')
   })
 
   test('throw if level is not the expected type', () => {
+    // eslint-disable-next-line
+    // @ts-ignore
     expect(() => isDateBeforeOrEqualTo(new Date(), new Date(), 'bad')).toThrow(
       'Expected level to be either "date" or "datetime"',
     )

@@ -1,4 +1,4 @@
-const { assertDate } = jest.requireActual('./assertDate')
+import { assertDate } from '@/assertions'
 
 describe('assertDate', () => {
   test('should throw if date is not valid', () => {

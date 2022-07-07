@@ -1,4 +1,4 @@
-const { formatISODate } = jest.requireActual('./formatISODate')
+import { formatISODate } from '@/helpers'
 
 describe('formatISODate', () => {
   it('should correctly format using a date representation', function () {

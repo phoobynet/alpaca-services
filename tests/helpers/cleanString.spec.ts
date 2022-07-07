@@ -1,4 +1,4 @@
-const { cleanString } = jest.requireActual('./cleanString')
+import { cleanString } from '@/helpers/cleanString'
 
 describe('cleanString', () => {
   type TestCase = {
@@ -46,6 +46,8 @@ describe('cleanString', () => {
   )
 
   test('should throw if value is not a permitted type', () => {
+    // eslint-disable-next-line
+    // @ts-ignore
     expect(() => cleanString(123)).toThrow(
       'Unable to clean string value.  Unsupported value type of "number" with value "123"',
     )
