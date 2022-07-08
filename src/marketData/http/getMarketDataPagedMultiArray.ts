@@ -8,7 +8,15 @@ const PAGE_LIMIT = 1_000
 
 /**
  * Gets data is structures as a type of Map<string, Array>.
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ * @param {MarketDataSource} marketDataSource - the market data source
+ * @param {string} url - sub path
+ * @param {number} absoluteLimit - the absolute limit of items to return - defaults to 1_000
+ * @param {Record<string, string>} queryParams
  * @example
+ * ```json
  * // Alpaca Raw Response
  * {
  *   "trades": {
@@ -26,7 +34,9 @@ const PAGE_LIMIT = 1_000
  *   }
  *   "next_page_token": "QUFQTHwyMDIyLTA0LTExVDE0OjMwOjAwLjAwODM0ODAwMFp8RHwwOTIyMzM3MjAzNjg1NDgyNjQ5Ng=="
  * }
+ * ```
  * @example
+ * ```json
  * // Result
  * {
  *   "AAPL": [
@@ -42,10 +52,7 @@ const PAGE_LIMIT = 1_000
  *     }
  *   ]
  * }
- * @param {MarketDataSource} marketDataSource - the market data source
- * @param {string} url - sub path
- * @param {number} absoluteLimit - the absolute limit of items to return
- * @param {Record<string, string>} queryParams
+ * ```
  */
 export const getMarketDataPagedMultiArray = async (
   marketDataSource: MarketDataSource,

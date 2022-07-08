@@ -3,7 +3,7 @@ import { MarketDataFeed } from '../../types'
 /**
  * {@link getLatestMultiBars} args.
  * @group Market Data
- * @category Bar
+ * @category Bars
  */
 export type LatestMultiBarsArgs = {
   symbols: string[]

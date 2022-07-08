@@ -1,6 +1,12 @@
-import { Bar } from '../types'
+import { Bar } from '@/marketData/bars/types'
 import { cleanBar } from './cleanBar'
 
+/**
+ * @internal
+ * @group Market Data
+ * @category Bars
+ * @param latestMultiBars
+ */
 export const cleanLatestMultiBars = (
   latestMultiBars: Record<string, unknown>,
 ): Record<string, Bar> => {

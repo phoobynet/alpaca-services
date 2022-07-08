@@ -1,5 +1,11 @@
-import { Bar } from '../types'
+import { Bar } from '@/marketData/bars/types'
 
+/**
+ * @internal
+ * @group Market Data
+ * @category Bars
+ * @param multiBars
+ */
 export const cleanMultiBars = (
   multiBars: Record<string, unknown[]>,
 ): Record<string, Bar[]> => {

@@ -1,6 +1,12 @@
 import { cleanTimestamp } from './cleanTimestamp'
 import { MarketDataEntity } from '../types'
 
+/**
+ * @group Market Data
+ * @category Helpers
+ * @param entity
+ * @param symbol
+ */
 export const cleanMarketDataEntity = <T extends MarketDataEntity>(
   entity: T,
   symbol = '',

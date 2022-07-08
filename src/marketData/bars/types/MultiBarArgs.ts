@@ -1,9 +1,9 @@
-import { BarAdjustment } from './BarAdjustment'
+import { BarAdjustment } from '@/marketData/bars/types'
 
 /**
  * {@link getMultiBars} args.
  * @group Market Data
- * @category Bar
+ * @category Bars
  */
 export type MultiBarsArgs = {
   symbols: string[]

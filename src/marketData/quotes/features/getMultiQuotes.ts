@@ -5,7 +5,7 @@ import { getMarketDataPagedMultiArray } from '@/marketData/http'
 
 /**
  * @group Market Data
- * @category Quote
+ * @category Quotes
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {MultiQuotesArgs} args
  */

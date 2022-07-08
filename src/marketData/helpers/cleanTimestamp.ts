@@ -1,5 +1,11 @@
 import { isValid, parseISO } from 'date-fns'
 
+/**
+ * Ensures timestamp consistency
+ * @group Market Data
+ * @category Helpers
+ * @param entity
+ */
 export const cleanTimestamp = <T extends { t: string }>(entity: T): T => {
   const t = parseISO(entity.t)
 

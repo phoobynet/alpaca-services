@@ -4,7 +4,7 @@ import { RawBar } from '@/marketData/bars/types'
 
 /**
  * @group Market Data
- * @category Bar
+ * @category Bars
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {LatestBarArgs} args
  * @example

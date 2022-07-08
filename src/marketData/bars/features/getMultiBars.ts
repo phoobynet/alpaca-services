@@ -5,7 +5,7 @@ import { cleanBar } from '@/marketData/bars/helpers'
 
 /**
  * @group Market Data
- * @category Bar
+ * @category Bars
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {MultiBarsArgs} args
  * @see {@link BarAdjustment}

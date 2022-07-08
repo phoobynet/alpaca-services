@@ -1,5 +1,9 @@
-import { MarketDataEntity } from '../../types'
+import { MarketDataEntity } from '@/marketData/types'
 
+/**
+ * @group Market Data
+ * @category Bars
+ */
 export interface Bar extends MarketDataEntity {
   /** Open */
   o: number

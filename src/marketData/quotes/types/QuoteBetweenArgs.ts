@@ -1,7 +1,7 @@
 /**
  * {@link getQuotesBetween} args
  * @group Market Data
- * @category Quote
+ * @category Quotes
  */
 export type QuoteBetweenArgs = {
   symbol: string

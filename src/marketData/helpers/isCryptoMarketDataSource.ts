@@ -2,19 +2,24 @@ import {
   MarketDataClass,
   MarketDataSource,
   MarketDataSourceType,
-} from '../types'
+} from '@/marketData/types'
 
+/**
+ * @group Market Data
+ * @category Helpers
+ * @param {MarketDataSource} marketDataSourceType - {@link cryptoMarketDataSource}, {@link stockMarketDataSource}, or {@link MarketDataClass}
+ */
 export const isCryptoMarketDataSource = (
-  marketDataSource: MarketDataSourceType | MarketDataSource,
+  marketDataSourceType: MarketDataSourceType,
 ): boolean => {
   if (
-    typeof marketDataSource === 'string' &&
-    marketDataSource === MarketDataClass.crypto
+    typeof marketDataSourceType === 'string' &&
+    marketDataSourceType === MarketDataClass.crypto
   ) {
     return true
   } else {
     return (
-      (marketDataSource as MarketDataSource).type === MarketDataClass.crypto
+      (marketDataSourceType as MarketDataSource).type === MarketDataClass.crypto
     )
   }
 }

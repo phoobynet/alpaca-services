@@ -1,7 +1,7 @@
 /**
  * {@link getBarsBetween} args.
  * @group Market Data
- * @category Bar
+ * @category Bars
  */
 export type BarsBetweenArgs = {
   symbol: string

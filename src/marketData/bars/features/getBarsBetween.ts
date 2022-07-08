@@ -7,7 +7,7 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
 /**
  * Get bars between two dates.
  * @group Market Data
- * @category Bar
+ * @category Bars
  * @param {MarketDataSource} marketDataSource
  * @param {BarsBetweenArgs} args
  * @example

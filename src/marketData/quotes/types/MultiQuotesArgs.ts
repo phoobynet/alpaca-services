@@ -3,7 +3,7 @@ import { MarketDataFeed } from '@/marketData'
 /**
  * {@link getMultiQuotes} args
  * @group Market Data
- * @category Quote
+ * @category Quotes
  */
 export type MultiQuotesArgs = {
   symbols: string[]

@@ -5,7 +5,7 @@ import { cleanLatestMultiTrades } from '@/marketData/trades/helpers'
 
 /**
  * @group Market Data
- * @category Trade
+ * @category Trades
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {LatestMultiTradesArgs} args
  */

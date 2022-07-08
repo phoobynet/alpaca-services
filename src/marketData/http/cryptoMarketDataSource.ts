@@ -11,6 +11,10 @@ const getHttpClient = (): HttpClient => {
   return httpClient
 }
 
+/**
+ * @group Market Data
+ * @category HTTP
+ */
 export const cryptoMarketDataSource: MarketDataSource = {
   async get<T>(url: string, queryParams?: Record<string, string>): Promise<T> {
     const httpResponse = await getHttpClient().get<T>(url, queryParams)

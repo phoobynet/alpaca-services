@@ -1,6 +1,10 @@
 import first from 'lodash/first'
 import { MarketDataSource } from '../types'
 
+/**
+ * @group Market Data
+ * @category HTTP
+ */
 export type MarketDataIteratorArgs<T> = {
   url: string
   absoluteLimit?: number
@@ -11,6 +15,13 @@ export type MarketDataIteratorArgs<T> = {
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 const DEFAULT_PAGE_LIMIT = 1_000
 
+/**
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ * @param {MarketDataSource} marketDataSource
+ * @param {MarketDataIteratorArgs} args
+ */
 export const getMarketDataIterator = <T>(
   marketDataSource: MarketDataSource,
   args: MarketDataIteratorArgs<T>,

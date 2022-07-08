@@ -7,7 +7,7 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
 /**
  * @group Market Data
- * @category Quote
+ * @category Quotes
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {QuoteBetweenArgs} args
  */
