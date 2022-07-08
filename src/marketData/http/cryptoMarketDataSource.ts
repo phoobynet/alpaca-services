@@ -1,5 +1,5 @@
-import { MarketDataClass, MarketDataSource } from '../types'
-import { createHttpClient, HttpClient } from '../../http'
+import { MarketDataClass, MarketDataSource } from '@/marketData/types'
+import { createHttpClient, HttpClient } from '@/http'
 
 let httpClient: HttpClient
 

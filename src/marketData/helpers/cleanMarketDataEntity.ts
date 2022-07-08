@@ -1,4 +1,3 @@
-import { cleanSymbol } from '../../helpers'
 import { cleanTimestamp } from './cleanTimestamp'
 import { MarketDataEntity } from '../types'
 
@@ -16,7 +15,7 @@ export const cleanMarketDataEntity = <T extends MarketDataEntity>(
     )
   }
 
-  result.S = cleanSymbol(entity.S || symbol)
+  result.S = entity.S || symbol
 
   return result
 }

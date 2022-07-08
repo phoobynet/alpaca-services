@@ -6,8 +6,7 @@ import {
 } from '../types'
 import { getTradeData } from '../../http'
 import { cleanAnnouncement } from '../helpers'
-import { isAfter, isBefore, subDays } from 'date-fns'
-import { cleanSymbol, formatISODate } from '../../../helpers'
+import { formatISO, isAfter, isBefore, subDays } from 'date-fns'
 
 /**
  * Corporate announcements query arguments
@@ -95,7 +94,7 @@ export const getAnnouncements = async (
       throw new Error('Since date must be no later than until date')
     }
 
-    queryParams.since = formatISODate(since)
+    queryParams.since = formatISO(since, { representation: 'date' })
   }
 
   if (until) {
@@ -108,11 +107,11 @@ export const getAnnouncements = async (
       throw new Error('Until date must be no later than today')
     }
 
-    queryParams.until = formatISODate(since)
+    queryParams.until = formatISO(since, { representation: 'date' })
   }
 
   if (symbol) {
-    queryParams.symbol = cleanSymbol(symbol)
+    queryParams.symbol = symbol
   }
 
   if (cusip) {

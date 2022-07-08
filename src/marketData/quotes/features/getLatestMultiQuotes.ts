@@ -1,8 +1,7 @@
-import { Quote } from '../types'
-import { MarketDataFeed, MarketDataSource } from '../../types'
-import { getMarketDataPagedMultiObject } from '../../http'
-import { cleanSymbol } from '../../../helpers'
-import { cleanLatestMultiQuotes } from '../helpers'
+import { Quote } from '@/marketData/quotes/types'
+import { MarketDataFeed, MarketDataSource } from '@/marketData/types'
+import { getMarketDataPagedMultiObject } from '@/marketData/http'
+import { cleanLatestMultiQuotes } from '@/marketData/quotes/helpers'
 
 export type LatestMultiQuotesArgs = {
   symbols: string[]
@@ -16,14 +15,13 @@ export const getLatestMultiQuotes = async (
   const { symbols, feed } = args
 
   const queryParams: Record<string, string> = {
-    symbols: symbols.map(cleanSymbol).join(','),
+    symbols: symbols.join(','),
     feed,
   }
-  const result = await getMarketDataPagedMultiObject(
+
+  return getMarketDataPagedMultiObject(
     marketDataSource,
     '/quotes/latest',
     queryParams,
-  )
-
-  return cleanLatestMultiQuotes(result)
+  ).then(cleanLatestMultiQuotes)
 }

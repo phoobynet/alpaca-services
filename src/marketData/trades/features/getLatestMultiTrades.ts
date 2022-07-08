@@ -1,14 +1,14 @@
-import { Trade } from '../types'
-import { MarketDataFeed, MarketDataSource } from '../../types'
-import { getMarketDataPagedMultiObject } from '../../http'
-import { cleanSymbol } from '../../../helpers'
-import { cleanLatestMultiTrades } from '../helpers'
+import { LatestMultiTradesArgs, Trade } from '@/marketData/trades/types'
+import { MarketDataSource } from '@/marketData/types'
+import { getMarketDataPagedMultiObject } from '@/marketData/http'
+import { cleanLatestMultiTrades } from '@/marketData/trades/helpers'
 
-export type LatestMultiTradesArgs = {
-  symbols: string[]
-  feed: MarketDataFeed
-}
-
+/**
+ * @group Market Data
+ * @category Trade
+ * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {LatestMultiTradesArgs} args
+ */
 export const getLatestMultiTrades = async (
   marketDataSource: MarketDataSource,
   args: LatestMultiTradesArgs,
@@ -16,14 +16,12 @@ export const getLatestMultiTrades = async (
   const { symbols, feed } = args
 
   const queryParams: Record<string, string> = {
-    symbols: symbols.map(cleanSymbol).join(','),
-    feed: feed,
+    symbols: symbols.join(','),
+    feed,
   }
-  const result = await getMarketDataPagedMultiObject(
+  return getMarketDataPagedMultiObject(
     marketDataSource,
     '/trades/latest',
     queryParams,
-  )
-
-  return cleanLatestMultiTrades(result)
+  ).then(cleanLatestMultiTrades)
 }

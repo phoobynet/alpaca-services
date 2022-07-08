@@ -1,6 +1,5 @@
 import { Watchlist } from '../types'
 import { postTradeData } from '../../http'
-import { cleanSymbol } from '../../../helpers'
 import { CreateWatchlistArgs } from '../types'
 
 export const createWatchlist = async (
@@ -8,7 +7,7 @@ export const createWatchlist = async (
 ): Promise<Watchlist> => {
   const data: Record<string, unknown> = {
     name: args.name,
-    symbols: args.symbols.map(cleanSymbol),
+    symbols: args.symbols,
   }
 
   const httpResponse = await postTradeData<Watchlist>('/watchlists', {}, data)

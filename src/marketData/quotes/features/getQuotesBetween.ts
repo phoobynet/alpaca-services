@@ -1,46 +1,33 @@
-import { MarketDataSource } from '../../types'
-import { Quote } from '../types'
-import { cleanSymbol } from '../../../helpers'
-import { getMarketDataIterator } from '../../http'
-import { cleanQuote } from '../helpers'
+import { MarketDataSource } from '@/marketData/types'
+import { Quote, QuoteBetweenArgs } from '@/marketData/quotes/types'
+import { getMarketDataIterator } from '@/marketData'
+import { cleanQuote } from '@/marketData/quotes/helpers'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
-export type QuoteBetweenArgs = {
-  symbol: string
-  start: Date
-  end: Date
-  absoluteLimit?: number
-  exchanges?: string[]
-}
-
+/**
+ * @group Market Data
+ * @category Quote
+ * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {QuoteBetweenArgs} args
+ */
 export const getQuotesBetween = (
   marketDataSource: MarketDataSource,
   args: QuoteBetweenArgs,
 ): AsyncIterable<Quote> => {
-  if (marketDataSource.type === 'crypto') {
-    if (!args.exchanges || args.exchanges.length === 0) {
-      throw new Error('Crypto market data requires at least one exchange')
-    }
-  }
-
-  const symbol = cleanSymbol(args.symbol)
-
-  const url = `/${args.symbol}/quotes`
-
   const queryParams: Record<string, string> = {
     start: args.start.toISOString(),
     end: args.end.toISOString(),
   }
 
-  if (args.exchanges) {
+  if (args.exchanges?.length) {
     queryParams.exchanges = args.exchanges.join(',')
   }
 
   return getMarketDataIterator<Quote>(marketDataSource, {
-    url,
+    url: `/${args.symbol}/quotes`,
     queryParams,
     absoluteLimit: args.absoluteLimit || DEFAULT_ABSOLUTE_LIMIT,
-    tidy: (Quote) => cleanQuote(Quote, symbol),
+    tidy: (Quote) => cleanQuote(Quote, args.symbol),
   })
 }

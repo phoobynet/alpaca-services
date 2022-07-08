@@ -1,11 +1,6 @@
-import { cleanSymbol } from '@/helpers'
+import { MarketDataSource, Bar, BarsBetweenArgs } from '@/marketData'
 import { getMarketDataIterator } from '@/marketData/http'
-import { isCryptoMarketDataSource } from '@/marketData/helpers'
-import { MarketDataSource } from '@/marketData/types'
-import { Bar, BarsBetweenArgs } from '@/marketData/bars/types'
-import { assertTimeframe } from '@/marketData/bars/assertions'
 import { cleanBar } from '@/marketData/bars/helpers'
-import { assertStartBeforeEnd } from '@/assertions'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
@@ -34,26 +29,20 @@ export const getBarsBetween = (
   marketDataSource: MarketDataSource,
   args: BarsBetweenArgs,
 ): AsyncIterable<Bar> => {
-  const symbol = cleanSymbol(args.symbol)
+  const { symbol, start, end, timeframe, exchanges, absoluteLimit } = args
 
-  const { start, end, timeframe, exchange, absoluteLimit } = args
-
-  assertTimeframe(timeframe)
-  assertStartBeforeEnd(start, end)
-
-  if (isCryptoMarketDataSource(marketDataSource) && !exchange) {
-    throw new Error('Exchange is required for crypto market data')
-  }
-
-  const url = `/${symbol}/bars`
   const queryParams: Record<string, string> = {
     start: start.toISOString(),
     end: end.toISOString(),
     timeframe,
   }
 
+  if (exchanges?.length) {
+    queryParams.exchanges = exchanges?.join(',')
+  }
+
   return getMarketDataIterator<Bar>(marketDataSource, {
-    url,
+    url: `/${symbol}/bars`,
     queryParams,
     absoluteLimit: absoluteLimit || DEFAULT_ABSOLUTE_LIMIT,
     tidy: (item) => cleanBar(item, symbol),

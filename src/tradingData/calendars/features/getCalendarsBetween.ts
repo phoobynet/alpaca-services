@@ -1,7 +1,7 @@
 import { Calendar, CalendarRepository, RawCalendar } from '../types'
 import { getTradeData } from '../../http'
 import { cleanCalendar } from '../helpers'
-import { formatISODate } from '../../../helpers'
+import { formatISO } from 'date-fns'
 
 /**
  * Gets calendars, if available, for a given date range.
@@ -27,8 +27,8 @@ export const getCalendarsBetween = async (
   }
 
   const httpResponse = await getTradeData<RawCalendar[]>('/calendar', {
-    start: formatISODate(start),
-    end: formatISODate(end),
+    start: formatISO(start, { representation: 'date' }),
+    end: formatISO(end, { representation: 'date' }),
   })
 
   if (httpResponse.ok) {

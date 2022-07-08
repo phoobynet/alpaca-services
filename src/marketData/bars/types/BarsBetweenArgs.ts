@@ -16,7 +16,7 @@ export type BarsBetweenArgs = {
    */
   absoluteLimit?: number
   /**
-   * Required for crypto.
+   * Optional for crypto.
    */
-  exchange?: string
+  exchanges?: string[]
 }

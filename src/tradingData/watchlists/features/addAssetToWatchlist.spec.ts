@@ -1,22 +1,10 @@
 import { postTradeData } from '../../http'
 import { AddAssetToWatchlistArgs } from '../types'
-import { cleanSymbol } from '../../../helpers'
 const { addAssetToWatchlist } = jest.requireActual('./addAssetToWatchlist')
 const { HttpClientError } = jest.requireActual('../../../http')
-const cleanSymbolMock = cleanSymbol as jest.Mock
 const postTradeDataMock = postTradeData as jest.Mock
 
 describe('addAssetToWatchlist', () => {
-  cleanSymbolMock.mockImplementation((symbol: string) => symbol)
-
-  test('should clean symbol', async () => {
-    await addAssetToWatchlist({
-      watchlistId: '123',
-      symbol: 'AAPL',
-    })
-    expect(cleanSymbolMock).toHaveBeenCalledWith('AAPL')
-  })
-
   describe('URL parameters check', () => {
     test('should send the correct URLs and query parameters', async () => {
       const args: AddAssetToWatchlistArgs = {

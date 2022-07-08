@@ -1,24 +1,23 @@
-import { MarketDataSource } from '../../types'
-import { Bar } from '../types'
-import { getMarketDataPagedMultiArray } from '../../http'
-import { cleanSymbol } from '../../../helpers'
-import { cleanBar } from '../helpers'
-import { assertTimeframe } from '../assertions'
-import { assertStartBeforeEnd } from '../../../assertions'
-import { MultiBarsArgs } from '../types'
+import { Bar, MultiBarsArgs } from '@/marketData/bars/types'
+import { MarketDataSource } from '@/marketData/types'
+import { getMarketDataPagedMultiArray } from '@/marketData/http'
+import { cleanBar } from '@/marketData/bars/helpers'
 
+/**
+ * @group Market Data
+ * @category Bar
+ * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MultiBarsArgs} args
+ */
 export const getMultiBars = async (
   marketDataSource: MarketDataSource,
   args: MultiBarsArgs,
 ): Promise<Record<string, Bar[]>> => {
   const { symbols, timeframe, start, end, absoluteLimit, adjustment } = args
 
-  assertTimeframe(timeframe)
-  assertStartBeforeEnd(start, end)
-
   const queryParams: Record<string, string> = {
-    symbols: symbols.map(cleanSymbol).join(','),
-    timeframe: timeframe,
+    symbols: symbols.join(','),
+    timeframe,
     start: start.toISOString(),
     end: end.toISOString(),
     adjustment,

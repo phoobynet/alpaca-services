@@ -1,5 +1,4 @@
 import { Quote } from '../types'
-import { cleanSymbol } from '../../../helpers'
 
 export const cleanMultiQuotes = (
   multiQuotes: Record<string, unknown[]>,
@@ -12,7 +11,7 @@ export const cleanMultiQuotes = (
     cleanedMultiQuotes[symbol] = symbolQuotes.map((bar: Quote) => {
       return {
         ...bar,
-        S: cleanSymbol(symbol),
+        S: symbol,
       }
     })
   })

@@ -5,7 +5,6 @@ import {
   MarketDataSocketMessageType,
   MarketDataRealTimeSubscriptionEntityType as SubEntityType,
 } from '../types'
-import { cleanSymbol, filteredWithRemaining } from '../../helpers'
 
 export type MarketDataSocketMessageFilter = (
   message: MarketDataSocketMessage,
@@ -80,7 +79,6 @@ export class MarketDataRealTime {
     symbol: string,
     handler: MarketDataSocketMessageHandler,
   ): MarketDataSocketMessageHandlerCancellation {
-    symbol = cleanSymbol(symbol)
     const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
       string,
       MarketDataSocketMessageHandler[]
@@ -234,4 +232,33 @@ export class MarketDataRealTime {
       this.pendingSubscriptions.clear()
     }
   }
+}
+
+/**
+ *
+ * @group Common
+ * @category Helpers
+ * @internal
+ * @example
+ * ```ts
+ * const arr = [1, 2, 3, 4, 5, 6]
+ * const [even, odd] = filteredWithRemaining(arr, (x) => x % 2 === 0)
+ * ```
+ * @param {Array<T>} arr - array being filtered
+ * @param {(t: T) => boolean} fn - the filter function
+ * @returns {[T[], T[]]} - the results, index 0 contains values that matched your filter, index 1 contains any remaining values that did NOT match your filter
+ */
+function filteredWithRemaining<T>(arr: T[], fn: (t: T) => boolean): [T[], T[]] {
+  const filtered: T[] = []
+  const remaining: T[] = []
+
+  for (const t of arr) {
+    if (fn(t)) {
+      filtered.push(t)
+    } else {
+      remaining.push(t)
+    }
+  }
+
+  return [filtered, remaining]
 }

@@ -1,3 +1,9 @@
-export * from './types'
+export {
+  Bar,
+  BarAdjustment,
+  BarsBetweenArgs,
+  LatestBarArgs,
+  LatestMultiBarsArgs,
+  MultiBarsArgs,
+} from './types'
 export * from './features'
-export * from './assertions'

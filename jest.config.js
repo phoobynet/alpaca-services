@@ -3,7 +3,9 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   clearMocks: true,
-  testMatch: ['**/*.spec.ts'],
+  testMatch: ['tests/**/*.spec.ts'],
+  automock: true,
+  unmockedModulePathPatterns: ['node_modules', '/types/'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },

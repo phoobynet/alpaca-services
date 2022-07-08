@@ -1,5 +1,4 @@
 import { Trade } from '../types'
-import { cleanSymbol } from '../../../helpers'
 
 export const cleanMultiTrades = (
   multiTrades: Record<string, unknown[]>,
@@ -12,7 +11,7 @@ export const cleanMultiTrades = (
     cleanedMultiTrades[symbol] = symbolTrades.map((bar: Trade) => {
       return {
         ...bar,
-        S: cleanSymbol(symbol),
+        S: symbol,
       }
     })
   })

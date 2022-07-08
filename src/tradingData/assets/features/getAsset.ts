@@ -1,6 +1,5 @@
 import { Asset, AssetRepository } from '../types'
 import { getTradeData } from '../../http'
-import { cleanSymbol } from '../../../helpers'
 
 /**
  * Retrieve the {@link Asset} for the given symbol.
@@ -20,8 +19,6 @@ export const getAsset = async (
   symbol: string,
   assetRepository?: AssetRepository,
 ): Promise<Asset | undefined> => {
-  symbol = cleanSymbol(symbol)
-
   if (assetRepository) {
     return assetRepository.find(symbol)
   }
