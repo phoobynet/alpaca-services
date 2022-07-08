@@ -1,17 +1,14 @@
-import { MarketDataSource } from '../../types'
-import { Trade } from '../types'
-import { getMarketDataPagedMultiArray } from '../../http'
-import { cleanSymbol } from '../../../helpers'
-import { cleanMultiTrades } from '../helpers'
+import { MarketDataSource } from '@/marketData/types'
+import { MultiTradesArgs, Trade } from '@/marketData/trades/types'
+import { getMarketDataPagedMultiArray } from '@/marketData/http'
+import { cleanMultiTrades } from '@/marketData/trades/helpers'
 
-export type MultiTradesArgs = {
-  symbols: string[]
-  start: Date
-  end: Date
-  // absolute limit per symbol (max: 1_000)
-  absoluteLimit: number
-}
-
+/**
+ * @group Market Data
+ * @category Trades
+ * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MultiTradesArgs} args
+ */
 export const getMultiTrades = async (
   marketDataSource: MarketDataSource,
   args: MultiTradesArgs,
@@ -19,17 +16,15 @@ export const getMultiTrades = async (
   const { symbols, start, end, absoluteLimit } = args
 
   const queryParams: Record<string, string> = {
-    symbols: symbols.map(cleanSymbol).join(','),
+    symbols: symbols.join(','),
     start: start.toISOString(),
     end: end.toISOString(),
   }
 
-  const data = await getMarketDataPagedMultiArray(
+  return getMarketDataPagedMultiArray(
     marketDataSource,
     '/trades',
     queryParams,
     absoluteLimit,
-  )
-
-  return cleanMultiTrades(data)
+  ).then(cleanMultiTrades)
 }

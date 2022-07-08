@@ -1,3 +1,3 @@
-import { MarketDataClass, MarketDataSource } from './index'
+import { MarketDataClass, MarketDataSource } from '@/marketData'
 
 export type MarketDataSourceType = MarketDataSource | MarketDataClass

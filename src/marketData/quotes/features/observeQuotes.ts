@@ -7,7 +7,6 @@ import {
   getCryptoMarketDataRealTime,
   getStockMarketDataRealTime,
 } from '../../http'
-import { cleanSymbol } from '../../../helpers'
 import { Quote } from '../types'
 import { cleanQuote } from '../helpers'
 import throttle from 'lodash/throttle'
@@ -22,8 +21,6 @@ export const observeQuotes = (
   const realTime = isCryptoMarketDataSource(marketDataSourceType)
     ? getCryptoMarketDataRealTime()
     : getStockMarketDataRealTime()
-
-  symbol = cleanSymbol(symbol)
 
   let update: MarketDataSocketMessageHandler = (Quote) =>
     onQuote(cleanQuote(Quote as Quote, symbol))
