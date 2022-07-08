@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>cleanSymbol | @phoobynet/alpaca-services</title>
+    <title>AddAssetToWatchlistArgs | @phoobynet/alpaca-services</title>
     <meta
       name="description"
       content="Documentation for @phoobynet/alpaca-services"
@@ -73,49 +73,63 @@
         <div class="tsd-page-title">
           <ul class="tsd-breadcrumb">
             <li><a href="../modules.html">@phoobynet/alpaca-services</a></li>
-            <li><a href="cleanSymbol.html">cleanSymbol</a></li>
+            <li>
+              <a href="AddAssetToWatchlistArgs.html">AddAssetToWatchlistArgs</a>
+            </li>
           </ul>
-          <h1>Function cleanSymbol</h1>
+          <h1>Type alias AddAssetToWatchlistArgs</h1>
         </div>
-        <section class="tsd-panel">
-          <ul class="tsd-signatures tsd-kind-function">
-            <li class="tsd-signature" id="cleanSymbol">
-              clean<wbr />Symbol<span class="tsd-signature-symbol">(</span
-              >symbol<span class="tsd-signature-symbol">: </span
-              ><span class="tsd-signature-type">string</span
-              ><span class="tsd-signature-symbol">)</span
-              ><span class="tsd-signature-symbol">: </span
-              ><span class="tsd-signature-type">string</span>
+        <div class="tsd-signature">
+          Add<wbr />Asset<wbr />To<wbr />Watchlist<wbr />Args<span
+            class="tsd-signature-symbol"
+            >:</span
+          >
+          <span class="tsd-signature-symbol">{ </span>symbol<span
+            class="tsd-signature-symbol"
+            >: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span>watchlistId<span
+            class="tsd-signature-symbol"
+            >: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol"> }</span>
+        </div>
+        <div class="tsd-comment tsd-typography">
+          <p>
+            <a href="../functions/addAssetToWatchlist.html"
+              >addAssetToWatchlist</a
+            >
+            args
+          </p>
+        </div>
+        <div class="tsd-type-declaration">
+          <h4>Type declaration</h4>
+          <ul class="tsd-parameters">
+            <li class="tsd-parameter">
+              <h5>
+                symbol<span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">string</span>
+              </h5>
+            </li>
+            <li class="tsd-parameter">
+              <h5>
+                watchlist<wbr />Id<span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">string</span>
+              </h5>
             </li>
           </ul>
-          <ul class="tsd-descriptions">
-            <li class="tsd-description">
-              <div class="tsd-comment tsd-typography">
-                <h3>Throws</h3>
-                <ul>
-                  <li>thrown when the symbol is not a valid symbol</li>
-                </ul>
-
-                <h3>Example</h3>
-                <pre><code class="language-ts"><span class="hl-9">const</span><span class="hl-0"> </span><span class="hl-7">symbol</span><span class="hl-0"> = </span><span class="hl-2">&#39;   aapl  &#39;</span><br/><br/><span class="hl-9">const</span><span class="hl-0"> </span><span class="hl-7">cleanedSymbol</span><span class="hl-0"> = </span><span class="hl-6">cleanSymbol</span><span class="hl-0">(</span><span class="hl-5">symbol</span><span class="hl-0">)</span><br/><br/><span class="hl-6">expect</span><span class="hl-0">(</span><span class="hl-5">cleanedSymbol</span><span class="hl-0">).</span><span class="hl-6">toBe</span><span class="hl-0">(</span><span class="hl-2">&#39;AAPL&#39;</span><span class="hl-0">)</span>
-</code></pre>
-              </div>
-              <div class="tsd-parameters">
-                <h4 class="tsd-parameters-title">Parameters</h4>
-                <ul class="tsd-parameter-list">
-                  <li>
-                    <h5>
-                      symbol: <span class="tsd-signature-type">string</span>
-                    </h5>
-                  </li>
-                </ul>
-              </div>
-              <h4 class="tsd-returns-title">
-                Returns <span class="tsd-signature-type">string</span>
-              </h4>
+        </div>
+        <aside class="tsd-sources">
+          <ul>
+            <li>
+              Defined in
+              <a
+                href="https://github.com/phoobynet/alpaca-services/blob/e0e0400/src/tradingData/watchlists/types/AddAssetToWatchlistArgs.ts#L6"
+                >src/tradingData/watchlists/types/AddAssetToWatchlistArgs.ts:6</a
+              >
             </li>
           </ul>
-        </section>
+        </aside>
       </div>
       <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
         <div class="tsd-navigation settings">
@@ -472,7 +486,9 @@
               >
             </li>
             <li class="tsd-kind-class">
-              <a href="../classes/CleanSymbolError.html" class="tsd-index-link"
+              <a
+                href="../classes/MarketDataRealTime.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -495,34 +511,6 @@
                     fill="var(--color-text)"
                     id="icon-128-text"
                   ></path></svg
-                >Clean<wbr />Symbol<wbr />Error</a
-              >
-            </li>
-            <li class="tsd-kind-class">
-              <a href="../classes/HttpClientError.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-128-path"></use>
-                  <use href="#icon-128-text"></use></svg
-                >Http<wbr />Client<wbr />Error</a
-              >
-            </li>
-            <li class="tsd-kind-class">
-              <a
-                href="../classes/MarketDataRealTime.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-128-path"></use>
-                  <use href="#icon-128-text"></use></svg
                 >Market<wbr />Data<wbr />Real<wbr />Time</a
               >
             </li>
@@ -687,19 +675,6 @@
                   <use href="#icon-256-path"></use>
                   <use href="#icon-256-text"></use></svg
                 >Clock</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a href="../interfaces/HttpClient.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Http<wbr />Client</a
               >
             </li>
             <li class="tsd-kind-interface">
@@ -903,19 +878,6 @@
               >
             </li>
             <li class="tsd-kind-interface">
-              <a href="../interfaces/RawBar.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Raw<wbr />Bar</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
               <a href="../interfaces/RawCalendar.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1076,7 +1038,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/Activities.html" class="tsd-index-link"
+              <a href="Activities.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1103,7 +1065,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/ActivitiesArgs.html" class="tsd-index-link"
+              <a href="ActivitiesArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1116,7 +1078,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/Activity.html" class="tsd-index-link"
+              <a href="Activity.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1128,8 +1090,21 @@
                 >Activity</a
               >
             </li>
+            <li class="current tsd-kind-type-alias">
+              <a href="AddAssetToWatchlistArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Add<wbr />Asset<wbr />To<wbr />Watchlist<wbr />Args</a
+              >
+            </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/AnnouncementsArgs.html" class="tsd-index-link"
+              <a href="AnnouncementsArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1142,7 +1117,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/BarsBetweenArgs.html" class="tsd-index-link"
+              <a href="BarsBetweenArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1155,7 +1130,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/CreateWatchlistArgs.html" class="tsd-index-link"
+              <a href="CreateWatchlistArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1168,7 +1143,20 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/LatestMultiBarsArgs.html" class="tsd-index-link"
+              <a href="LatestBarArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Latest<wbr />Bar<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="LatestMultiBarsArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1181,9 +1169,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a
-                href="../types/LatestMultiQuotesArgs.html"
-                class="tsd-index-link"
+              <a href="LatestMultiQuotesArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1196,9 +1182,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a
-                href="../types/LatestMultiTradesArgs.html"
-                class="tsd-index-link"
+              <a href="LatestMultiTradesArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1211,9 +1195,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a
-                href="../types/MarketDataIteratorArgs.html"
-                class="tsd-index-link"
+              <a href="MarketDataIteratorArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1227,7 +1209,7 @@
             </li>
             <li class="tsd-kind-type-alias">
               <a
-                href="../types/MarketDataSocketMessageFilter.html"
+                href="MarketDataSocketMessageFilter.html"
                 class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1242,7 +1224,7 @@
             </li>
             <li class="tsd-kind-type-alias">
               <a
-                href="../types/MarketDataSocketMessageHandler.html"
+                href="MarketDataSocketMessageHandler.html"
                 class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1257,7 +1239,7 @@
             </li>
             <li class="tsd-kind-type-alias">
               <a
-                href="../types/MarketDataSocketMessageHandlerCancellation.html"
+                href="MarketDataSocketMessageHandlerCancellation.html"
                 class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1271,9 +1253,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a
-                href="../types/MarketDataSourceType.html"
-                class="tsd-index-link"
+              <a href="MarketDataSourceType.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1286,7 +1266,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/MultiBarsArgs.html" class="tsd-index-link"
+              <a href="MultiBarsArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1299,7 +1279,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/MultiQuotesArgs.html" class="tsd-index-link"
+              <a href="MultiQuotesArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1312,7 +1292,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/MultiSnapshotsArgs.html" class="tsd-index-link"
+              <a href="MultiSnapshotsArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1325,7 +1305,20 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/OrdersArgs.html" class="tsd-index-link"
+              <a href="MultiTradesArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Multi<wbr />Trades<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="OrdersArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1338,7 +1331,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/QuoteBetweenArgs.html" class="tsd-index-link"
+              <a href="QuoteBetweenArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1351,7 +1344,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/SnapshotArgs.html" class="tsd-index-link"
+              <a href="SnapshotArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1364,7 +1357,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/TradeBetweenArgs.html" class="tsd-index-link"
+              <a href="TradeBetweenArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1377,7 +1370,7 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/UpdateWatchlistArgs.html" class="tsd-index-link"
+              <a href="UpdateWatchlistArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1391,7 +1384,7 @@
             </li>
             <li class="tsd-kind-variable">
               <a
-                href="../variables/AMERICA_NEW_YORK_TZ.html"
+                href="../variables/cryptoMarketDataSource.html"
                 class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1415,21 +1408,6 @@
                     fill="var(--color-text)"
                     id="icon-32-text"
                   ></path></svg
-                >AMERICA_<wbr />NEW_<wbr />YORK_<wbr />TZ</a
-              >
-            </li>
-            <li class="tsd-kind-variable">
-              <a
-                href="../variables/cryptoMarketDataSource.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-32-path"></use>
-                  <use href="#icon-32-text"></use></svg
                 >crypto<wbr />Market<wbr />Data<wbr />Source</a
               >
             </li>
@@ -1462,7 +1440,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="cleanAnnouncement.html" class="tsd-index-link"
+              <a
+                href="../functions/addAssetToWatchlist.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1485,11 +1465,26 @@
                     fill="var(--color-text)"
                     id="icon-64-text"
                   ></path></svg
+                >add<wbr />Asset<wbr />To<wbr />Watchlist</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a
+                href="../functions/cleanAnnouncement.html"
+                class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
                 >clean<wbr />Announcement</a
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="cleanClock.html" class="tsd-index-link"
+              <a href="../functions/cleanClock.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1502,7 +1497,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="cleanNonTradeActivity.html" class="tsd-index-link"
+              <a
+                href="../functions/cleanNonTradeActivity.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1515,7 +1512,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="cleanOrder.html" class="tsd-index-link"
+              <a href="../functions/cleanOrder.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1527,21 +1524,10 @@
                 >clean<wbr />Order</a
               >
             </li>
-            <li class="current tsd-kind-function">
-              <a href="cleanSymbol.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >clean<wbr />Symbol</a
-              >
-            </li>
             <li class="tsd-kind-function">
-              <a href="cleanTradeActivity.html" class="tsd-index-link"
+              <a
+                href="../functions/cleanTradeActivity.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1554,20 +1540,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="createHttpClient.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >create<wbr />Http<wbr />Client</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="createWatchlist.html" class="tsd-index-link"
+              <a href="../functions/createWatchlist.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1580,33 +1553,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="filteredWithRemaining.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >filtered<wbr />With<wbr />Remaining</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="formatISODate.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >formatISODate</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getAccount.html" class="tsd-index-link"
+              <a href="../functions/getAccount.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1619,7 +1566,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getAccountConfiguration.html" class="tsd-index-link"
+              <a
+                href="../functions/getAccountConfiguration.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1632,7 +1581,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getActivities.html" class="tsd-index-link"
+              <a href="../functions/getActivities.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1645,7 +1594,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getAnOpenPosition.html" class="tsd-index-link"
+              <a
+                href="../functions/getAnOpenPosition.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1658,7 +1609,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getAnnouncement.html" class="tsd-index-link"
+              <a href="../functions/getAnnouncement.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1671,7 +1622,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getAnnouncements.html" class="tsd-index-link"
+              <a
+                href="../functions/getAnnouncements.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1684,7 +1637,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getAsset.html" class="tsd-index-link"
+              <a href="../functions/getAsset.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1697,7 +1650,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getAssets.html" class="tsd-index-link"
+              <a href="../functions/getAssets.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1710,7 +1663,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getBarsBetween.html" class="tsd-index-link"
+              <a href="../functions/getBarsBetween.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1723,7 +1676,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getCalendarFor.html" class="tsd-index-link"
+              <a href="../functions/getCalendarFor.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1736,7 +1689,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getCalendarForToday.html" class="tsd-index-link"
+              <a
+                href="../functions/getCalendarForToday.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1749,7 +1704,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getCalendarsBetween.html" class="tsd-index-link"
+              <a
+                href="../functions/getCalendarsBetween.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1762,7 +1719,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getClock.html" class="tsd-index-link"
+              <a href="../functions/getClock.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1775,7 +1732,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getCryptoMarketDataRealTime.html" class="tsd-index-link"
+              <a
+                href="../functions/getCryptoMarketDataRealTime.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1788,7 +1747,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestBar.html" class="tsd-index-link"
+              <a href="../functions/getLatestBar.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1801,7 +1760,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestMultiBars.html" class="tsd-index-link"
+              <a
+                href="../functions/getLatestMultiBars.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1814,7 +1775,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestMultiQuotes.html" class="tsd-index-link"
+              <a
+                href="../functions/getLatestMultiQuotes.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1827,7 +1790,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestMultiTrades.html" class="tsd-index-link"
+              <a
+                href="../functions/getLatestMultiTrades.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1840,7 +1805,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestQuote.html" class="tsd-index-link"
+              <a href="../functions/getLatestQuote.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1853,7 +1818,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestTrade.html" class="tsd-index-link"
+              <a href="../functions/getLatestTrade.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1866,7 +1831,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getMarketDataIterator.html" class="tsd-index-link"
+              <a
+                href="../functions/getMarketDataIterator.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1879,7 +1846,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getMarketDataPagedMultiArray.html" class="tsd-index-link"
+              <a
+                href="../functions/getMarketDataPagedMultiArray.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1893,7 +1862,7 @@
             </li>
             <li class="tsd-kind-function">
               <a
-                href="getMarketDataPagedMultiObject.html"
+                href="../functions/getMarketDataPagedMultiObject.html"
                 class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1907,7 +1876,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getMarketStatus.html" class="tsd-index-link"
+              <a href="../functions/getMarketStatus.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1920,7 +1889,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getMultiBars.html" class="tsd-index-link"
+              <a href="../functions/getMultiBars.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1933,7 +1902,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getMultiQuotes.html" class="tsd-index-link"
+              <a href="../functions/getMultiQuotes.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1946,7 +1915,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getMultiSnapshots.html" class="tsd-index-link"
+              <a
+                href="../functions/getMultiSnapshots.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1959,7 +1930,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getNextCalendar.html" class="tsd-index-link"
+              <a href="../functions/getNextCalendar.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1972,7 +1943,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getOpenPositions.html" class="tsd-index-link"
+              <a
+                href="../functions/getOpenPositions.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1985,7 +1958,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getOrder.html" class="tsd-index-link"
+              <a href="../functions/getOrder.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1998,7 +1971,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getOrderByClientId.html" class="tsd-index-link"
+              <a
+                href="../functions/getOrderByClientId.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2011,7 +1986,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getOrders.html" class="tsd-index-link"
+              <a href="../functions/getOrders.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2024,7 +1999,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getPreviousCalendar.html" class="tsd-index-link"
+              <a
+                href="../functions/getPreviousCalendar.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2037,7 +2014,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getQuotesBetween.html" class="tsd-index-link"
+              <a
+                href="../functions/getQuotesBetween.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2050,7 +2029,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getSnapshot.html" class="tsd-index-link"
+              <a href="../functions/getSnapshot.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2063,7 +2042,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getStockMarketDataRealTime.html" class="tsd-index-link"
+              <a
+                href="../functions/getStockMarketDataRealTime.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2076,7 +2057,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getTradesBetween.html" class="tsd-index-link"
+              <a
+                href="../functions/getTradesBetween.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2089,7 +2072,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getWatchlist.html" class="tsd-index-link"
+              <a href="../functions/getWatchlist.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2102,7 +2085,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getWatchlists.html" class="tsd-index-link"
+              <a href="../functions/getWatchlists.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2115,7 +2098,22 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="isDateEqual.html" class="tsd-index-link"
+              <a
+                href="../functions/isDateBeforeOrEqualTo.html"
+                class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >is<wbr />Date<wbr />Before<wbr />Or<wbr />Equal<wbr />To</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="../functions/isDateEqual.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2128,7 +2126,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="observeBars.html" class="tsd-index-link"
+              <a href="../functions/observeBars.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2141,7 +2139,9 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="observeMarketStatus.html" class="tsd-index-link"
+              <a
+                href="../functions/observeMarketStatus.html"
+                class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2154,7 +2154,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="observeQuotes.html" class="tsd-index-link"
+              <a href="../functions/observeQuotes.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2167,7 +2167,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="observeTrades.html" class="tsd-index-link"
+              <a href="../functions/observeTrades.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -2180,7 +2180,7 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="updateWatchlist.html" class="tsd-index-link"
+              <a href="../functions/updateWatchlist.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"

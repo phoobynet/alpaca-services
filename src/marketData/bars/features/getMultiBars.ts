@@ -8,6 +8,42 @@ import { cleanBar } from '@/marketData/bars/helpers'
  * @category Bar
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {MultiBarsArgs} args
+ * @see {@link BarAdjustment}
+ * @example
+ * ```ts
+ * // crypto
+ * const multiBars = await getMultiBars({
+ *   // required
+ *   symbols: ['BTCUSD', 'ETHUSD'],
+ *   // required
+ *   timeframe: '1Day',
+ *   // required
+ *   start: new Date('2022-01-01'),
+ *   // required
+ *   end: new Date('2022-07-31'),
+ *   // required for crypto
+ *   exchange: 'CBSE',
+ *   // optional
+ *   absoluteLimit: 1_000,
+ *   // optional
+ *   adjustment: BarAdjustment.raw,
+ * })
+ *
+ * // stock
+ * const multiBars = await getMultiBars({
+ *   // required
+ *   symbols: ['AAPL', 'AMZN'],
+ *   // required
+ *   start: new Date('2022-01-01'),
+ *   // required
+ *   end: new Date('2022-07-31'),
+ *   // optional
+ *   feed: 'sip',
+ *   // optional
+ *   absoluteLimit: 1_000,
+ *   // optional
+ *   adjustment: BarAdjustment.raw,
+ * ```
  */
 export const getMultiBars = async (
   marketDataSource: MarketDataSource,

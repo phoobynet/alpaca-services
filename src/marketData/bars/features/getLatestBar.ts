@@ -7,6 +7,24 @@ import { RawBar } from '@/marketData/bars/types'
  * @category Bar
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {LatestBarArgs} args
+ * @example
+ * ```ts
+ * // crypto
+ * const latestBar = await getLatestBar({
+ *   symbol: 'BTCUSD',
+ *
+ *   // required
+ *   exchange: 'CBSE',
+ * })
+ *
+ * // stock
+ * const latestBar = await getLatestBar({
+ *   symbol: 'AAPL',
+ *
+ *   // optional
+ *   feed: 'sip',
+ * })
+ * ```
  */
 export const getLatestBar = (
   marketDataSource: MarketDataSource,

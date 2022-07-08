@@ -1,4 +1,4 @@
-import { Asset } from '../../assets'
+import { Asset } from '@/tradingData/assets/types'
 
 export interface Watchlist {
   id: string

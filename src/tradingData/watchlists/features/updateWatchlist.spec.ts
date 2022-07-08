@@ -1,17 +1,13 @@
 import { putTradeData } from '../../http'
 import { UpdateWatchlistArgs } from '../types'
-import { cleanSymbol } from '@/helpers'
 
 const { updateWatchlist } = jest.requireActual('./updateWatchlist')
 
-const cleanSymbolMock = cleanSymbol as jest.Mock
 const putTradeDataMock = putTradeData as jest.Mock
 
 describe('updateWatchlist', () => {
   describe('URL parameters check', () => {
     test('update a watchlist using both the name and symbols', async () => {
-      cleanSymbolMock.mockImplementationOnce((v: string) => v)
-
       const args: UpdateWatchlistArgs = {
         watchlistId: '123',
         name: 'foo',

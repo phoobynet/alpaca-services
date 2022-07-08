@@ -11,19 +11,27 @@ import { cleanLatestMultiBars } from '@/marketData/bars/helpers'
  * @category Bar
  * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
  * @param {LatestMultiBarsArgs} args
+ * @example
+ * ```ts
+ * // crypto
+ * const latestMultiBars = await getLatestMultiBars({
+ *   symbols: ['BTCUSD', 'ETHUSD'],
+ * })
+ *
+ * // stock
+ * const latestMultiBars = await getLatestMultiBars({
+ *   symbols: ['AAPL', 'MSFT'],
+ * })
+ * ```
  */
 export const getLatestMultiBars = async (
   marketDataSource: MarketDataSource,
   args: LatestMultiBarsArgs,
 ): Promise<Record<string, Bar>> => {
-  if (args.symbols.length === 0) {
-    throw new Error('symbols is empty')
+  const queryParams: Record<string, string> = {
+    symbol: args.symbols.join(','),
   }
 
-  const queryParams: Record<string, string> = {}
-
-  queryParams.symbols = args.symbols.join(',')
-  // noinspection DuplicatedCode
   return getMarketDataPagedMultiObject(
     marketDataSource,
     '/bars/latest',

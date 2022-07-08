@@ -1,11 +1,21 @@
-import { postTradeData } from '../../http'
-import { AddAssetToWatchlistArgs, Watchlist } from '../types'
+import { postTradeData } from '@/tradingData/http'
+import {
+  AddAssetToWatchlistArgs,
+  Watchlist,
+} from '@/tradingData/watchlists/types'
 
 /**
  * Appends an asset to a watchlist.
  * @group Trading Data
  * @category Watchlists
- * @param args
+ * @param {AddAssetToWatchlistArgs} args
+ * @example
+ * ```ts
+ * const watchlist = await addAssetToWatchlist({
+ *   watchlistId: 'b28f4066-5c6d-479b-a2af-85dc1a8f16fb',
+ *   symbol: 'AAPL',
+ * })
+ * ```
  */
 export const addAssetToWatchlist = async (args: AddAssetToWatchlistArgs) => {
   const httpResponse = await postTradeData<Watchlist>(

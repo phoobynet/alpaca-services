@@ -1,6 +1,14 @@
-import { Watchlist } from '../types'
-import { getTradeData } from '../../http'
+import { Watchlist } from '@/tradingData/watchlists/types'
+import { getTradeData } from '@/tradingData/http'
 
+/**
+ * @group Trading Data
+ * @category Watchlists
+ * @example
+ * ```ts
+ * const watchlists = await getWatchlists()
+ * ```
+ */
 export const getWatchlists = async (): Promise<Watchlist[]> => {
   const httpResponse = await getTradeData<Watchlist[]>('/watchlists')
 
