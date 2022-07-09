@@ -1,6 +1,6 @@
 import { addBusinessDays } from 'date-fns'
-import { getCalendarsBetween } from './getCalendarsBetween'
-import { Calendar, CalendarRepository } from '../types'
+import { getCalendarsBetween } from '@/tradingData/calendars/features'
+import { Calendar, CalendarRepository } from '@/tradingData/calendars/types'
 import first from 'lodash/first'
 
 /**
@@ -13,7 +13,7 @@ import first from 'lodash/first'
  * ```
  * @remarks If an {@link CalendarRepository} is provided, and no {@link Calendar} is found, the function WILL NOT fall back to HTTP.
  * @param {Date} [date] - if not provided, the current date is used
- * @param {CalendarRepository} [calendarRepository] -  Provide an implementation of {@link CalendarRepository} to bypass HTTP request.
+ * @param {CalendarRepository} [calendarRepository] -  Provide an implementation of {@link CalendarRepository} to bypass HTTP request.  This can be set globally in {@link Option}
  * @returns {Promise<Calendar>} - should always return a valid date.
  * @throws {Error} - when no calendar is found throws 'Expected to find a next calendar, but nothing was found' error.
  */

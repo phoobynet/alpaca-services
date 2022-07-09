@@ -1,4 +1,3 @@
-require('module-alias/register')
 export * from './marketData'
 export * from './tradingData'
 export * from './options'

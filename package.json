@@ -1,6 +1,6 @@
 {
   "name": "@phoobynet/alpaca-services",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "npm run lint:fix && npm run clean && npm run build:types && npm run build:ts",
     "clean": "rimraf dist",
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly",
-    "build:ts": "tsc -p tsconfig-build.json",
+    "build:ts": "tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
@@ -19,9 +19,6 @@
     "typedoc": "typedoc"
   },
   "types": "./dist/index.d.ts",
-  "_moduleAliases": {
-    "@": "./dist"
-  },
   "dependencies": {
     "axios": "^0.27.2",
     "axios-rate-limit": "^1.3.0",
@@ -47,13 +44,13 @@
     "eslint-plugin-jest": "^26.5.3",
     "husky": "^8.0.0",
     "jest": "^28.1.1",
-    "module-alias": "^2.2.2",
     "prettier": "^2.7.1",
     "pretty-quick": "^3.1.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.6.11",
     "tsconfig-paths": "^4.0.0",
     "typedoc": "^0.23.5",
     "typescript": "^4.7.4"

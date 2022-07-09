@@ -1,5 +1,5 @@
-import { Calendar, CalendarRepository } from '../types'
-import { getCalendarFor } from './getCalendarFor'
+import { Calendar, CalendarRepository } from '@/tradingData/calendars/types'
+import { getCalendarFor } from '@/tradingData/calendars/features'
 
 /**
  * Get a calendar, if available, for a the current date

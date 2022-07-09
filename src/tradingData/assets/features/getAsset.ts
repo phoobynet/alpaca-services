@@ -1,5 +1,6 @@
-import { Asset, AssetRepository } from '../types'
-import { getTradeData } from '../../http'
+import { Asset, AssetRepository } from '@/tradingData/assets/types'
+import { getTradeData } from '@/tradingData/http'
+import { options } from '@/options'
 
 /**
  * Retrieve the {@link Asset} for the given symbol.
@@ -13,12 +14,13 @@ import { getTradeData } from '../../http'
  * const asset = await getAsset('AAPL')
  * ```
  * @param {string} symbol - A valid ticker symbol, e.g. AAPL or BTCUSD for an {@link Asset}
- * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.
+ * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.  Can be set globally in {@link Option}
  */
 export const getAsset = async (
   symbol: string,
   assetRepository?: AssetRepository,
 ): Promise<Asset | undefined> => {
+  assetRepository = assetRepository || options.get().assetRepository
   if (assetRepository) {
     return assetRepository.find(symbol)
   }
