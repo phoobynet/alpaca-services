@@ -26,6 +26,11 @@
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   },
-  "include": ["src/**/*", "tests/**/*", ".eslintrc.js", "jest.config.js"],
+  "include": [
+    "src/**/*",
+    "src/__tests__/**/*",
+    ".eslintrc.js",
+    "jest.config.js"
+  ],
   "exclude": ["node_modules", "dist"]
 }
