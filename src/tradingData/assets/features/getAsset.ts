@@ -15,13 +15,16 @@ import { options } from '@/options'
  * ```
  * @param {string} symbol - A valid ticker symbol, e.g. AAPL or BTCUSD for an {@link Asset}
  * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.  Can be set globally in {@link Option}
+ * @param {boolean} forceHttp - bypass assetRepository and force HTTP request
  */
 export const getAsset = async (
   symbol: string,
   assetRepository?: AssetRepository,
+  forceHttp = false,
 ): Promise<Asset | undefined> => {
   assetRepository = assetRepository || options.get().assetRepository
-  if (assetRepository) {
+
+  if (assetRepository && !forceHttp) {
     return assetRepository.find(symbol)
   }
 

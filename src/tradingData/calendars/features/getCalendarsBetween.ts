@@ -16,16 +16,18 @@ import { options } from '@/options'
  * @param {Date} start
  * @param {Date} end
  * @param {CalendarRepository} [calendarRepository] -  Provide an implementation of {@link CalendarRepository} to bypass HTTP request.  This can be set globally in {@link Option}
+ * @param {boolean} forceHttp - bypass calendarRepository and force HTTP request
  * @returns {Promise<Calendar | undefined>} - when not found, returns undefined indicating the calendar is not available, e.g. 4th July 2022.
  */
 export const getCalendarsBetween = async (
   start: Date,
   end: Date,
   calendarRepository?: CalendarRepository,
+  forceHttp = false,
 ): Promise<Calendar[]> => {
   calendarRepository = calendarRepository || options.get().calendarRepository
 
-  if (calendarRepository) {
+  if (calendarRepository && !forceHttp) {
     return calendarRepository.findBetween(start, end)
   }
 

@@ -9,13 +9,15 @@ import { options } from '@/options'
  * @category Assets
  * @see https://alpaca.markets/docs/api-references/trading-api/assets/
  * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.  Can be set globally in {@link Option}
+ * @param {boolean} forceHttp - bypass assetRepository and force HTTP request
  */
 export const getAssets = async (
   assetRepository?: AssetRepository,
+  forceHttp = false,
 ): Promise<Asset[]> => {
   assetRepository = assetRepository || options.get().assetRepository
 
-  if (assetRepository) {
+  if (assetRepository && !forceHttp) {
     return assetRepository.findAll()
   }
 
