@@ -1,6 +1,6 @@
-import { cryptoMarketDataSource } from './cryptoMarketDataSource'
-import { MarketDataClass } from '../types'
-import { createHttpClient } from '../../http'
+import { cryptoMarketDataSource } from '@/marketData/http'
+import { MarketDataClass } from '@/marketData/types'
+import { createHttpClient } from '@/http'
 
 const createHttpClientMock = createHttpClient as jest.Mock
 const createHttpClientGetMock = jest.fn()
@@ -18,25 +18,25 @@ describe('cryptoMarketDataSource', () => {
       }
     })
   })
-  it('should have type crypto', () => {
+  test('should have type crypto', () => {
     expect(cryptoMarketDataSource).toHaveProperty(
       'type',
       MarketDataClass.crypto,
     )
   })
 
-  it('should lazy initialize the http client', async () => {
+  test('should lazy initialize the http client', async () => {
     await cryptoMarketDataSource.get('/hello')
     await cryptoMarketDataSource.get('/goodbye')
     expect(createHttpClient).toHaveBeenCalledTimes(1)
   })
 
-  it('should invoke the http client get method with the correct URL', async () => {
+  test('should invoke the http client get method with the correct URL', async () => {
     await cryptoMarketDataSource.get('/hello')
     expect(createHttpClientGetMock).toHaveBeenCalledWith('/hello', undefined)
   })
 
-  it('should invoke the http client get method with the correct URL and query params', async () => {
+  test('should invoke the http client get method with the correct URL and query params', async () => {
     await cryptoMarketDataSource.get('/hello', {
       foo: 'bar',
     })

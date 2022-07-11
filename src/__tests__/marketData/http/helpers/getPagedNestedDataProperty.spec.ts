@@ -1,8 +1,10 @@
-import { getPagedNestedDataProperty } from './getPagedNestedDataProperty'
+const { getPagedNestedDataProperty } = jest.requireActual(
+  '@/marketData/http/helpers/getPagedNestedDataProperty',
+)
 
 describe('getPagedNestedDataProperty', () => {
   describe('errors', () => {
-    it('No nested data properties', () => {
+    test('No nested data properties', () => {
       const data = {
         next_page_token: 'whatever',
       }
@@ -12,7 +14,7 @@ describe('getPagedNestedDataProperty', () => {
       }).toThrow('No nested data properties')
     })
 
-    it('Too many nested data properties', () => {
+    test('Too many nested data properties', () => {
       const data = {
         trade: '',
         quote: '',
@@ -24,7 +26,7 @@ describe('getPagedNestedDataProperty', () => {
       }).toThrow('Too many nested data properties')
     })
 
-    it('Unable to determine nested data property', () => {
+    test('Unable to determine nested data property', () => {
       const data = {
         '': '',
         next_page_token: 'whatever',
@@ -36,7 +38,7 @@ describe('getPagedNestedDataProperty', () => {
     })
   })
 
-  it('should return a nested data property', () => {
+  test('should return a nested data property', () => {
     const data = {
       trade: '',
       next_page_token: 'whatever',
