@@ -2,8 +2,11 @@ import {
   MarketDataClass,
   MarketDataSource,
   MarketDataSourceType,
-} from '../types'
-import { isStockMarketDataSource } from './isStockMarketDataSource'
+} from '@/marketData/types'
+
+const { isStockMarketDataSource } = jest.requireActual(
+  '@/marketData/helpers/isStockMarketDataSource',
+)
 
 describe('isStockMarketDataSource', () => {
   const testCases: Array<[MarketDataSourceType, boolean]> = [

@@ -1,15 +1,13 @@
-import {
-  BarsBetweenArgs,
-  MarketDataClass,
-  MarketDataSource,
-} from '@/marketData'
-import { cleanBar } from '@/marketData/bars/helpers'
+import { MarketDataClass, MarketDataSource } from '@/marketData/types'
+import { BarsBetweenArgs } from '@/marketData/bars/types'
 
 import { getMarketDataIterator } from '@/marketData/http'
 
 const { getBarsBetween } = jest.requireActual(
   '@/marketData/bars/features/getBarsBetween.ts',
 )
+
+const getMarketDataIteratorMock = getMarketDataIterator as jest.Mock
 
 describe('getBarsBetween', () => {
   const mockMarketDataSource: MarketDataSource = {
@@ -31,41 +29,19 @@ describe('getBarsBetween', () => {
 
   test('should invoke with correct URL and query parameters', async () => {
     await getBarsBetween(mockMarketDataSource, args)
-    expect(getMarketDataIterator).toHaveBeenCalledWith(mockMarketDataSource, {
-      url: '/BTCUSD/bars',
-      queryParams: {
-        start: start.toISOString(),
-        end: end.toISOString(),
-        exchanges: 'CBSE,FRSX',
-        timeframe: '1Day',
+    expect(getMarketDataIteratorMock).toHaveBeenCalledWith(
+      mockMarketDataSource,
+      {
+        url: '/BTCUSD/bars',
+        queryParams: {
+          start: start.toISOString(),
+          end: end.toISOString(),
+          exchanges: 'CBSE,FRSX',
+          timeframe: '1Day',
+        },
+        absoluteLimit: 500,
+        tidy: expect.any(Function),
       },
-      absoluteLimit: 500,
-      tidy: expect.any(Function),
-    })
-  })
-
-  test('should clean each bar returned', async () => {
-    const getMarketDataIteratorMock = getMarketDataIterator as jest.Mock
-
-    getMarketDataIteratorMock.mockResolvedValueOnce({
-      async [Symbol.asyncIterator]() {
-        return {
-          next: () => ({
-            value: {
-              o: 1,
-              h: 2,
-              l: 3,
-              c: 4,
-              v: 5,
-              t: new Date('2022-07-02').toISOString(),
-            },
-            done: true,
-          }),
-        }
-      },
-    })
-
-    await getBarsBetween(mockMarketDataSource, args)
-    expect(cleanBar).toHaveBeenCalled()
+    )
   })
 })

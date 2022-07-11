@@ -1,7 +1,11 @@
-import { MarketDataEntity } from '../types'
-import { cleanTimestamp } from './cleanTimestamp'
+import { MarketDataEntity } from '@/marketData'
+import { cleanTimestamp } from '@/marketData/helpers'
 
-const { cleanMarketDataEntity } = jest.requireActual('./cleanMarketDataEntity')
+const { cleanMarketDataEntity } = jest.requireActual(
+  '@/marketData/helpers/cleanMarketDataEntity',
+)
+
+const cleanTimestampMock = cleanTimestamp as jest.Mock
 
 describe('cleanMarketDataEntity', () => {
   test('should clean timestamp', () => {
@@ -9,9 +13,11 @@ describe('cleanMarketDataEntity', () => {
       t: '2020-01-01T00:00:00.666777Z',
     }
 
-    ;(cleanTimestamp as jest.Mock).mockReturnValueOnce({
+    cleanTimestampMock.mockReturnValueOnce({
       t: '2020-01-01T00:00:00.666Z',
     })
+
+    console.log(cleanTimestampMock.mock.calls)
 
     cleanMarketDataEntity(entity, 'BTCUSD')
 
@@ -23,7 +29,7 @@ describe('cleanMarketDataEntity', () => {
       t: '2020-01-01T00:00:00.666777Z',
     }
 
-    ;(cleanTimestamp as jest.Mock).mockReturnValueOnce({
+    cleanTimestampMock.mockReturnValueOnce({
       t: '2020-01-01T00:00:00.666Z',
     })
 

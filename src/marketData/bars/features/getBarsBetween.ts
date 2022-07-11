@@ -1,4 +1,5 @@
-import { MarketDataSource, Bar, BarsBetweenArgs } from '@/marketData'
+import { Bar, BarsBetweenArgs } from '@/marketData/bars/types'
+import { MarketDataSource } from '@/marketData/types'
 import { getMarketDataIterator } from '@/marketData/http'
 import { cleanBar } from '@/marketData/bars/helpers'
 

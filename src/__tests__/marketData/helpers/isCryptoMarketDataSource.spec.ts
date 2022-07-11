@@ -2,10 +2,10 @@ import {
   MarketDataClass,
   MarketDataSource,
   MarketDataSourceType,
-} from '../types'
+} from '@/marketData/types'
 
 const { isCryptoMarketDataSource } = jest.requireActual(
-  './isCryptoMarketDataSource',
+  '@/marketData/helpers/isCryptoMarketDataSource',
 )
 
 describe('isCryptoMarketDataSource', () => {

@@ -1,5 +1,5 @@
-import { cleanTimestamp } from './cleanTimestamp'
-import { MarketDataEntity } from '../types'
+import { cleanTimestamp } from '@/marketData/helpers'
+import { MarketDataEntity } from '@/marketData/types'
 
 /**
  * @group Market Data
