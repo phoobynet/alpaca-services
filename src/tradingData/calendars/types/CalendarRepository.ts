@@ -52,7 +52,7 @@ import { Calendar } from './Calendar'
  *     if (c === 0) {
  *       const start = subYears(new Date(), 1)
  *       const end = addYears(new Date(), 1)
- *       const calendars = await getCalendarsBetween(start, end, undefined, true)
+ *       const calendars = await getCalendarsBetween(start, end, true)
  *       await database.calendars.bulkPut(
  *         calendars.map((c) => {
  *           return {
@@ -81,17 +81,15 @@ import { Calendar } from './Calendar'
  *   async findBetween(startDate: Date, endDate: Date): Promise<Calendar[]> {
  *     await isEmpty()
  *
- *     const results = await database.calendars
+ *     return database.calendars
  *       .where('id')
  *       .between(
  *         formatISO(startDate, { representation: 'date' }),
  *         formatISO(endDate, { representation: 'date' }),
+ *         true,
+ *         true,
  *       )
  *       .toArray()
- *
- *     console.log(results)
- *
- *     return results
  *   },
  * }
  * ```
