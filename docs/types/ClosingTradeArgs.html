@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>LatestMultiTradesArgs | @phoobynet/alpaca-services</title>
+    <title>ClosingTradeArgs | @phoobynet/alpaca-services</title>
     <meta
       name="description"
       content="Documentation for @phoobynet/alpaca-services"
@@ -73,59 +73,77 @@
         <div class="tsd-page-title">
           <ul class="tsd-breadcrumb">
             <li><a href="../modules.html">@phoobynet/alpaca-services</a></li>
-            <li>
-              <a href="LatestMultiTradesArgs.html">LatestMultiTradesArgs</a>
-            </li>
+            <li><a href="ClosingTradeArgs.html">ClosingTradeArgs</a></li>
           </ul>
-          <h1>Type alias LatestMultiTradesArgs</h1>
+          <h1>Type alias ClosingTradeArgs</h1>
         </div>
         <div class="tsd-signature">
-          Latest<wbr />Multi<wbr />Trades<wbr />Args<span
-            class="tsd-signature-symbol"
+          Closing<wbr />Trade<wbr />Args<span class="tsd-signature-symbol"
             >:</span
           >
-          <span class="tsd-signature-symbol">{ </span>feed<span
+          <span class="tsd-signature-symbol">{ </span>calendar<span
             class="tsd-signature-symbol"
             >: </span
           ><a
-            href="../enums/MarketDataFeed.html"
+            href="../interfaces/Calendar.html"
             class="tsd-signature-type"
-            data-tsd-kind="Enumeration"
-            >MarketDataFeed</a
-          ><span class="tsd-signature-symbol">; </span>symbols<span
+            data-tsd-kind="Interface"
+            >Calendar</a
+          ><span class="tsd-signature-symbol">; </span>exchanges<span
+            class="tsd-signature-symbol"
+            >?: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">[]</span
+          ><span class="tsd-signature-symbol">; </span>feed<span
+            class="tsd-signature-symbol"
+            >?: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span>symbol<span
             class="tsd-signature-symbol"
             >: </span
           ><span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">[]</span
           ><span class="tsd-signature-symbol"> }</span>
-        </div>
-        <div class="tsd-comment tsd-typography">
-          <p>
-            <a href="../functions/getLatestMultiTrades.html"
-              >getLatestMultiTrades</a
-            >
-            args.
-          </p>
         </div>
         <div class="tsd-type-declaration">
           <h4>Type declaration</h4>
           <ul class="tsd-parameters">
             <li class="tsd-parameter">
               <h5>
-                feed<span class="tsd-signature-symbol">: </span
+                calendar<span class="tsd-signature-symbol">: </span
                 ><a
-                  href="../enums/MarketDataFeed.html"
+                  href="../interfaces/Calendar.html"
                   class="tsd-signature-type"
-                  data-tsd-kind="Enumeration"
-                  >MarketDataFeed</a
+                  data-tsd-kind="Interface"
+                  >Calendar</a
                 >
               </h5>
             </li>
             <li class="tsd-parameter">
               <h5>
-                symbols<span class="tsd-signature-symbol">: </span
+                <code class="tsd-tag ts-flagOptional">Optional</code>
+                exchanges<span class="tsd-signature-symbol">?: </span
                 ><span class="tsd-signature-type">string</span
                 ><span class="tsd-signature-symbol">[]</span>
+              </h5>
+              <div class="tsd-comment tsd-typography">
+                <p>crypto only optional</p>
+              </div>
+            </li>
+            <li class="tsd-parameter">
+              <h5>
+                <code class="tsd-tag ts-flagOptional">Optional</code> feed<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><span class="tsd-signature-type">string</span>
+              </h5>
+              <div class="tsd-comment tsd-typography">
+                <p>stock only optional</p>
+              </div>
+            </li>
+            <li class="tsd-parameter">
+              <h5>
+                symbol<span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">string</span>
               </h5>
             </li>
           </ul>
@@ -135,8 +153,8 @@
             <li>
               Defined in
               <a
-                href="https://github.com/phoobynet/alpaca-services/blob/1f8df64/src/marketData/trades/types/LatestMultiTradeArgs.ts#L8"
-                >src/marketData/trades/types/LatestMultiTradeArgs.ts:8</a
+                href="https://github.com/phoobynet/alpaca-services/blob/1f8df64/src/marketData/trades/types/ClosingTradeArgs.ts#L3"
+                >src/marketData/trades/types/ClosingTradeArgs.ts:3</a
               >
             </li>
           </ul>
@@ -1140,7 +1158,7 @@
                 >Bars<wbr />Between<wbr />Args</a
               >
             </li>
-            <li class="tsd-kind-type-alias">
+            <li class="current tsd-kind-type-alias">
               <a href="ClosingTradeArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1205,7 +1223,7 @@
                 >Latest<wbr />Multi<wbr />Quotes<wbr />Args</a
               >
             </li>
-            <li class="current tsd-kind-type-alias">
+            <li class="tsd-kind-type-alias">
               <a href="LatestMultiTradesArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"

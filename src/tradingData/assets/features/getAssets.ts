@@ -1,4 +1,4 @@
-import { Asset, AssetRepository } from '@/tradingData/assets/types'
+import { Asset } from '@/tradingData/assets/types'
 import { getTradeData } from '@/tradingData/http'
 import { options } from '@/options'
 
@@ -8,14 +8,10 @@ import { options } from '@/options'
  * @group Trading Data
  * @category Assets
  * @see https://alpaca.markets/docs/api-references/trading-api/assets/
- * @param {AssetRepository} [assetRepository] - Provide an implementation of {@link AssetRepository} to bypass HTTP request.  Can be set globally in {@link Option}
  * @param {boolean} forceHttp - bypass assetRepository and force HTTP request
  */
-export const getAssets = async (
-  assetRepository?: AssetRepository,
-  forceHttp = false,
-): Promise<Asset[]> => {
-  assetRepository = assetRepository || options.get().assetRepository
+export const getAssets = async (forceHttp = false): Promise<Asset[]> => {
+  const { assetRepository } = options.get()
 
   if (assetRepository && !forceHttp) {
     return assetRepository.findAll()

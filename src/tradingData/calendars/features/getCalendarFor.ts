@@ -1,5 +1,5 @@
 import { getCalendarsBetween } from '@/tradingData'
-import { Calendar, CalendarRepository } from '@/tradingData/calendars/types'
+import { Calendar } from '@/tradingData/calendars/types'
 import { isDateEqual } from '@/helpers'
 import { options } from '@/options'
 
@@ -13,16 +13,14 @@ import { options } from '@/options'
  * ```
  * @remarks If an {@link CalendarRepository} is provided, and no {@link Calendar} is found, the function WILL NOT fall back to HTTP.
  * @param {Date} date
- * @param {CalendarRepository} [calendarRepository] -  Provide an implementation of {@link CalendarRepository} to bypass HTTP request.  This can be set globally in {@link Option}
  * @param {boolean} forceHttp - bypass calendarRepository and force HTTP request
  * @returns {Promise<Calendar | undefined>} - when not found, returns undefined indicating the calendar is not available, e.g. 4th July 2022.
  */
 export const getCalendarFor = async (
   date: Date,
-  calendarRepository?: CalendarRepository,
   forceHttp = false,
 ): Promise<Calendar | undefined> => {
-  calendarRepository = calendarRepository || options.get().calendarRepository
+  const { calendarRepository } = options.get()
 
   if (calendarRepository && !forceHttp) {
     return calendarRepository.find(date)
@@ -30,7 +28,6 @@ export const getCalendarFor = async (
 
   // when no calendars for a given date are found, the next trading date is returned
   // this is not the desired behavior
-
-  const calendars = await getCalendarsBetween(date, date, calendarRepository)
+  const calendars = await getCalendarsBetween(date, date, forceHttp)
   return calendars.find((calendar) => isDateEqual(calendar.date, date))
 }

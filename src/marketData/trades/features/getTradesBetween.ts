@@ -24,6 +24,10 @@ export const getTradesBetween = (
     queryParams.exchanges = args.exchanges.join(',')
   }
 
+  if (args.feed) {
+    queryParams.feed = args.feed
+  }
+
   return getMarketDataIterator<Trade>(marketDataSource, {
     url: `/${args.symbol}/trades`,
     queryParams,

@@ -19,21 +19,28 @@ import { Calendar } from './Calendar'
  *
  * ```ts
  * import Dexie from 'dexie'
- * import type { Asset, Calendar, CalendarRepository } from '@phoobynet/alpaca-services'
+ * import type { Asset, Calendar } from '@phoobynet/alpaca-services'
+ * import type { Calendar, CalendarRepository } from '@phoobynet/alpaca-services'
+ * import { database } from '@/libs/database'
  * import { getCalendarsBetween } from '@phoobynet/alpaca-services'
- * import { subYears, addYears } from 'date-fns'
+ * import { subYears, addYears, formatISO } from 'date-fns'
  *
- * class AlpacaServicesCalendarDatabase extends Dexie {
+ * class Database extends Dexie {
  *   public calendars!: Dexie.Table<Calendar>
+ *   public assets!: Dexie.Table<Asset>
  *
  *   constructor() {
- *     super('AlpacaServicesCalendarDatabase')
+ *     super('AlpacaServicesDatabase')
  *
  *     this.version(1).stores({
- *       calendars: '++id,date',
+ *       calendars: 'id,date',
+ *       assets:
+ *         'id,class,status,symbol,exchange,name,tradable,shortable,marginable,easy_to_borrow',
  *     })
  *   }
  * }
+ *
+ * export const database = new Database()
  *
  * const database = new Database()
  *
@@ -45,8 +52,15 @@ import { Calendar } from './Calendar'
  *     if (c === 0) {
  *       const start = subYears(new Date(), 1)
  *       const end = addYears(new Date(), 1)
- *       const calendars = await getCalendarsBetween(start, end)
- *       await database.calendars.bulkPut(calendars)
+ *       const calendars = await getCalendarsBetween(start, end, undefined, true)
+ *       await database.calendars.bulkPut(
+ *         calendars.map((c) => {
+ *           return {
+ *             id: formatISO(c.date, { representation: 'date' }),
+ *             ...c,
+ *           }
+ *         }),
+ *       )
  *     }
  *     isReady = true
  *   }
@@ -55,21 +69,29 @@ import { Calendar } from './Calendar'
  * export const calendarRepository: CalendarRepository = {
  *   async find(date: Date): Promise<Calendar | undefined> {
  *     await isEmpty()
- *
- *     return database.calendars.where('date').equals(date).first()
+ *     return database.calendars
+ *       .where('id')
+ *       .equals(formatISO(date, { representation: 'date' }))
+ *       .first()
  *   },
  *   async findAll(): Promise<Calendar[]> {
  *     await isEmpty()
- *
  *     return database.calendars.toArray()
  *   },
  *   async findBetween(startDate: Date, endDate: Date): Promise<Calendar[]> {
  *     await isEmpty()
  *
- *     return database.calendars
- *       .where('date')
- *       .between(startDate, endDate)
+ *     const results = await database.calendars
+ *       .where('id')
+ *       .between(
+ *         formatISO(startDate, { representation: 'date' }),
+ *         formatISO(endDate, { representation: 'date' }),
+ *       )
  *       .toArray()
+ *
+ *     console.log(results)
+ *
+ *     return results
  *   },
  * }
  * ```
