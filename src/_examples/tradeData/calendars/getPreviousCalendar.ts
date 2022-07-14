@@ -1,5 +1,6 @@
-import { options } from '../../../options'
-import { getPreviousCalendar } from '../../../tradingData'
+import { options } from '@/options'
+import { getPreviousCalendar } from '@/tradingData'
+import { differenceInMinutes } from 'date-fns'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -9,6 +10,11 @@ options.set({
 
 async function main() {
   const cal = await getPreviousCalendar()
+
+  const { session_open, session_close } = cal
+
+  const diff = differenceInMinutes(session_open, session_close)
+  console.log(`Minutes: ${diff}`)
 
   console.log(cal)
   process.exit(0)

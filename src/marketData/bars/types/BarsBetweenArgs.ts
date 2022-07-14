@@ -3,10 +3,12 @@
  * @group Market Data
  * @category Bars
  */
+import { MarketDataFeed } from '@/marketData'
+
 export type BarsBetweenArgs = {
   symbol: string
   start: Date
-  end: Date
+  end?: Date
   /**
    * @example '1Min'
    */
@@ -19,4 +21,9 @@ export type BarsBetweenArgs = {
    * Optional for crypto.
    */
   exchanges?: string[]
+
+  /**
+   * Optional for stock.
+   */
+  feed?: MarketDataFeed
 }

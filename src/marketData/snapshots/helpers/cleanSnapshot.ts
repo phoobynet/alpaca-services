@@ -1,8 +1,15 @@
-import { Snapshot } from '../types'
-import { cleanQuote } from '../../quotes/helpers'
-import { cleanTrade } from '../../trades/helpers'
-import { cleanBar } from '../../bars/helpers'
+import { Snapshot } from '@/marketData/snapshots/types'
+import { cleanQuote } from '@/marketData/quotes/helpers'
+import { cleanTrade } from '@/marketData/trades/helpers'
+import { cleanBar } from '@/marketData/bars/helpers'
 
+/**
+ * @internal
+ * @group Market Data
+ * @category Snapshots
+ * @param snapshot
+ * @param symbol
+ */
 export const cleanSnapshot = (snapshot: Snapshot, symbol: string): Snapshot => {
   const { latestTrade, latestQuote, dailyBar, prevDailyBar, minuteBar } =
     snapshot
@@ -11,8 +18,8 @@ export const cleanSnapshot = (snapshot: Snapshot, symbol: string): Snapshot => {
     symbol,
     latestQuote: cleanQuote(latestQuote, symbol),
     latestTrade: cleanTrade(latestTrade, symbol),
-    minuteBar: cleanBar(minuteBar, symbol),
-    dailyBar: cleanBar(dailyBar, symbol),
-    prevDailyBar: cleanBar(prevDailyBar, symbol),
+    minuteBar: minuteBar ? cleanBar(minuteBar, symbol) : undefined,
+    dailyBar: dailyBar ? cleanBar(dailyBar, symbol) : undefined,
+    prevDailyBar: prevDailyBar ? cleanBar(prevDailyBar, symbol) : undefined,
   }
 }

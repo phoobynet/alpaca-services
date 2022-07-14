@@ -30,16 +30,23 @@ export const getBarsBetween = (
   marketDataSource: MarketDataSource,
   args: BarsBetweenArgs,
 ): AsyncIterable<Bar> => {
-  const { symbol, start, end, timeframe, exchanges, absoluteLimit } = args
+  const { symbol, start, end, timeframe, exchanges, absoluteLimit, feed } = args
 
   const queryParams: Record<string, string> = {
     start: start.toISOString(),
-    end: end.toISOString(),
     timeframe,
+  }
+
+  if (end) {
+    queryParams.end = end.toISOString()
   }
 
   if (exchanges?.length) {
     queryParams.exchanges = exchanges?.join(',')
+  }
+
+  if (feed) {
+    queryParams.feed = feed
   }
 
   return getMarketDataIterator<Bar>(marketDataSource, {

@@ -2,9 +2,8 @@ import {
   getSnapshot,
   cryptoMarketDataSource,
   stockMarketDataSource,
-  MarketDataFeed,
-} from '../../../marketData'
-import { options } from '../../../options'
+} from '@/marketData'
+import { options } from '@/options'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -20,8 +19,7 @@ async function main() {
   console.log(snapshot)
 
   snapshot = await getSnapshot(stockMarketDataSource, {
-    symbol: 'AAPL',
-    feed: MarketDataFeed.sip,
+    symbol: 'GENN',
   })
   console.log(snapshot)
   process.exit(0)

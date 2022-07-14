@@ -6,7 +6,7 @@ export interface Snapshot {
   symbol: string
   latestTrade: Trade
   latestQuote: Quote
-  minuteBar: Bar
-  dailyBar: Bar
-  prevDailyBar: Bar
+  minuteBar?: Bar
+  dailyBar?: Bar
+  prevDailyBar?: Bar
 }
