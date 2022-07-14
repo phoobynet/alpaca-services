@@ -7,8 +7,11 @@ import { MarketDataFeed } from '@/marketData'
 
 export type BarsBetweenArgs = {
   symbol: string
-  start: Date
-  end?: Date
+  /**
+   * Removes time string from then encoded date
+   */
+  start: Date | string
+  end?: Date | string
   /**
    * @example '1Min'
    */
