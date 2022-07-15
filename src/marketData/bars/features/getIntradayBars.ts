@@ -1,7 +1,7 @@
 import { MarketDataSource } from '@/marketData/types'
 import { Bar, BarsBetweenArgs, getBarsBetween } from '@/marketData'
 import { IntradayBarsArgs } from '@/marketData/bars/types'
-import { toUtcDateRange } from '@/helpers'
+import { emptyAsyncIterator, toUtcDayRange } from '@/helpers'
 import { getCalendarFor } from '@/tradingData'
 
 export const getIntradayBars = async (
@@ -11,7 +11,7 @@ export const getIntradayBars = async (
   let barsBetweenArgs: BarsBetweenArgs
 
   if (marketDataSource.type === 'crypto') {
-    const [start, end] = toUtcDateRange(args.date)
+    const [start, end] = toUtcDayRange(args.date)
     barsBetweenArgs = {
       symbol: args.symbol,
       start,
@@ -25,25 +25,7 @@ export const getIntradayBars = async (
     console.log(calendar)
 
     if (!calendar) {
-      return {
-        [Symbol.asyncIterator]() {
-          return {
-            next() {
-              return Promise.resolve({
-                value: undefined,
-                done: true,
-              })
-            },
-
-            return() {
-              return Promise.resolve({
-                value: undefined,
-                done: true,
-              })
-            },
-          }
-        },
-      }
+      return emptyAsyncIterator<Bar>()
     }
 
     barsBetweenArgs = {

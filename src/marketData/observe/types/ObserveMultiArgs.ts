@@ -3,6 +3,10 @@ import {
   MarketDataRealTimeSubscriptionEntityType,
 } from '@/marketData'
 
+/**
+ * @group Market Data
+ * @category Observe
+ */
 export type ObserveMultiArgs<T extends MarketDataEntity> = {
   symbols: string[]
   subscriptionEntityType: MarketDataRealTimeSubscriptionEntityType

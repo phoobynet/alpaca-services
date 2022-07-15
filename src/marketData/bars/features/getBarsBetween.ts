@@ -21,7 +21,7 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
  *   exchange: 'CBSE'
  * }
  *
- * for await (const bar of getBarsBetween(args)) {
+ * for await (const bar of getBarsBetween(cryptoSource, args)) {
  *   console.log(bar)
  * }
  * ```

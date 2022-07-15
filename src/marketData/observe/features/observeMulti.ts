@@ -1,12 +1,12 @@
 import {
-  getCryptoMarketDataRealTime,
-  getStockMarketDataRealTime,
+  getCryptoRealTime,
+  getUsEquityRealTime,
   MarketDataEntity,
   MarketDataSocketMessageHandler,
   MarketDataSocketMessageHandlerCancellation,
   MarketDataSourceType,
 } from '@/marketData'
-import { isCryptoMarketDataSource } from '@/marketData/helpers'
+import { isCryptoSource } from '@/marketData/helpers'
 import throttle from 'lodash/throttle'
 import { ObserveMultiArgs } from '@/marketData/observe/types'
 
@@ -66,9 +66,9 @@ export const observeMulti = <T extends MarketDataEntity>(
   marketDataSourceType: MarketDataSourceType,
   args: ObserveMultiArgs<T>,
 ): MarketDataSocketMessageHandlerCancellation => {
-  const realTime = isCryptoMarketDataSource(marketDataSourceType)
-    ? getCryptoMarketDataRealTime()
-    : getStockMarketDataRealTime()
+  const realTime = isCryptoSource(marketDataSourceType)
+    ? getCryptoRealTime()
+    : getUsEquityRealTime()
 
   let state: Record<string, T> = {}
 

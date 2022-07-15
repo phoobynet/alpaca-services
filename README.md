@@ -20,11 +20,10 @@ npm i @phoobynet/alpaca-services
 
 ## Options
 
-Before you can do anything, you need to configure the `options` object.
-
 ```typescript
 import { options } from '@phoobynet/alpaca-services'
 
+// set global configuration options first
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
   secret: process.env.APCA_API_SECRET_KEY as string,
@@ -36,23 +35,21 @@ options.set({
 
 ### Historical Data
 
-#### Trades
-
 ```typescript
 // latestTradeExample.ts
 import {
-  cryptoMarketDataSource,
-  stockMarketDataSource,
+  cryptoSource,
+  usEquitySource,
   getLatestTrade,
 } from '@phoobynet/alpaca-services'
 
 // assumes options are set
 
 async function main() {
-  const cryptoLatestTrade = getLatestTrade(cryptoMarketDataSource, 'BTCUSD')
+  const cryptoLatestTrade = getLatestTrade(cryptoSource, 'BTCUSD')
   console.log(cryptoLatestTrade)
 
-  const stockLatestTrade = getLatestTrade(stockMarketDataSource, 'AAPL')
+  const stockLatestTrade = getLatestTrade(usEquitySource, 'AAPL')
   console.log(stockLatestTrade)
 }
 

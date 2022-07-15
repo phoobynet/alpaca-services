@@ -1,8 +1,4 @@
-import {
-  cryptoMarketDataSource,
-  observeQuotes,
-  Quote,
-} from '../../../marketData'
+import { cryptoSource, observeQuotes, Quote } from '../../../marketData'
 import { options } from '../../../options'
 
 options.set({
@@ -13,7 +9,7 @@ options.set({
 
 async function main() {
   const cancel = observeQuotes(
-    cryptoMarketDataSource,
+    cryptoSource,
     'BTCUSD',
     (quote: Quote): void => {
       console.log(quote)

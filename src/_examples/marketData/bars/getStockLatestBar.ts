@@ -1,4 +1,4 @@
-import { getLatestBar, stockMarketDataSource } from '@/marketData'
+import { getLatestBar, usEquitySource } from '@/marketData'
 import { options } from '@/options'
 
 options.set({
@@ -8,7 +8,7 @@ options.set({
 })
 
 async function main() {
-  const latestBar = await getLatestBar(stockMarketDataSource, {
+  const latestBar = await getLatestBar(usEquitySource, {
     symbol: 'AAPL',
   })
 

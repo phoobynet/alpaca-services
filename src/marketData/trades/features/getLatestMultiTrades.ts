@@ -6,7 +6,7 @@ import { cleanLatestMultiTrades } from '@/marketData/trades/helpers'
 /**
  * @group Market Data
  * @category Trades
- * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {LatestMultiTradesArgs} args
  */
 export const getLatestMultiTrades = async (

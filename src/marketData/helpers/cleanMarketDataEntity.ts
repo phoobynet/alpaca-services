@@ -2,10 +2,12 @@ import { cleanTimestamp } from '@/marketData/helpers'
 import { MarketDataEntity } from '@/marketData/types'
 
 /**
+ * Cleans any {@link MarketDataEntity}.
  * @group Market Data
  * @category Helpers
- * @param entity
- * @param symbol
+ * @param {MarketDataEntity} entity - any suitable {@link MarketDataEntity}
+ * @param {string} symbol - if no symbol is provided, the entity's .S property will be used if present; otherwise throws an error.
+ * @returns {MarketDataEntity} - with .S and .t properties correctly formatted.
  */
 export const cleanMarketDataEntity = <T extends MarketDataEntity>(
   entity: T,

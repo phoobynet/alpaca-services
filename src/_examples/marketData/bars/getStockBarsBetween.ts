@@ -1,9 +1,5 @@
 import { options } from '@/options'
-import {
-  BarsBetweenArgs,
-  getBarsBetween,
-  stockMarketDataSource,
-} from '@/marketData'
+import { BarsBetweenArgs, getBarsBetween, usEquitySource } from '@/marketData'
 import { subWeeks } from 'date-fns'
 
 options.set({
@@ -20,7 +16,7 @@ async function main() {
     timeframe: '1Day',
   }
 
-  for await (const bar of getBarsBetween(stockMarketDataSource, args)) {
+  for await (const bar of getBarsBetween(usEquitySource, args)) {
     console.log(bar)
   }
   process.exit(0)

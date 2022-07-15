@@ -6,7 +6,7 @@ import { getMarketDataPagedMultiArray } from '@/marketData/http'
 /**
  * @group Market Data
  * @category Quotes
- * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {MultiQuotesArgs} args
  */
 export const getMultiQuotes = async (

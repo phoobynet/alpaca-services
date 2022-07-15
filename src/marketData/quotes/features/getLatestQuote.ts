@@ -5,7 +5,7 @@ import { cleanQuote } from '@/marketData/quotes/helpers'
 /**
  * @group Market Data
  * @category Quotes
- * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {string} symbol
  */
 export const getLatestQuote = (

@@ -8,7 +8,7 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
 /**
  * @group Market Data
  * @category Trades
- * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {TradeBetweenArgs} args
  */
 export const getTradesBetween = (

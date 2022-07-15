@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Market Status
+ */
 export enum MarketStatus {
   closedToday = 'closedToday',
   closedOpeningLater = 'closedOpeningLater',

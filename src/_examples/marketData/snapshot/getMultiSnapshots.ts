@@ -1,8 +1,8 @@
 import {
-  cryptoMarketDataSource,
+  cryptoSource,
   getMultiSnapshots,
   MarketDataFeed,
-  stockMarketDataSource,
+  usEquitySource,
 } from '../../../marketData'
 import { options } from '../../../options'
 
@@ -13,14 +13,14 @@ options.set({
 })
 
 async function main() {
-  let snapshots = await getMultiSnapshots(stockMarketDataSource, {
+  let snapshots = await getMultiSnapshots(usEquitySource, {
     symbols: ['AAPL', 'AMZN', 'MSFT'],
     feed: MarketDataFeed.sip,
   })
 
   console.log(snapshots)
 
-  snapshots = await getMultiSnapshots(cryptoMarketDataSource, {
+  snapshots = await getMultiSnapshots(cryptoSource, {
     symbols: ['BTCUSD', 'ETHUSD'],
     exchange: 'CBSE',
   })

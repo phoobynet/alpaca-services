@@ -1,7 +1,7 @@
 /**
  * {@link getSnapshot} args
  * @group Market Data
- * @category Snapshot
+ * @category Snapshots
  */
 export type SnapshotArgs = {
   symbol: string

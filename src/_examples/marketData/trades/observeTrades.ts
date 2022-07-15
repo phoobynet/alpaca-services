@@ -1,8 +1,4 @@
-import {
-  cryptoMarketDataSource,
-  observeTrades,
-  Trade,
-} from '../../../marketData'
+import { cryptoSource, observeTrades, Trade } from '../../../marketData'
 import { options } from '../../../options'
 
 options.set({
@@ -13,7 +9,7 @@ options.set({
 
 async function main() {
   const cancel = observeTrades(
-    cryptoMarketDataSource,
+    cryptoSource,
     'BTCUSD',
     (trade: Trade): void => {
       console.log(trade)

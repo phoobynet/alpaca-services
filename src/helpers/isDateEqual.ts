@@ -1,8 +1,7 @@
 import { isDate, isEqual, startOfDay } from 'date-fns'
 
 /**
- * @group Common
- * @category Helpers
+ * @group Helpers
  * @internal
  * @param d1
  * @param d2

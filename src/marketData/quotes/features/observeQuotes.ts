@@ -2,11 +2,8 @@ import {
   MarketDataRealTimeSubscriptionEntityType,
   MarketDataSourceType,
 } from '../../types'
-import { isCryptoMarketDataSource } from '../../helpers'
-import {
-  getCryptoMarketDataRealTime,
-  getStockMarketDataRealTime,
-} from '../../http'
+import { isCryptoSource } from '../../helpers'
+import { getCryptoRealTime, getUsEquityRealTime } from '../../http'
 import { Quote } from '../types'
 import { cleanQuote } from '../helpers'
 import throttle from 'lodash/throttle'
@@ -18,9 +15,9 @@ export const observeQuotes = (
   onQuote: (Quote: Quote) => void,
   throttleMs = 0,
 ) => {
-  const realTime = isCryptoMarketDataSource(marketDataSourceType)
-    ? getCryptoMarketDataRealTime()
-    : getStockMarketDataRealTime()
+  const realTime = isCryptoSource(marketDataSourceType)
+    ? getCryptoRealTime()
+    : getUsEquityRealTime()
 
   let update: MarketDataSocketMessageHandler = (Quote) =>
     onQuote(cleanQuote(Quote as Quote, symbol))

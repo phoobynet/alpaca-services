@@ -1,7 +1,7 @@
 import { options } from '@/options'
 import {
   getIntradayBars,
-  stockMarketDataSource,
+  usEquitySource,
   getPreviousDailyBar,
 } from '@/marketData'
 import { arrayFromAsyncIterable } from '@/helpers'
@@ -14,13 +14,13 @@ options.set({
 
 async function main() {
   const bars = await arrayFromAsyncIterable(
-    await getIntradayBars(stockMarketDataSource, {
+    await getIntradayBars(usEquitySource, {
       symbol: 'AAPL',
       date: new Date('2022-07-13'),
     }),
   )
 
-  const previousDailyBar = await getPreviousDailyBar(stockMarketDataSource, {
+  const previousDailyBar = await getPreviousDailyBar(usEquitySource, {
     symbol: 'AAPL',
   })
 

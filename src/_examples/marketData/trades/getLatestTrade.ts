@@ -1,6 +1,6 @@
 import {
-  stockMarketDataSource,
-  cryptoMarketDataSource,
+  usEquitySource,
+  cryptoSource,
   getLatestTrade,
 } from '../../../marketData'
 import { options } from '../../../options'
@@ -12,14 +12,10 @@ options.set({
 })
 
 async function main() {
-  const stockLatestTrade = await getLatestTrade(stockMarketDataSource, 'AAPL')
+  const stockLatestTrade = await getLatestTrade(usEquitySource, 'AAPL')
   console.log(stockLatestTrade)
 
-  const cryptoLatestTrade = await getLatestTrade(
-    cryptoMarketDataSource,
-    'BTCUSD',
-    'CBSE',
-  )
+  const cryptoLatestTrade = await getLatestTrade(cryptoSource, 'BTCUSD', 'CBSE')
   console.log(cryptoLatestTrade)
   process.exit(0)
 }

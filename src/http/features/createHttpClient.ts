@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import axiosRetry from 'axios-retry'
-import { options } from '../../options'
-import { HttpClient, HttpResponse } from '../types'
+import { options } from '@/options'
+import { HttpClient, HttpResponse } from '@/http'
 
 /**
  * Create an HTTP client for the given base URL.

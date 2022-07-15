@@ -5,7 +5,7 @@ import { cleanSnapshot } from '@/marketData/snapshots/helpers'
 /**
  * @group Market Data
  * @category Snapshots
- * @param {MarketDataSource} marketDataSource - {@link cryptoMarketDataSource} or {@link stockMarketDataSource}
+ * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {SnapshotArgs} args
  */
 export const getSnapshot = async (

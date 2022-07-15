@@ -1,4 +1,4 @@
-import { stockMarketDataSource } from '../../../marketData'
+import { usEquitySource } from '../../../marketData'
 import { options } from '../../../options'
 import { getLatestQuote } from '../../../marketData/quotes'
 
@@ -9,7 +9,7 @@ options.set({
 })
 
 async function main() {
-  const data = await getLatestQuote(stockMarketDataSource, 'AAPL')
+  const data = await getLatestQuote(usEquitySource, 'AAPL')
 
   console.log(data)
   process.exit(0)

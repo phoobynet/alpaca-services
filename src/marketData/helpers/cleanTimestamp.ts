@@ -1,7 +1,7 @@
 import { isValid, parseISO } from 'date-fns'
 
 /**
- * Ensures timestamp consistency
+ * Ensures timestamp consistency, parsing it to 1,000th of a second.
  * @group Market Data
  * @category Helpers
  * @param entity

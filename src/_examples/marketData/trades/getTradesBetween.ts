@@ -1,8 +1,4 @@
-import {
-  stockMarketDataSource,
-  getTradesBetween,
-  Trade,
-} from '../../../marketData'
+import { usEquitySource, getTradesBetween, Trade } from '../../../marketData'
 import { options } from '../../../options'
 import { parseISO } from 'date-fns'
 
@@ -13,7 +9,7 @@ options.set({
 })
 
 async function main() {
-  const iterable = getTradesBetween(stockMarketDataSource, {
+  const iterable = getTradesBetween(usEquitySource, {
     symbol: 'AAPL',
     absoluteLimit: 10,
     start: parseISO('2022-06-24 12:00:00'),

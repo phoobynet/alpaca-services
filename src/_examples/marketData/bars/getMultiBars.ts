@@ -3,7 +3,7 @@ import {
   BarAdjustment,
   getMultiBars,
   MultiBarsArgs,
-  stockMarketDataSource,
+  usEquitySource,
 } from '@/marketData'
 import { subWeeks } from 'date-fns'
 
@@ -23,7 +23,7 @@ async function main() {
     adjustment: BarAdjustment.split,
   }
 
-  const result = await getMultiBars(stockMarketDataSource, args)
+  const result = await getMultiBars(usEquitySource, args)
   console.log(result)
   process.exit(0)
 }

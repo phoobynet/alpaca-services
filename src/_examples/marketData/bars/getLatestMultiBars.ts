@@ -1,9 +1,9 @@
 import { options } from '@/options'
 import {
-  cryptoMarketDataSource,
+  cryptoSource,
   getLatestMultiBars,
   MarketDataFeed,
-  stockMarketDataSource,
+  usEquitySource,
 } from '@/marketData'
 
 options.set({
@@ -13,19 +13,16 @@ options.set({
 })
 
 async function main() {
-  const stockLatestMultiBars = await getLatestMultiBars(stockMarketDataSource, {
+  const stockLatestMultiBars = await getLatestMultiBars(usEquitySource, {
     symbols: ['AAPL', 'AMZN'],
     feed: MarketDataFeed.sip,
   })
   console.log(stockLatestMultiBars)
 
-  const cryptoLatestMultiBars = await getLatestMultiBars(
-    cryptoMarketDataSource,
-    {
-      symbols: ['BTCUSD', 'ETHUSD'],
-      exchange: 'CBSE',
-    },
-  )
+  const cryptoLatestMultiBars = await getLatestMultiBars(cryptoSource, {
+    symbols: ['BTCUSD', 'ETHUSD'],
+    exchange: 'CBSE',
+  })
   console.log(cryptoLatestMultiBars)
 
   process.exit(0)

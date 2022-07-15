@@ -1,8 +1,4 @@
-import {
-  getSnapshot,
-  cryptoMarketDataSource,
-  stockMarketDataSource,
-} from '@/marketData'
+import { getSnapshot, cryptoSource, usEquitySource } from '@/marketData'
 import { options } from '@/options'
 
 options.set({
@@ -12,13 +8,13 @@ options.set({
 })
 
 async function main() {
-  let snapshot = await getSnapshot(cryptoMarketDataSource, {
+  let snapshot = await getSnapshot(cryptoSource, {
     symbol: 'BTCUSD',
     exchange: 'CBSE',
   })
   console.log(snapshot)
 
-  snapshot = await getSnapshot(stockMarketDataSource, {
+  snapshot = await getSnapshot(usEquitySource, {
     symbol: 'GENN',
   })
   console.log(snapshot)

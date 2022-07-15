@@ -1,4 +1,5 @@
 export * from './arrayFromAsyncIterable'
 export * from './isDateEqual'
 export * from './isDateEqualOrBefore'
-export * from './toUtcDateRange'
+export * from './toUtcDayRange'
+export * from './emptyAsyncIterator'

@@ -1,4 +1,9 @@
+/**
+ * Indicates the source of the market data.
+ * @group Market Data
+ * @category Types
+ */
 export enum MarketDataClass {
-  stock = 'stock',
+  us_equity = 'us_equity',
   crypto = 'crypto',
 }

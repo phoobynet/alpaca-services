@@ -1,8 +1,4 @@
-import {
-  stockMarketDataSource,
-  getQuotesBetween,
-  Quote,
-} from '../../../marketData'
+import { usEquitySource, getQuotesBetween, Quote } from '../../../marketData'
 import { options } from '../../../options'
 
 options.set({
@@ -12,7 +8,7 @@ options.set({
 })
 
 async function main() {
-  const iterable = getQuotesBetween(stockMarketDataSource, {
+  const iterable = getQuotesBetween(usEquitySource, {
     symbol: 'AAPL',
     start: new Date('2022-06-24 12:00:00'),
     end: new Date('2022-06-24 12:01:00'),
