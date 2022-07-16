@@ -22,8 +22,6 @@ export const getIntradayBars = async (
   } else {
     const calendar = await getCalendarFor(args.date)
 
-    console.log(calendar)
-
     if (!calendar) {
       return emptyAsyncIterator<Bar>()
     }
