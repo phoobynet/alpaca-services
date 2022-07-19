@@ -1,9 +1,5 @@
-import {
-  usEquitySource,
-  cryptoSource,
-  getLatestTrade,
-} from '../../../marketData'
-import { options } from '../../../options'
+import { usEquitySource, cryptoSource, getLatestTrade } from '@/marketData'
+import { options } from '@/options'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -13,10 +9,10 @@ options.set({
 
 async function main() {
   const stockLatestTrade = await getLatestTrade(usEquitySource, 'AAPL')
-  console.log(stockLatestTrade)
+  console.log(JSON.stringify(stockLatestTrade, null, 2))
 
   const cryptoLatestTrade = await getLatestTrade(cryptoSource, 'BTCUSD', 'CBSE')
-  console.log(cryptoLatestTrade)
+  console.log(JSON.stringify(cryptoLatestTrade, null, 2))
   process.exit(0)
 }
 

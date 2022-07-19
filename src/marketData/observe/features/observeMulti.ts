@@ -1,11 +1,10 @@
 import {
   getCryptoRealTime,
   getUsEquityRealTime,
-  MarketDataEntity,
   MarketDataSocketMessageHandler,
   MarketDataSocketMessageHandlerCancellation,
-  MarketDataSourceType,
-} from '@/marketData'
+} from '@/marketData/http'
+import { MarketDataEntity, MarketDataSourceType } from '@/marketData/types'
 import { isCryptoSource } from '@/marketData/helpers'
 import throttle from 'lodash/throttle'
 import { ObserveMultiArgs } from '@/marketData/observe/types'

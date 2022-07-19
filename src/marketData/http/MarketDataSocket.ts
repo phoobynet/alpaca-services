@@ -1,10 +1,18 @@
 import WebSocket, { ErrorEvent, MessageEvent } from 'isomorphic-ws'
 import { EventEmitter } from 'eventemitter3'
-import { options } from '../../options'
-import { MarketDataSocketMessage, MarketDataSocketMessageType } from '../types'
+import { options } from '@/options'
+import {
+  MarketDataSocketMessage,
+  MarketDataSocketMessageType,
+} from '@/marketData/types'
 
 const sockets = new Map<string, MarketDataSocket>()
 
+/**
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ */
 export class MarketDataSocket extends EventEmitter {
   private socket!: WebSocket
   private isReady = false

@@ -1,10 +1,11 @@
+import { MarketDataFeed } from '@/marketData/types'
+import { BarAdjustment } from '@/marketData/bars/types'
+
 /**
  * {@link getBarsBetween} args.
  * @group Market Data
  * @category Bars
  */
-import { MarketDataFeed } from '@/marketData'
-
 export type BarsBetweenArgs = {
   symbol: string
   /**
@@ -29,4 +30,6 @@ export type BarsBetweenArgs = {
    * Optional for stock.
    */
   feed?: MarketDataFeed
+
+  adjustment?: BarAdjustment
 }

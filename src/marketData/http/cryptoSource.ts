@@ -3,6 +3,11 @@ import { createHttpClient, HttpClient } from '@/http'
 
 let httpClient: HttpClient
 
+/**
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ */
 const getHttpClient = (): HttpClient => {
   if (!httpClient) {
     httpClient = createHttpClient('https://data.alpaca.markets/v1beta1/crypto')

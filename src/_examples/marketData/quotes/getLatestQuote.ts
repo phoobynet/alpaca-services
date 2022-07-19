@@ -1,6 +1,5 @@
-import { usEquitySource } from '../../../marketData'
-import { options } from '../../../options'
-import { getLatestQuote } from '../../../marketData/quotes'
+import { usEquitySource, getLatestQuote } from '@/marketData'
+import { options } from '@/options'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,

@@ -17,6 +17,16 @@ export const options = {
 
     return _options
   },
+
+  /**
+   * Patch existing options state
+   */
+  patch(options: Partial<Options>): void {
+    this.set({
+      ..._options,
+      ...options,
+    })
+  },
   /**
    * Sets the options globally
    * @param {Options} options

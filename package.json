@@ -29,6 +29,7 @@
     "isomorphic-ws": "^4.0.1",
     "lodash": "^4.17.21",
     "qs": "^6.11.0",
+    "realm": "^10.19.5",
     "ws": "^8.8.0"
   },
   "devDependencies": {

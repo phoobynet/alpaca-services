@@ -1,3 +1,8 @@
+/**
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ */
 export enum MarketDataSocketMessageType {
   success = 'success',
   subscription = 'subscription',

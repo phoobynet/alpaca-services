@@ -1,17 +1,31 @@
 import uniq from 'lodash/uniq'
-import { MarketDataSocket } from './MarketDataSocket'
+import { MarketDataSocket } from '@/marketData/http'
 import {
   MarketDataSocketMessage,
   MarketDataSocketMessageType,
   MarketDataRealTimeSubscriptionEntityType as SubEntityType,
-} from '../types'
+} from '@/marketData/types'
 
+/**
+ * @internal
+ */
 export type MarketDataSocketMessageFilter = (
   message: MarketDataSocketMessage,
 ) => boolean
+/**
+ * @internal
+ */
 export type MarketDataSocketMessageHandlerCancellation = () => void
+/**
+ * @internal
+ */
 export type MarketDataSocketMessageHandler = (t: unknown) => void
 
+/**
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ */
 export class MarketDataRealTime {
   private isReady = false
   private pendingSubscriptions = new Map<SubEntityType, string[]>()

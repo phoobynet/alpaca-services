@@ -120,7 +120,7 @@
                 <pre><code class="language-ts"><span class="hl-4">// I want to observe trades for multiple symbols.</span><br/><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">cancel</span><span class="hl-0"> = </span><span class="hl-5">observeMulti</span><span class="hl-0">&lt;</span><span class="hl-7">Trade</span><span class="hl-0">&gt;(</span><span class="hl-2">MarketDataClass</span><span class="hl-0">.</span><span class="hl-2">crypto</span><span class="hl-0">, {</span><br/><span class="hl-0">  </span><span class="hl-5">onUpdate</span><span class="hl-2">:</span><span class="hl-0"> (</span><span class="hl-2">update</span><span class="hl-0">: </span><span class="hl-7">Record</span><span class="hl-0">&lt;</span><span class="hl-7">string</span><span class="hl-0">, </span><span class="hl-7">Trade</span><span class="hl-0">&gt;) </span><span class="hl-8">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-2">update</span><span class="hl-0">)</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">  </span><span class="hl-2">symbols:</span><span class="hl-0"> [</span><span class="hl-3">&#39;BTCUSD&#39;</span><span class="hl-0">, </span><span class="hl-3">&#39;ETHUSD&#39;</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-2">throttleMs:</span><span class="hl-0"> </span><span class="hl-9">500</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">subscriptionEntityType:</span><span class="hl-0"> </span><span class="hl-2">MarketDataRealTimeSubscriptionEntityType</span><span class="hl-0">.</span><span class="hl-2">trade</span><span class="hl-0">,</span><br/><span class="hl-0">})</span><br/><br/><span class="hl-5">setTimeout</span><span class="hl-0">(() </span><span class="hl-8">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-5">cancel</span><span class="hl-0">()</span><br/><span class="hl-0">}, </span><span class="hl-9">10_000</span><span class="hl-0">)</span><br/><br/><span class="hl-5">setTimeout</span><span class="hl-0">(() </span><span class="hl-8">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-5">cancel</span><span class="hl-0">()</span><br/><span class="hl-0">}, </span><span class="hl-9">10_000</span><span class="hl-0">)</span>
 </code></pre>
                 <p>Output</p>
-                <pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0"> </span><span class="hl-11">&quot;ETHUSD&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;T&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;t&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;ETHUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;x&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;CBSE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;p&quot;</span><span class="hl-0">: </span><span class="hl-9">1189.64</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;s&quot;</span><span class="hl-0">: </span><span class="hl-9">0.002</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-10T09:18:45.31991Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;i&quot;</span><span class="hl-0">: </span><span class="hl-9">314658438</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;tks&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;B&quot;</span><br/><span class="hl-0"> },</span><br/><span class="hl-0"> </span><span class="hl-11">&quot;BTCUSD&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;T&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;t&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;BTCUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;x&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;CBSE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;p&quot;</span><span class="hl-0">: </span><span class="hl-9">21328.05</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;s&quot;</span><span class="hl-0">: </span><span class="hl-9">0.00058829</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-10T09:18:45.101286Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;i&quot;</span><span class="hl-0">: </span><span class="hl-9">372964770</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-11">&quot;tks&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;B&quot;</span><br/><span class="hl-0"> }</span><br/><span class="hl-0">}</span>
+                <pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0"> </span><span class="hl-10">&quot;ETHUSD&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;T&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;t&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;ETHUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;x&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;CBSE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;p&quot;</span><span class="hl-0">: </span><span class="hl-9">1189.64</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;s&quot;</span><span class="hl-0">: </span><span class="hl-9">0.002</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-10T09:18:45.31991Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;i&quot;</span><span class="hl-0">: </span><span class="hl-9">314658438</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;tks&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;B&quot;</span><br/><span class="hl-0"> },</span><br/><span class="hl-0"> </span><span class="hl-10">&quot;BTCUSD&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;T&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;t&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;BTCUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;x&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;CBSE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;p&quot;</span><span class="hl-0">: </span><span class="hl-9">21328.05</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;s&quot;</span><span class="hl-0">: </span><span class="hl-9">0.00058829</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-10T09:18:45.101286Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;i&quot;</span><span class="hl-0">: </span><span class="hl-9">372964770</span><span class="hl-0">,</span><br/><span class="hl-0">   </span><span class="hl-10">&quot;tks&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;B&quot;</span><br/><span class="hl-0"> }</span><br/><span class="hl-0">}</span>
 </code></pre>
               </div>
               <div class="tsd-type-parameters">
@@ -836,6 +836,34 @@
               >
             </li>
             <li class="tsd-kind-interface">
+              <a href="../interfaces/NewsArticle.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-256-path"></use>
+                  <use href="#icon-256-text"></use></svg
+                >News<wbr />Article</a
+              >
+            </li>
+            <li class="tsd-kind-interface">
+              <a
+                href="../interfaces/NewsArticleImage.html"
+                class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-256-path"></use>
+                  <use href="#icon-256-text"></use></svg
+                >News<wbr />Article<wbr />Image</a
+              >
+            </li>
+            <li class="tsd-kind-interface">
               <a
                 href="../interfaces/NonTradeActivity.html"
                 class="tsd-index-link"
@@ -1391,6 +1419,19 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Multi<wbr />Trades<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="../types/NewsArticlesArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >News<wbr />Articles<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -2019,6 +2060,32 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >get<wbr />Multi<wbr />Snapshots</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getMultiTrades.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Multi<wbr />Trades</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getNewsArticles.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />News<wbr />Articles</a
               >
             </li>
             <li class="tsd-kind-function">

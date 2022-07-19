@@ -3,6 +3,9 @@
  *
  * See https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/historical/#multi-quotes
  *
+ * @internal
+ * @group Market Data
+ * @category HTTP
  * @param {Record<string, unknown>} data
  */
 export const getPagedNestedDataProperty = (

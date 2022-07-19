@@ -92,8 +92,6 @@
               ><span class="tsd-signature-type">IntradayBarsArgs</span
               ><span class="tsd-signature-symbol">)</span
               ><span class="tsd-signature-symbol">: </span
-              ><span class="tsd-signature-type">Promise</span
-              ><span class="tsd-signature-symbol">&lt;</span
               ><span class="tsd-signature-type">AsyncIterable</span
               ><span class="tsd-signature-symbol">&lt;</span
               ><a
@@ -101,7 +99,6 @@
                 class="tsd-signature-type"
                 data-tsd-kind="Interface"
                 >Bar</a
-              ><span class="tsd-signature-symbol">&gt;</span
               ><span class="tsd-signature-symbol">&gt;</span>
             </li>
           </ul>
@@ -120,26 +117,41 @@
                         >MarketDataSource</a
                       >
                     </h5>
+                    <div class="tsd-comment tsd-typography">
+                      <p>
+                        <a href="../variables/cryptoSource.html"
+                          >cryptoSource</a
+                        >
+                        or
+                        <a href="../variables/usEquitySource.html"
+                          >usEquitySource</a
+                        >
+                      </p>
+                    </div>
                   </li>
                   <li>
                     <h5>
                       args:
                       <span class="tsd-signature-type">IntradayBarsArgs</span>
                     </h5>
+                    <div class="tsd-comment tsd-typography">
+                      <pre><code class="language-ts"><span class="hl-8">async</span><span class="hl-0"> </span><span class="hl-8">function</span><span class="hl-0"> </span><span class="hl-5">main</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">bars</span><span class="hl-0">: </span><span class="hl-7">Bar</span><span class="hl-0">[] = []</span><br/><br/><span class="hl-0">  </span><span class="hl-1">for</span><span class="hl-0"> </span><span class="hl-1">await</span><span class="hl-0"> (</span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">bar</span><span class="hl-0"> </span><span class="hl-8">of</span><span class="hl-0"> </span><span class="hl-5">getIntradayBars</span><span class="hl-0">(</span><span class="hl-2">usEquitySource</span><span class="hl-0">, {</span><br/><span class="hl-0">    </span><span class="hl-2">symbol:</span><span class="hl-0"> </span><span class="hl-3">&#39;AAPL&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-2">date:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-07-19&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">  })) {</span><br/><span class="hl-0">    </span><span class="hl-2">bars</span><span class="hl-0">.</span><span class="hl-5">push</span><span class="hl-0">(</span><span class="hl-2">bar</span><span class="hl-0">)</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+</code></pre>
+                      <p>Partial Result:</p>
+                      <pre><code class="language-json"><span class="hl-0">[</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-18T23:58:00.000Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;o&quot;</span><span class="hl-0">: </span><span class="hl-9">146.85</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;h&quot;</span><span class="hl-0">: </span><span class="hl-9">146.85</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;l&quot;</span><span class="hl-0">: </span><span class="hl-9">146.76</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;c&quot;</span><span class="hl-0">: </span><span class="hl-9">146.76</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;v&quot;</span><span class="hl-0">: </span><span class="hl-9">2520</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;n&quot;</span><span class="hl-0">: </span><span class="hl-9">51</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;vw&quot;</span><span class="hl-0">: </span><span class="hl-9">146.815802</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;AAPL&quot;</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-18T23:59:00.000Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;o&quot;</span><span class="hl-0">: </span><span class="hl-9">146.85</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;h&quot;</span><span class="hl-0">: </span><span class="hl-9">146.91</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;l&quot;</span><span class="hl-0">: </span><span class="hl-9">146.8001</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;c&quot;</span><span class="hl-0">: </span><span class="hl-9">146.9</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;v&quot;</span><span class="hl-0">: </span><span class="hl-9">3851</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;n&quot;</span><span class="hl-0">: </span><span class="hl-9">50</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;vw&quot;</span><span class="hl-0">: </span><span class="hl-9">146.872569</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;AAPL&quot;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">]</span>
+</code></pre>
+                    </div>
                   </li>
                 </ul>
               </div>
               <h4 class="tsd-returns-title">
-                Returns <span class="tsd-signature-type">Promise</span
-                ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">AsyncIterable</span
+                Returns <span class="tsd-signature-type">AsyncIterable</span
                 ><span class="tsd-signature-symbol">&lt;</span
                 ><a
                   href="../interfaces/Bar.html"
                   class="tsd-signature-type"
                   data-tsd-kind="Interface"
                   >Bar</a
-                ><span class="tsd-signature-symbol">&gt;</span
                 ><span class="tsd-signature-symbol">&gt;</span>
               </h4>
             </li>
@@ -798,6 +810,34 @@
               >
             </li>
             <li class="tsd-kind-interface">
+              <a href="../interfaces/NewsArticle.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-256-path"></use>
+                  <use href="#icon-256-text"></use></svg
+                >News<wbr />Article</a
+              >
+            </li>
+            <li class="tsd-kind-interface">
+              <a
+                href="../interfaces/NewsArticleImage.html"
+                class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-256-path"></use>
+                  <use href="#icon-256-text"></use></svg
+                >News<wbr />Article<wbr />Image</a
+              >
+            </li>
+            <li class="tsd-kind-interface">
               <a
                 href="../interfaces/NonTradeActivity.html"
                 class="tsd-index-link"
@@ -1353,6 +1393,19 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Multi<wbr />Trades<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="../types/NewsArticlesArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >News<wbr />Articles<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -1981,6 +2034,32 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >get<wbr />Multi<wbr />Snapshots</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getMultiTrades.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Multi<wbr />Trades</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getNewsArticles.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />News<wbr />Articles</a
               >
             </li>
             <li class="tsd-kind-function">

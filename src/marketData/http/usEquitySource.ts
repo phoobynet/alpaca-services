@@ -3,6 +3,11 @@ import { createHttpClient, HttpClient } from '@/http'
 
 let httpClient: HttpClient
 
+/**
+ * @internal
+ * @group Market Data
+ * @category HTTP
+ */
 const getHttpClient = (): HttpClient => {
   if (!httpClient) {
     httpClient = createHttpClient('https://data.alpaca.markets/v2/stocks')
@@ -11,6 +16,10 @@ const getHttpClient = (): HttpClient => {
   return httpClient
 }
 
+/**
+ * @group Market Data
+ * @category HTTP
+ */
 export const usEquitySource: MarketDataSource = {
   async get<T>(url: string, queryParams?: Record<string, string>): Promise<T> {
     const httpResponse = await getHttpClient().get<T>(url, queryParams)

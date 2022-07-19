@@ -11,14 +11,15 @@ async function main() {
   const stockBar = await getPreviousDailyBar(usEquitySource, {
     symbol: 'AAPL',
   })
-  console.log(stockBar)
+
+  console.log(JSON.stringify(stockBar, null, 2))
 
   const cryptoBar = await getPreviousDailyBar(cryptoSource, {
     symbol: 'BTCUSD',
     exchanges: ['CBSE'],
   })
 
-  console.log(cryptoBar)
+  console.log(JSON.stringify(cryptoBar, null, 2))
 }
 
 main().catch((e) => {

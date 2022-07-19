@@ -8,6 +8,5 @@ const CRYPTO_MARKET_DATA_SOCKET_URL =
  * @group Market Data
  * @category HTTP
  */
-export const getCryptoMarketDataSocket = (): MarketDataSocket => {
-  return MarketDataSocket.getByUrl(CRYPTO_MARKET_DATA_SOCKET_URL)
-}
+export const getCryptoMarketDataSocket = (): MarketDataSocket =>
+  MarketDataSocket.getByUrl(CRYPTO_MARKET_DATA_SOCKET_URL)

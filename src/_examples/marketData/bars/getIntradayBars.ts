@@ -1,10 +1,13 @@
 import { options } from '@/options'
 import {
+  Bar,
+  BarAdjustment,
   getIntradayBars,
+  MarketDataFeed,
   usEquitySource,
-  getPreviousDailyBar,
 } from '@/marketData'
-import { arrayFromAsyncIterable } from '@/helpers'
+// import { take, takeRight } from 'lodash'
+// import { takeRight } from 'lodash'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -13,22 +16,22 @@ options.set({
 })
 
 async function main() {
-  const bars = await arrayFromAsyncIterable(
-    await getIntradayBars(usEquitySource, {
-      symbol: 'AAPL',
-      date: new Date('2022-07-13'),
-    }),
-  )
+  const bars: Bar[] = []
 
-  const previousDailyBar = await getPreviousDailyBar(usEquitySource, {
+  for await (const bar of getIntradayBars(usEquitySource, {
     symbol: 'AAPL',
-  })
+    date: new Date('2022-07-18'),
+    adjustment: BarAdjustment.all,
+    feed: MarketDataFeed.iex,
+  })) {
+    bars.push(bar)
+  }
 
-  console.log(JSON.stringify(previousDailyBar, null, 2))
+  // console.log(bars.length)
 
-  console.log('count: ' + bars.length)
-  console.log('first bar: ' + JSON.stringify(bars[0], null, 2))
-  console.log('last bar: ' + JSON.stringify(bars[bars.length - 1], null, 2))
+  console.table(bars)
+  // console.log(JSON.stringify(take(bars, 2), null, 2))
+  // console.log(JSON.stringify(takeRight(bars, 2), null, 2))
 }
 
 main().catch((e) => {

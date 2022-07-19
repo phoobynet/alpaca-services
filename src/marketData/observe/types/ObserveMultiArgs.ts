@@ -4,6 +4,7 @@ import {
 } from '@/marketData'
 
 /**
+ * Args for {@link observeMulti} request.
  * @group Market Data
  * @category Observe
  */
