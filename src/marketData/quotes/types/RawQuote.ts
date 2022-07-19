@@ -1,3 +1,8 @@
+/**
+ * @internal
+ * @group Market Data
+ * @category Quotes
+ */
 export interface RawQuote {
   symbol: string
   quote: {

@@ -1,4 +1,5 @@
 /**
+ * @internal
  * @group Trading Data
  * @category Calendars
  */

@@ -1,3 +1,8 @@
+/**
+ * @internal
+ * @group Market Data
+ * @category Order
+ */
 export interface RawOrder {
   id: string
   client_order_id: string

@@ -7,7 +7,6 @@ import { getCryptoRealTime, getUsEquityRealTime } from '@/marketData/http'
 import { Trade } from '@/marketData/trades/types'
 import { cleanTrade } from '@/marketData/trades/helpers'
 import throttle from 'lodash/throttle'
-import { MarketDataSocketMessageHandler } from '@/marketData/http'
 
 /**
  * Real-time trade observation.
@@ -49,11 +48,10 @@ export const observeTrades = (
     ? getCryptoRealTime()
     : getUsEquityRealTime()
 
-  let update: MarketDataSocketMessageHandler = (trade) =>
-    onTrade(cleanTrade(trade as Trade, symbol))
+  let update = (trade: unknown) => onTrade(cleanTrade(trade as Trade, symbol))
 
   if (throttleMs > 0) {
-    update = throttle((trade) => {
+    update = throttle((trade: unknown) => {
       onTrade(cleanTrade(trade as Trade, symbol))
     }, throttleMs)
   }

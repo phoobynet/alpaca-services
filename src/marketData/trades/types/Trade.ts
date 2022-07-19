@@ -1,5 +1,10 @@
 import { MarketDataEntity } from '../../types'
 
+/**
+ * Represents a crypto or US equity trade.
+ * @group Market Data
+ * @category Trades
+ */
 export interface Trade extends MarketDataEntity {
   x: string
   p: number

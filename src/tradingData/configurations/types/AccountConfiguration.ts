@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Configuration
+ */
 export interface AccountConfiguration {
   dtbp_check: string
   no_shorting: boolean

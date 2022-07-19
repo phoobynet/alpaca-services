@@ -1,3 +1,7 @@
+/**
+ * @group Market Data
+ * @category Orders
+ */
 export interface Order {
   id: string
   client_order_id: string

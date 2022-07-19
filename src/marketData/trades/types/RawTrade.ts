@@ -1,3 +1,8 @@
+/**
+ * @internal
+ * @group Market Data
+ * @category Trade
+ */
 export interface RawTrade {
   trade: {
     t: string

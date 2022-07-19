@@ -1,13 +1,9 @@
-import {
-  getCryptoRealTime,
-  getUsEquityRealTime,
-  MarketDataSocketMessageHandler,
-  MarketDataSocketMessageHandlerCancellation,
-} from '@/marketData/http'
+import { getCryptoRealTime, getUsEquityRealTime } from '@/marketData/http'
 import { MarketDataEntity, MarketDataSourceType } from '@/marketData/types'
 import { isCryptoSource } from '@/marketData/helpers'
 import throttle from 'lodash/throttle'
 import { ObserveMultiArgs } from '@/marketData/observe/types'
+import { CancelFn } from '@/types'
 
 /**
  * Observe market data for multiple symbols.
@@ -64,14 +60,14 @@ import { ObserveMultiArgs } from '@/marketData/observe/types'
 export const observeMulti = <T extends MarketDataEntity>(
   marketDataSourceType: MarketDataSourceType,
   args: ObserveMultiArgs<T>,
-): MarketDataSocketMessageHandlerCancellation => {
+): CancelFn => {
   const realTime = isCryptoSource(marketDataSourceType)
     ? getCryptoRealTime()
     : getUsEquityRealTime()
 
   let state: Record<string, T> = {}
 
-  let update: MarketDataSocketMessageHandler = (data: unknown): void => {
+  let update = (data: unknown): void => {
     const t = data as T
 
     const newState: Record<string, T> = {
@@ -88,7 +84,7 @@ export const observeMulti = <T extends MarketDataEntity>(
     update = throttle(update, args.throttleMs)
   }
 
-  const cancel: MarketDataSocketMessageHandlerCancellation[] = []
+  const cancel: CancelFn[] = []
 
   args.symbols.forEach((symbol) => {
     cancel.push(

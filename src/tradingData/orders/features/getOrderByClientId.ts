@@ -1,7 +1,12 @@
-import { Order, RawOrder } from '../types'
-import { getTradeData } from '../../http'
-import { cleanOrder } from '../helpers'
+import { Order, RawOrder } from '@/tradingData/orders/types'
+import { getTradeData } from '@/tradingData/http'
+import { cleanOrder } from '@/tradingData/orders/helpers'
 
+/**
+ * @group Trading Data
+ * @category Orders
+ * @param clientId
+ */
 export const getOrderByClientId = async (
   clientId: string,
 ): Promise<Order | undefined> => {

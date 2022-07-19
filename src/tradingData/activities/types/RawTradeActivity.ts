@@ -1,5 +1,6 @@
 /**
  * Raw HTTP response from Alpaca.
+ * @internal
  * @group Trading Data
  * @category Account Activity
  * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#tradeactivity-entity

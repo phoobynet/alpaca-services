@@ -1,5 +1,11 @@
-import { Clock, RawClock } from '../types'
+import { Clock, RawClock } from '@/tradingData/clock/types'
 
+/**
+ * @internal
+ * @group Trading Data
+ * @category Clock
+ * @param rawClock
+ */
 export const cleanClock = (rawClock: RawClock): Clock => {
   return {
     timestamp: new Date(rawClock.timestamp),

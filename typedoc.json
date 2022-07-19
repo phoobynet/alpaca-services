@@ -1,5 +1,6 @@
 {
   "entryPoints": ["src/index.ts"],
   "out": "docs",
-  "githubPages": true
+  "githubPages": true,
+  "excludeInternal": true
 }

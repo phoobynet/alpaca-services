@@ -1,5 +1,10 @@
 import { options } from '@/options'
-import { BarsBetweenArgs, getBarsBetween, usEquitySource } from '@/marketData'
+import {
+  BarAdjustment,
+  BarsBetweenArgs,
+  getBarsBetween,
+  usEquitySource,
+} from '@/marketData'
 import { subWeeks } from 'date-fns'
 
 options.set({
@@ -14,6 +19,8 @@ async function main() {
     start: subWeeks(new Date(), 1),
     end: new Date(),
     timeframe: '1Day',
+    absoluteLimit: 100,
+    adjustment: BarAdjustment.split,
   }
 
   for await (const bar of getBarsBetween(usEquitySource, args)) {

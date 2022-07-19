@@ -1,14 +1,21 @@
 import {
   MarketDataRealTimeSubscriptionEntityType,
   MarketDataSourceType,
-} from '../../types'
-import { isCryptoSource } from '../../helpers'
-import { getCryptoRealTime, getUsEquityRealTime } from '../../http'
+} from '@/marketData/types'
+import { isCryptoSource } from '@/marketData/helpers'
+import { getCryptoRealTime, getUsEquityRealTime } from '@/marketData/http'
 import { Quote } from '../types'
-import { cleanQuote } from '../helpers'
+import { cleanQuote } from '@/marketData/quotes/helpers'
 import throttle from 'lodash/throttle'
-import { MarketDataSocketMessageHandler } from '../../http'
 
+/**
+ * @group Market Data
+ * @category Quotes
+ * @param marketDataSourceType
+ * @param symbol
+ * @param onQuote
+ * @param throttleMs
+ */
 export const observeQuotes = (
   marketDataSourceType: MarketDataSourceType,
   symbol: string,
@@ -19,12 +26,12 @@ export const observeQuotes = (
     ? getCryptoRealTime()
     : getUsEquityRealTime()
 
-  let update: MarketDataSocketMessageHandler = (Quote) =>
-    onQuote(cleanQuote(Quote as Quote, symbol))
+  let update = (quote: unknown): void =>
+    onQuote(cleanQuote(quote as Quote, symbol))
 
   if (throttleMs > 0) {
-    update = throttle((Quote) => {
-      onQuote(cleanQuote(Quote as Quote, symbol))
+    update = throttle((quote: unknown) => {
+      onQuote(cleanQuote(quote as Quote, symbol))
     }, throttleMs)
   }
 

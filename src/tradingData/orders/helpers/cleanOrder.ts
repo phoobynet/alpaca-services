@@ -1,4 +1,4 @@
-import { Order, RawOrder } from '../types'
+import { Order, RawOrder } from '@/tradingData/orders/types'
 
 const toNumber = (value?: string): number | undefined => {
   if (value) {
@@ -8,6 +8,12 @@ const toNumber = (value?: string): number | undefined => {
   return undefined
 }
 
+/**
+ * @internal
+ * @group Trading Data
+ * @category Orders
+ * @param rawOrder
+ */
 export const cleanOrder = (rawOrder: RawOrder): Order => {
   return {
     id: rawOrder.id,

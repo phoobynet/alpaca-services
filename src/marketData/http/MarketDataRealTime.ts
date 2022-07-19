@@ -5,21 +5,18 @@ import {
   MarketDataSocketMessageType,
   MarketDataRealTimeSubscriptionEntityType as SubEntityType,
 } from '@/marketData/types'
+import { CancelFn } from '@/types'
 
-/**
- * @internal
- */
-export type MarketDataSocketMessageFilter = (
+type MarketDataSocketMessageFilter = (
   message: MarketDataSocketMessage,
 ) => boolean
+
 /**
- * @internal
+ * Used to handle incoming socket messages
+ * @group Market Data
+ * @category HTTP
  */
-export type MarketDataSocketMessageHandlerCancellation = () => void
-/**
- * @internal
- */
-export type MarketDataSocketMessageHandler = (t: unknown) => void
+type Handler = (t: unknown) => void
 
 /**
  * @internal
@@ -38,10 +35,7 @@ export class MarketDataRealTime {
    * Nest map that stores the entity type -> symbol -> handlers
    * @private
    */
-  private handlers = new Map<
-    SubEntityType,
-    Map<string, MarketDataSocketMessageHandler[]>
-  >()
+  private handlers = new Map<SubEntityType, Map<string, Handler[]>>()
 
   private messageFilters = new Map<
     MarketDataSocketMessageType,
@@ -74,10 +68,7 @@ export class MarketDataRealTime {
     })
 
     for (const [, subscriptionType] of Object.entries(SubEntityType)) {
-      this.handlers.set(
-        subscriptionType,
-        new Map<string, MarketDataSocketMessageHandler[]>(),
-      )
+      this.handlers.set(subscriptionType, new Map<string, Handler[]>())
     }
 
     for (const value of Object.values(MarketDataSocketMessageType)) {
@@ -91,11 +82,11 @@ export class MarketDataRealTime {
   public subscribeTo(
     subscriptionEntityType: SubEntityType,
     symbol: string,
-    handler: MarketDataSocketMessageHandler,
-  ): MarketDataSocketMessageHandlerCancellation {
+    handler: Handler,
+  ): CancelFn {
     const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
       string,
-      MarketDataSocketMessageHandler[]
+      Handler[]
     >
     const symbolSubscribers = subscribersMap.get(symbol)
 
@@ -122,7 +113,7 @@ export class MarketDataRealTime {
     return () => {
       const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
         string,
-        MarketDataSocketMessageHandler[]
+        Handler[]
       >
       let symbolSubscribers = subscribersMap.get(symbol) ?? []
 

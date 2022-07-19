@@ -79,7 +79,54 @@ main().catch((e) => {
 }
 ```
 
+## Market Data - Pagination (or not)
+
+No need to worry about handling pagination manually. Instead, you can set an absolute limit (defaults to 1,000), and let the library take care of pagination internally.
+
+See [for await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of) for more information.
+
+```typescript
+import {
+  options,
+  BarAdjustment,
+  BarsBetweenArgs,
+  getBarsBetween,
+  usEquitySource,
+} from '@phoobynet/alpaca-services'
+import { subWeeks } from 'date-fns'
+
+options.set({
+  key: process.env.APCA_API_KEY_ID as string,
+  secret: process.env.APCA_API_SECRET_KEY as string,
+  paper: true,
+})
+
+async function main() {
+  const args: BarsBetweenArgs = {
+    symbol: 'AAPL',
+    start: subWeeks(new Date(), 1),
+    end: new Date(),
+    timeframe: '1Day',
+    // not a page limit, but an absolute limit (defaults to 1,000)
+    absoluteLimit: 10_000,
+    adjustment: BarAdjustment.split,
+  }
+
+  // iterate over the bars
+  for await (const bar of getBarsBetween(usEquitySource, args)) {
+    console.log(bar)
+  }
+  process.exit(0)
+}
+
+main().catch((e) => {
+  console.error(e)
+})
+```
+
 ## Market Data - Real Time
+
+Simple real-time data. **Just remember to cancel the observer.**
 
 ```typescript
 function main() {

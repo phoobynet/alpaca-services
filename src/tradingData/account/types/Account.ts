@@ -1,4 +1,4 @@
-import { AccountStatus } from './AccountStatus'
+import { AccountStatus } from '@/tradingData/account/types/AccountStatus'
 
 /**
  * @group Trading Data

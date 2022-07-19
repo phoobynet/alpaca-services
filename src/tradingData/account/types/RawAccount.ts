@@ -1,4 +1,5 @@
 /**
+ * @internal
  * @group Trading Data
  * @category Account
  * @see https://alpaca.markets/docs/api-references/trading-api/account/#account-model
