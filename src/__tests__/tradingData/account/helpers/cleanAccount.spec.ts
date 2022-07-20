@@ -1,12 +1,14 @@
-import { Account, AccountStatus, RawAccount } from '../types'
+import { Account, AccountStatus, RawAccount } from '@/tradingData'
 
-const { cleanAccount } = jest.requireActual('./cleanAccount')
+const { cleanAccount } = jest.requireActual(
+  '@/tradingData/account/helpers/cleanAccount',
+)
 
 describe('cleanAccount', () => {
   test('should return a cleaned account', () => {
     const rawAccount: RawAccount = {
       account_blocked: false,
-      account_number: '010203ABCD',
+      account_number: 'AAAAAAAA',
       buying_power: '262113.632',
       cash: '-23140.2',
       created_at: '2019-06-12T22:47:07.99658Z',
@@ -14,7 +16,7 @@ describe('cleanAccount', () => {
       daytrade_count: 0,
       daytrading_buying_power: '262113.632',
       equity: '103820.56',
-      id: 'e6fe16f3-64a4-4921-8928-cadf02f92f98',
+      id: 'e6fe16f3-64a4-4921-8928-zzzzzzzzzzzz',
       initial_margin: '63480.38',
       last_equity: '103529.24',
       last_maintenance_margin: '38000.832',
@@ -39,7 +41,7 @@ describe('cleanAccount', () => {
 
     const expected: Account = {
       account_blocked: false,
-      account_number: '010203ABCD',
+      account_number: 'AAAAAAAA',
       buying_power: 262113.632,
       cash: -23140.2,
       created_at: new Date('2019-06-12T22:47:07.996Z'),
@@ -47,7 +49,7 @@ describe('cleanAccount', () => {
       daytrade_count: 0,
       daytrading_buying_power: 262113.632,
       equity: 103820.56,
-      id: 'e6fe16f3-64a4-4921-8928-cadf02f92f98',
+      id: 'e6fe16f3-64a4-4921-8928-zzzzzzzzzzzz',
       initial_margin: 63480.38,
       last_equity: 103529.24,
       last_maintenance_margin: 38000.832,

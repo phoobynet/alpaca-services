@@ -1,10 +1,10 @@
-import { ActivityType } from './ActivityType'
+import { ActivityType } from '@/tradingData/activities/types/ActivityType'
 
 /**
- * Activity query arguments.
+ * Args for {@link getActivities}.
  * @group Trading Data
  * @category Account Activity
- * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types
+ * @see [Account Activities](https://alpaca.markets/docs/api-references/trading-api/account-activities/#activity-types)
  */
 export type ActivitiesArgs = {
   activity_types?: ActivityType[]

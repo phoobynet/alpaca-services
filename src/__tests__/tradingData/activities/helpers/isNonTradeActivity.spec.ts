@@ -1,5 +1,8 @@
-import { RawNonTradeActivity, RawTradeActivity } from '../types'
-import { isNonTradeActivity } from './isNonTradeActivity'
+import { RawNonTradeActivity, RawTradeActivity } from '@/tradingData'
+
+const { isNonTradeActivity } = jest.requireActual(
+  '@/tradingData/activities/helpers/isNonTradeActivity',
+)
 
 describe('isNonTradeActivity', () => {
   it('should return true for non-trade activity', () => {

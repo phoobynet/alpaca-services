@@ -31,15 +31,66 @@ type RawActivities = RawActivity[]
 /**
  * @group Trading Data
  * @category Account Activity
- * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/
+ * @param {ActivitiesArgs} args
+ * @remarks
+ * See [Account Activities](https://alpaca.markets/docs/api-references/trading-api/account-activities/) for argument information.
+ * <aside>
+ * <strong>Note: `for await...of` style pagination is not supported for the endpoint.</strong>
+ * </aside>
  * @example
  * ```ts
  * const activities = await getActivities({
- *   activity_types: [ActivityType.FILL],
- *   date: new Date('2022-07-01'),
+ *   activity_types: [ActivityType.FILL, ActivityType.DIV],
+ *   after: subYears(new Date(), 1),
+ *   direction: 'desc',
+ *   page_size: 3,
  * })
+ *
  * ```
- * @param {ActivitiesArgs} args
+ * ### Example Response
+ * ```json
+ * [
+ *   {
+ *     "activity_type": "FILL",
+ *     "cum_qty": 0.0519,
+ *     "id": "20220701084100573::7a720705-f55b-4d61-8719-xxxxxxxxx",
+ *     "leaves_qty": 0,
+ *     "price": 19250,
+ *     "qty": 0.0519,
+ *     "side": "buy",
+ *     "symbol": "BTCUSD",
+ *     "transaction_time": "2022-07-01T12:41:00.573Z",
+ *     "order_id": "b61904a4-2d8f-4366-b6a6-cbd98f2a3d7d",
+ *     "type": "fill"
+ *   },
+ *   {
+ *     "activity_type": "FILL",
+ *     "cum_qty": 0.2599,
+ *     "id": "20220701084040749::e8b2822a-1775-43a2-835b-xxxxxxxxx",
+ *     "leaves_qty": 0,
+ *     "price": 19244,
+ *     "qty": 0.2599,
+ *     "side": "sell",
+ *     "symbol": "BTCUSD",
+ *     "transaction_time": "2022-07-01T12:40:40.749Z",
+ *     "order_id": "f5850582-28f5-488d-8628-9abe23455c89",
+ *     "type": "fill"
+ *   },
+ *   {
+ *     "activity_type": "FILL",
+ *     "cum_qty": 0.2599,
+ *     "id": "20220701082838169::6dec523e-105d-40b2-b02f-xxxxxxxxx",
+ *     "leaves_qty": 0,
+ *     "price": 19236,
+ *     "qty": 0.2599,
+ *     "side": "buy",
+ *     "symbol": "BTCUSD",
+ *     "transaction_time": "2022-07-01T12:28:38.169Z",
+ *     "order_id": "b7dacc39-8dcf-4cff-8387-52e4ca467283",
+ *     "type": "fill"
+ *   }
+ * ]
+ * ```
  */
 export const getActivities = async (
   args: ActivitiesArgs,

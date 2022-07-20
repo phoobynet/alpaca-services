@@ -3,6 +3,7 @@ import { parseISO } from 'date-fns'
 
 /**
  * Clean up a raw account, parsing date like fields to Date objects, and numeric like fields to number's.
+ * @internal
  * @group Trading Data
  * @category Account
  * @param {RawAccount} rawAccount - raw http response from Alpaca

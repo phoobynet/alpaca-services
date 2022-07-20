@@ -79,13 +79,49 @@
         </div>
         <section class="tsd-panel tsd-comment">
           <div class="tsd-comment tsd-typography">
-            <h3>See</h3>
+            <h3>Remarks</h3>
             <p>
+              Similar to
               <a
                 href="https://alpaca.markets/docs/api-references/trading-api/account/#account-model"
-                >https://alpaca.markets/docs/api-references/trading-api/account/#account-model</a
-              >
+                >Account Model</a
+              >, but with the following differences:
             </p>
+            <ul>
+              <li>
+                <code>status</code> is converted to an
+                <code>AccountStatus</code> enum
+              </li>
+              <li>
+                <code>crypto_status</code> is converted to an
+                <code>AccountStatus</code> enum
+              </li>
+              <li><code>buying_power</code> is converted to a number</li>
+              <li>
+                <code>daytrading_buying_power</code> is converted to a number
+              </li>
+              <li><code>regt_buying_power</code> is converted to a number</li>
+              <li>
+                <code>non_marginable_buying_power</code> is converted to a
+                number
+              </li>
+              <li><code>cash</code> is converted to a number</li>
+              <li><code>accrued_fees</code> is converted to a number</li>
+              <li><code>pending_transfer_in</code> is converted to a number</li>
+              <li><code>portfolio_value</code> is converted to a number</li>
+              <li><code>multiplier</code> is converted to a number</li>
+              <li><code>equity</code> is converted to a number</li>
+              <li><code>last_equity</code> is converted to a number</li>
+              <li><code>long_market_value</code> is converted to a number</li>
+              <li><code>short_market_value</code> is converted to a number</li>
+              <li><code>initial_margin</code> is converted to a number</li>
+              <li>
+                <code>last_maintenance_margin</code> is converted to a number
+              </li>
+              <li><code>maintenance_margin</code> is converted to a number</li>
+              <li><code>sma</code> is converted to a number</li>
+              <li><code>created_at</code> is converted to a Date object</li>
+            </ul>
           </div>
         </section>
         <section class="tsd-panel tsd-hierarchy">
@@ -577,8 +613,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L9"
-                    >src/tradingData/account/types/Account.ts:9</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L29"
+                    >src/tradingData/account/types/Account.ts:29</a
                   >
                 </li>
               </ul>
@@ -617,8 +653,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L10"
-                    >src/tradingData/account/types/Account.ts:10</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L30"
+                    >src/tradingData/account/types/Account.ts:30</a
                   >
                 </li>
               </ul>
@@ -657,8 +693,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L20"
-                    >src/tradingData/account/types/Account.ts:20</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L40"
+                    >src/tradingData/account/types/Account.ts:40</a
                   >
                 </li>
               </ul>
@@ -697,8 +733,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L11"
-                    >src/tradingData/account/types/Account.ts:11</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L31"
+                    >src/tradingData/account/types/Account.ts:31</a
                   >
                 </li>
               </ul>
@@ -734,8 +770,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L14"
-                    >src/tradingData/account/types/Account.ts:14</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L34"
+                    >src/tradingData/account/types/Account.ts:34</a
                   >
                 </li>
               </ul>
@@ -774,8 +810,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L15"
-                    >src/tradingData/account/types/Account.ts:15</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L35"
+                    >src/tradingData/account/types/Account.ts:35</a
                   >
                 </li>
               </ul>
@@ -819,8 +855,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L13"
-                    >src/tradingData/account/types/Account.ts:13</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L33"
+                    >src/tradingData/account/types/Account.ts:33</a
                   >
                 </li>
               </ul>
@@ -859,8 +895,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L16"
-                    >src/tradingData/account/types/Account.ts:16</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L36"
+                    >src/tradingData/account/types/Account.ts:36</a
                   >
                 </li>
               </ul>
@@ -899,8 +935,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L17"
-                    >src/tradingData/account/types/Account.ts:17</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L37"
+                    >src/tradingData/account/types/Account.ts:37</a
                   >
                 </li>
               </ul>
@@ -942,8 +978,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L18"
-                    >src/tradingData/account/types/Account.ts:18</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L38"
+                    >src/tradingData/account/types/Account.ts:38</a
                   >
                 </li>
               </ul>
@@ -979,8 +1015,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L22"
-                    >src/tradingData/account/types/Account.ts:22</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L42"
+                    >src/tradingData/account/types/Account.ts:42</a
                   >
                 </li>
               </ul>
@@ -1016,8 +1052,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L23"
-                    >src/tradingData/account/types/Account.ts:23</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L43"
+                    >src/tradingData/account/types/Account.ts:43</a
                   >
                 </li>
               </ul>
@@ -1056,8 +1092,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L24"
-                    >src/tradingData/account/types/Account.ts:24</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L44"
+                    >src/tradingData/account/types/Account.ts:44</a
                   >
                 </li>
               </ul>
@@ -1096,8 +1132,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L25"
-                    >src/tradingData/account/types/Account.ts:25</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L45"
+                    >src/tradingData/account/types/Account.ts:45</a
                   >
                 </li>
               </ul>
@@ -1139,8 +1175,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L26"
-                    >src/tradingData/account/types/Account.ts:26</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L46"
+                    >src/tradingData/account/types/Account.ts:46</a
                   >
                 </li>
               </ul>
@@ -1181,8 +1217,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L27"
-                    >src/tradingData/account/types/Account.ts:27</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L47"
+                    >src/tradingData/account/types/Account.ts:47</a
                   >
                 </li>
               </ul>
@@ -1223,8 +1259,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L28"
-                    >src/tradingData/account/types/Account.ts:28</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L48"
+                    >src/tradingData/account/types/Account.ts:48</a
                   >
                 </li>
               </ul>
@@ -1263,8 +1299,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L29"
-                    >src/tradingData/account/types/Account.ts:29</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L49"
+                    >src/tradingData/account/types/Account.ts:49</a
                   >
                 </li>
               </ul>
@@ -1306,8 +1342,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L19"
-                    >src/tradingData/account/types/Account.ts:19</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L39"
+                    >src/tradingData/account/types/Account.ts:39</a
                   >
                 </li>
               </ul>
@@ -1348,8 +1384,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L30"
-                    >src/tradingData/account/types/Account.ts:30</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L50"
+                    >src/tradingData/account/types/Account.ts:50</a
                   >
                 </li>
               </ul>
@@ -1391,8 +1427,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L21"
-                    >src/tradingData/account/types/Account.ts:21</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L41"
+                    >src/tradingData/account/types/Account.ts:41</a
                   >
                 </li>
               </ul>
@@ -1431,8 +1467,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L31"
-                    >src/tradingData/account/types/Account.ts:31</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L51"
+                    >src/tradingData/account/types/Account.ts:51</a
                   >
                 </li>
               </ul>
@@ -1473,8 +1509,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L32"
-                    >src/tradingData/account/types/Account.ts:32</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L52"
+                    >src/tradingData/account/types/Account.ts:52</a
                   >
                 </li>
               </ul>
@@ -1515,8 +1551,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L33"
-                    >src/tradingData/account/types/Account.ts:33</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L53"
+                    >src/tradingData/account/types/Account.ts:53</a
                   >
                 </li>
               </ul>
@@ -1555,8 +1591,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L34"
-                    >src/tradingData/account/types/Account.ts:34</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L54"
+                    >src/tradingData/account/types/Account.ts:54</a
                   >
                 </li>
               </ul>
@@ -1592,8 +1628,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L35"
-                    >src/tradingData/account/types/Account.ts:35</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L55"
+                    >src/tradingData/account/types/Account.ts:55</a
                   >
                 </li>
               </ul>
@@ -1634,8 +1670,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L12"
-                    >src/tradingData/account/types/Account.ts:12</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L32"
+                    >src/tradingData/account/types/Account.ts:32</a
                   >
                 </li>
               </ul>
@@ -1677,8 +1713,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L36"
-                    >src/tradingData/account/types/Account.ts:36</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L56"
+                    >src/tradingData/account/types/Account.ts:56</a
                   >
                 </li>
               </ul>
@@ -1717,8 +1753,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L37"
-                    >src/tradingData/account/types/Account.ts:37</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L57"
+                    >src/tradingData/account/types/Account.ts:57</a
                   >
                 </li>
               </ul>
@@ -1759,8 +1795,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/08f0c49/src/tradingData/account/types/Account.ts#L38"
-                    >src/tradingData/account/types/Account.ts:38</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2ed686f/src/tradingData/account/types/Account.ts#L58"
+                    >src/tradingData/account/types/Account.ts:58</a
                   >
                 </li>
               </ul>

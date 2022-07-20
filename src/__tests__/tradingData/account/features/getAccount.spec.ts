@@ -1,15 +1,17 @@
-import { getTradeData } from '../../http'
-import { RawAccount } from '../types'
-import { cleanAccount } from '../helpers'
+import { getTradeData } from '@/tradingData/http'
+import { RawAccount } from '@/tradingData'
+import { cleanAccount } from '@/tradingData/account/helpers'
 
-const { getAccount } = jest.requireActual('./getAccount')
+const { getAccount } = jest.requireActual(
+  '@/tradingData/account/features/getAccount',
+)
 
 const getTradeDataMock = getTradeData as jest.Mock
 const cleanAccountMock = cleanAccount as jest.Mock
 
 const rawAccount: RawAccount = {
   account_blocked: false,
-  account_number: '010203ABCD',
+  account_number: 'AAAAAAAAA',
   buying_power: '262113.632',
   cash: '-23140.2',
   created_at: '2019-06-12T22:47:07.99658Z',
@@ -17,7 +19,7 @@ const rawAccount: RawAccount = {
   daytrade_count: 0,
   daytrading_buying_power: '262113.632',
   equity: '103820.56',
-  id: 'e6fe16f3-64a4-4921-8928-cadf02f92f98',
+  id: 'e6fe16f3-64a4-4921-8928-xxxxxxxxxxx',
   initial_margin: '63480.38',
   last_equity: '103529.24',
   last_maintenance_margin: '38000.832',
@@ -39,8 +41,6 @@ const rawAccount: RawAccount = {
   accrued_fees: '0',
   pending_transfer_in: '0',
 }
-
-jest.mock('../../http')
 
 describe('getAccount', () => {
   test('should send the correct URL', async () => {

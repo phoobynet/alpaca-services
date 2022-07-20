@@ -102,16 +102,33 @@
           <ul class="tsd-descriptions">
             <li class="tsd-description">
               <div class="tsd-comment tsd-typography">
-                <h3>See</h3>
+                <h3>Remarks</h3>
                 <p>
+                  See
                   <a
                     href="https://alpaca.markets/docs/api-references/trading-api/account-activities/"
-                    >https://alpaca.markets/docs/api-references/trading-api/account-activities/</a
+                    >Account Activities</a
                   >
+                  for argument information.
                 </p>
-
+                <aside>
+                  <strong
+                    >Note: `for await...of` style pagination is not supported
+                    for the endpoint.</strong
+                  >
+                </aside>
                 <h3>Example</h3>
-                <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">activities</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getActivities</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">activity_types:</span><span class="hl-0"> [</span><span class="hl-2">ActivityType</span><span class="hl-0">.</span><span class="hl-6">FILL</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-2">date:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-07-01&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">})</span>
+                <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">activities</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getActivities</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">activity_types:</span><span class="hl-0"> [</span><span class="hl-2">ActivityType</span><span class="hl-0">.</span><span class="hl-6">FILL</span><span class="hl-0">, </span><span class="hl-2">ActivityType</span><span class="hl-0">.</span><span class="hl-6">DIV</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-2">after:</span><span class="hl-0"> </span><span class="hl-5">subYears</span><span class="hl-0">(</span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(), </span><span class="hl-9">1</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-2">direction:</span><span class="hl-0"> </span><span class="hl-3">&#39;desc&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">page_size:</span><span class="hl-0"> </span><span class="hl-9">3</span><span class="hl-0">,</span><br/><span class="hl-0">})</span><br/>
+</code></pre>
+
+                <a
+                  href="#example-response"
+                  id="example-response"
+                  style="color: inherit; text-decoration: none"
+                >
+                  <h3>Example Response</h3>
+                </a>
+                <pre><code class="language-json"><span class="hl-0">[</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;activity_type&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;FILL&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;cum_qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0.0519</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;20220701084100573::7a720705-f55b-4d61-8719-xxxxxxxxx&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;leaves_qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;price&quot;</span><span class="hl-0">: </span><span class="hl-9">19250</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0.0519</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;side&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;buy&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;symbol&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;BTCUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;transaction_time&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-01T12:41:00.573Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;order_id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;b61904a4-2d8f-4366-b6a6-cbd98f2a3d7d&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;type&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;fill&quot;</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;activity_type&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;FILL&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;cum_qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0.2599</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;20220701084040749::e8b2822a-1775-43a2-835b-xxxxxxxxx&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;leaves_qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;price&quot;</span><span class="hl-0">: </span><span class="hl-9">19244</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0.2599</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;side&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;sell&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;symbol&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;BTCUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;transaction_time&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-01T12:40:40.749Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;order_id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;f5850582-28f5-488d-8628-9abe23455c89&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;type&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;fill&quot;</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;activity_type&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;FILL&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;cum_qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0.2599</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;20220701082838169::6dec523e-105d-40b2-b02f-xxxxxxxxx&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;leaves_qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;price&quot;</span><span class="hl-0">: </span><span class="hl-9">19236</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;qty&quot;</span><span class="hl-0">: </span><span class="hl-9">0.2599</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;side&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;buy&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;symbol&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;BTCUSD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;transaction_time&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-01T12:28:38.169Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;order_id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;b7dacc39-8dcf-4cff-8387-52e4ca467283&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">&quot;type&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;fill&quot;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">]</span>
 </code></pre>
               </div>
               <div class="tsd-parameters">
@@ -949,6 +966,32 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
+              <a href="../types/BarsInTheLastArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Bars<wbr />In<wbr />The<wbr />Last<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="../types/BarsSinceArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Bars<wbr />Since<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
               <a href="../types/CancelFn.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -972,6 +1015,19 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Create<wbr />Watchlist<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="../types/IntradayBarsArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Intraday<wbr />Bars<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -1152,6 +1208,21 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
+              <a
+                href="../types/PreviousDailyBarArgs.html"
+                class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Previous<wbr />Daily<wbr />Bar<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
               <a href="../types/QuoteBetweenArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1204,7 +1275,7 @@
               >
             </li>
             <li class="tsd-kind-variable">
-              <a href="../variables/cryptoSource.html" class="tsd-index-link"
+              <a href="../variables/MS.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1227,7 +1298,33 @@
                     fill="var(--color-text)"
                     id="icon-32-text"
                   ></path></svg
+                >MS</a
+              >
+            </li>
+            <li class="tsd-kind-variable">
+              <a href="../variables/cryptoSource.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-32-path"></use>
+                  <use href="#icon-32-text"></use></svg
                 >crypto<wbr />Source</a
+              >
+            </li>
+            <li class="tsd-kind-variable">
+              <a href="../variables/newsSource.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-32-path"></use>
+                  <use href="#icon-32-text"></use></svg
+                >news<wbr />Source</a
               >
             </li>
             <li class="tsd-kind-variable">
@@ -1424,6 +1521,32 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >get<wbr />Bars<wbr />Between</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getBarsInTheLast.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Bars<wbr />In<wbr />The<wbr />Last</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getBarsSince.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Bars<wbr />Since</a
               >
             </li>
             <li class="tsd-kind-function">

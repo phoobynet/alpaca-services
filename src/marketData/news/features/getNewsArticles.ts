@@ -1,6 +1,6 @@
 import { NewsArticle, NewsArticlesArgs } from '@/marketData/news/types'
 import { getMarketDataIterator } from '@/marketData'
-import { newsSource } from '@/marketData/news/http/newsSource'
+import { newsSource } from '@/marketData/news/http'
 
 /**
  * @group Market Data

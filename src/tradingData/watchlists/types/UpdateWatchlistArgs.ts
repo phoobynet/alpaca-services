@@ -1,7 +1,7 @@
 /**
  * {@link updateWatchlist} args.
  * @group Trading Data
- * @category Watchlist
+ * @category Watchlists
  */
 export type UpdateWatchlistArgs = {
   watchlistId: string

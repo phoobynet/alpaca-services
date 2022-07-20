@@ -98,8 +98,30 @@
               <div class="tsd-comment tsd-typography">
                 <p>Get the account information</p>
 
+                <h3>See</h3>
+                <p>
+                  <a
+                    href="https://alpaca.markets/docs/api-references/trading-api/account/"
+                    >Trading Account</a
+                  >
+                </p>
+
                 <h3>Example</h3>
                 <pre><code class="language-ts"><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">account</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getAccount</span><span class="hl-0">()</span>
+</code></pre>
+
+                <a
+                  href="#example-response"
+                  id="example-response"
+                  style="color: inherit; text-decoration: none"
+                >
+                  <h3>Example response</h3>
+                </a>
+                <p>
+                  Note that all <code>string&lt;number&gt;</code> fields have
+                  been converted to actual numbers fields
+                </p>
+                <pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;id&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;57019a73-f4cd-415c-a0ae-xxxxxxxxxxxx&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;account_number&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;XXXXXXXX&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;status&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;ACTIVE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;crypto_status&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;ACTIVE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;currency&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;USD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;pattern_day_trader&quot;</span><span class="hl-0">: </span><span class="hl-8">false</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;trading_blocked&quot;</span><span class="hl-0">: </span><span class="hl-8">false</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;transfers_blocked&quot;</span><span class="hl-0">: </span><span class="hl-8">false</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;account_blocked&quot;</span><span class="hl-0">: </span><span class="hl-8">false</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;created_at&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-06-15T07:15:32.125Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;trade_suspended_by_user&quot;</span><span class="hl-0">: </span><span class="hl-8">false</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;shorting_enabled&quot;</span><span class="hl-0">: </span><span class="hl-8">true</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;buying_power&quot;</span><span class="hl-0">: </span><span class="hl-9">57895.98</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;daytrading_buying_power&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;regt_buying_power&quot;</span><span class="hl-0">: </span><span class="hl-9">57895.98</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;non_marginable_buying_power&quot;</span><span class="hl-0">: </span><span class="hl-9">28947.99</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;cash&quot;</span><span class="hl-0">: </span><span class="hl-9">28947.99</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;accrued_fees&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;pending_transfer_in&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;portfolio_value&quot;</span><span class="hl-0">: </span><span class="hl-9">30164.7336</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;multiplier&quot;</span><span class="hl-0">: </span><span class="hl-9">2</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;equity&quot;</span><span class="hl-0">: </span><span class="hl-9">30164.7336</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;last_equity&quot;</span><span class="hl-0">: </span><span class="hl-9">30154.8726</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;long_market_value&quot;</span><span class="hl-0">: </span><span class="hl-9">1216.7436</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;short_market_value&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;initial_margin&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;last_maintenance_margin&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;maintenance_margin&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;sma&quot;</span><span class="hl-0">: </span><span class="hl-9">28947.99</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;daytrade_count&quot;</span><span class="hl-0">: </span><span class="hl-9">0</span><br/><span class="hl-0">}</span>
 </code></pre>
               </div>
               <h4 class="tsd-returns-title">
@@ -921,6 +943,32 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
+              <a href="../types/BarsInTheLastArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Bars<wbr />In<wbr />The<wbr />Last<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="../types/BarsSinceArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Bars<wbr />Since<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
               <a href="../types/CancelFn.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -944,6 +992,19 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Create<wbr />Watchlist<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="../types/IntradayBarsArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Intraday<wbr />Bars<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -1124,6 +1185,21 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
+              <a
+                href="../types/PreviousDailyBarArgs.html"
+                class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Previous<wbr />Daily<wbr />Bar<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
               <a href="../types/QuoteBetweenArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1176,7 +1252,7 @@
               >
             </li>
             <li class="tsd-kind-variable">
-              <a href="../variables/cryptoSource.html" class="tsd-index-link"
+              <a href="../variables/MS.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1199,7 +1275,33 @@
                     fill="var(--color-text)"
                     id="icon-32-text"
                   ></path></svg
+                >MS</a
+              >
+            </li>
+            <li class="tsd-kind-variable">
+              <a href="../variables/cryptoSource.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-32-path"></use>
+                  <use href="#icon-32-text"></use></svg
                 >crypto<wbr />Source</a
+              >
+            </li>
+            <li class="tsd-kind-variable">
+              <a href="../variables/newsSource.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-32-path"></use>
+                  <use href="#icon-32-text"></use></svg
+                >news<wbr />Source</a
               >
             </li>
             <li class="tsd-kind-variable">
@@ -1396,6 +1498,32 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >get<wbr />Bars<wbr />Between</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getBarsInTheLast.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Bars<wbr />In<wbr />The<wbr />Last</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="getBarsSince.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Bars<wbr />Since</a
               >
             </li>
             <li class="tsd-kind-function">

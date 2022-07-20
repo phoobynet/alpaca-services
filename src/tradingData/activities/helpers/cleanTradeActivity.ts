@@ -2,9 +2,9 @@ import { TradeActivity, ActivityType, RawTradeActivity } from '../types'
 
 /**
  * Clean up a raw trade activity, parsing date like fields to Date objects, and numeric like fields to number's.
+ * @internal
  * @group Trading Data
  * @category Account Activity
- * @internal
  * @param rawActivity
  * @see https://alpaca.markets/docs/api-references/trading-api/account-activities/#tradeactivity-entity
  */

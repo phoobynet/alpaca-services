@@ -1,6 +1,8 @@
-import { ActivityType, RawTradeActivity, TradeActivity } from '../types'
+import { ActivityType, RawTradeActivity, TradeActivity } from '@/tradingData'
 
-const { cleanTradeActivity } = jest.requireActual('./cleanTradeActivity')
+const { cleanTradeActivity } = jest.requireActual(
+  '@/tradingData/activities/helpers/cleanTradeActivity',
+)
 
 describe('cleanActivity', () => {
   it('should clean the raw activity', () => {

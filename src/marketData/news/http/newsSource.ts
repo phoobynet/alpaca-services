@@ -17,7 +17,6 @@ const getHttpClient = (): HttpClient => {
 }
 
 /**
- * @internal
  * @group Market Data
  * @category News
  */

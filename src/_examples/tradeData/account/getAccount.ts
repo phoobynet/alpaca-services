@@ -1,5 +1,5 @@
-import { options } from '../../../options'
-import { getAccount } from '../../../tradingData'
+import { options } from '@/options'
+import { getAccount } from '@/tradingData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -9,7 +9,7 @@ options.set({
 
 async function main(): Promise<void> {
   const account = await getAccount()
-  console.log(account)
+  console.log(JSON.stringify(account, null, 2))
 }
 
 main()

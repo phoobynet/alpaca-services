@@ -1,9 +1,9 @@
 import { RawNonTradeActivity, RawTradeActivity } from '../types'
 
 /**
+ * @internal
  * @group Trading Data
  * @category Account Activity
- * @internal
  * @param activity
  */
 export const isNonTradeActivity = (

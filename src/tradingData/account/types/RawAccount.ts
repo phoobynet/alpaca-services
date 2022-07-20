@@ -2,7 +2,7 @@
  * @internal
  * @group Trading Data
  * @category Account
- * @see https://alpaca.markets/docs/api-references/trading-api/account/#account-model
+ * @see [Account Model](https://alpaca.markets/docs/api-references/trading-api/account/#account-model)
  */
 export interface RawAccount {
   account_blocked: boolean

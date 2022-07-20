@@ -1,22 +1,28 @@
-Provides simple functions to access historical and real-time data from Alpaca's [Market Data API](https://alpaca.markets/docs/api-references/market-data-api/).
-
 [![Build and Test CI](https://github.com/phoobynet/alpaca-services/actions/workflows/actions.yml/badge.svg)](https://github.com/phoobynet/alpaca-services/actions/workflows/actions.yml)
+
+**Unofficial** Alpaca [Market Data API](https://alpaca.markets/docs/api-references/market-data-api/) wrapper.
+
+My objects in building this library are:
+
+- Create a unified API for crypto and equity historical and real-time data
+- Make real-time data easy to consume
+- To not worry about handling pagination (just use [for await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of))
+- To convert data returned to the appropriate data type (Alpaca returns `string<number>`. See [Account](https://alpaca.markets/docs/api-references/trading-api/account/) to understand what I mean.)
+- To force timestamps into a consistent format (1,000th of a second)
 
 # Requirements
 
 An Alpaca Markets SIP market data API key/secret. You can sign up at [https://app.alpaca.markets/signup](https://app.alpaca.markets/signup).
 
-# Documentation
+# API Documentation
 
-Module documentation can be found [here](https://phoobynet.github.io/alpaca-services/modules.html)
+Can be found [here](https://phoobynet.github.io/alpaca-services/modules.html)
 
 # Installation
 
 ```bash
 npm i @phoobynet/alpaca-services
 ```
-
-# Hello, World!
 
 ## Market Data
 

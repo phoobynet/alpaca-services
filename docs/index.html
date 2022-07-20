@@ -75,14 +75,6 @@
         </div>
         <div class="tsd-panel tsd-typography">
           <p>
-            Provides simple functions to access historical and real-time data
-            from Alpaca&#39;s
-            <a
-              href="https://alpaca.markets/docs/api-references/market-data-api/"
-              >Market Data API</a
-            >.
-          </p>
-          <p>
             <a
               href="https://github.com/phoobynet/alpaca-services/actions/workflows/actions.yml"
               ><img
@@ -90,6 +82,41 @@
                 alt="Build and Test CI"
             /></a>
           </p>
+          <p>
+            <strong>Unofficial</strong> Alpaca
+            <a
+              href="https://alpaca.markets/docs/api-references/market-data-api/"
+              >Market Data API</a
+            >
+            wrapper.
+          </p>
+          <p>My objects in building this library are:</p>
+          <ul>
+            <li>
+              Create a unified API for crypto and equity historical and
+              real-time data
+            </li>
+            <li>Make real-time data easy to consume</li>
+            <li>
+              To not worry about handling pagination (just use
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of"
+                >for await...of</a
+              >)
+            </li>
+            <li>
+              To convert data returned to the appropriate data type (Alpaca
+              returns <code>string&lt;number&gt;</code>. See
+              <a
+                href="https://alpaca.markets/docs/api-references/trading-api/account/"
+                >Account</a
+              >
+              to understand what I mean.)
+            </li>
+            <li>
+              To force timestamps into a consistent format (1,000th of a second)
+            </li>
+          </ul>
 
           <a
             href="#requirements"
@@ -106,14 +133,14 @@
           </p>
 
           <a
-            href="#documentation"
-            id="documentation"
+            href="#api-documentation"
+            id="api-documentation"
             style="color: inherit; text-decoration: none"
           >
-            <h1>Documentation</h1>
+            <h1>API Documentation</h1>
           </a>
           <p>
-            Module documentation can be found
+            Can be found
             <a href="https://phoobynet.github.io/alpaca-services/modules.html"
               >here</a
             >
@@ -128,14 +155,6 @@
           </a>
           <pre><code class="language-bash"><span class="hl-0">npm i @phoobynet/alpaca-services</span>
 </code></pre>
-
-          <a
-            href="#hello-world"
-            id="hello-world"
-            style="color: inherit; text-decoration: none"
-          >
-            <h1>Hello, World!</h1>
-          </a>
 
           <a
             href="#market-data"
@@ -1042,6 +1061,32 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
+              <a href="types/BarsInTheLastArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Bars<wbr />In<wbr />The<wbr />Last<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="types/BarsSinceArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Bars<wbr />Since<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
               <a href="types/CancelFn.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1065,6 +1110,19 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Create<wbr />Watchlist<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
+              <a href="types/IntradayBarsArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Intraday<wbr />Bars<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -1237,6 +1295,19 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
+              <a href="types/PreviousDailyBarArgs.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-4194304-path"></use>
+                  <use href="#icon-4194304-text"></use></svg
+                >Previous<wbr />Daily<wbr />Bar<wbr />Args</a
+              >
+            </li>
+            <li class="tsd-kind-type-alias">
               <a href="types/QuoteBetweenArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1289,7 +1360,7 @@
               >
             </li>
             <li class="tsd-kind-variable">
-              <a href="variables/cryptoSource.html" class="tsd-index-link"
+              <a href="variables/MS.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -1312,7 +1383,33 @@
                     fill="var(--color-text)"
                     id="icon-32-text"
                   ></path></svg
+                >MS</a
+              >
+            </li>
+            <li class="tsd-kind-variable">
+              <a href="variables/cryptoSource.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-32-path"></use>
+                  <use href="#icon-32-text"></use></svg
                 >crypto<wbr />Source</a
+              >
+            </li>
+            <li class="tsd-kind-variable">
+              <a href="variables/newsSource.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-32-path"></use>
+                  <use href="#icon-32-text"></use></svg
+                >news<wbr />Source</a
               >
             </li>
             <li class="tsd-kind-variable">
@@ -1513,6 +1610,32 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >get<wbr />Bars<wbr />Between</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="functions/getBarsInTheLast.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Bars<wbr />In<wbr />The<wbr />Last</a
+              >
+            </li>
+            <li class="tsd-kind-function">
+              <a href="functions/getBarsSince.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Bars<wbr />Since</a
               >
             </li>
             <li class="tsd-kind-function">
