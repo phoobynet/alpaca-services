@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>Clock | @phoobynet/alpaca-services</title>
+    <title>TradeUpdate | @phoobynet/alpaca-services</title>
     <meta
       name="description"
       content="Documentation for @phoobynet/alpaca-services"
@@ -73,14 +73,14 @@
         <div class="tsd-page-title">
           <ul class="tsd-breadcrumb">
             <li><a href="../modules.html">@phoobynet/alpaca-services</a></li>
-            <li><a href="Clock.html">Clock</a></li>
+            <li><a href="TradeUpdate.html">TradeUpdate</a></li>
           </ul>
-          <h1>Interface Clock</h1>
+          <h1>Interface TradeUpdate</h1>
         </div>
         <section class="tsd-panel tsd-hierarchy">
           <h4>Hierarchy</h4>
           <ul class="tsd-hierarchy">
-            <li><span class="target">Clock</span></li>
+            <li><span class="target">TradeUpdate</span></li>
           </ul>
         </section>
         <section class="tsd-panel-group tsd-index-group">
@@ -107,7 +107,7 @@
                   <h3 class="tsd-index-heading">Properties</h3>
                   <div class="tsd-index-list">
                     <a
-                      href="Clock.html#is_open"
+                      href="TradeUpdate.html#event"
                       class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
                       ><svg
                         class="tsd-kind-icon"
@@ -131,10 +131,10 @@
                           fill="var(--color-text)"
                           id="icon-1024-text"
                         ></path></svg
-                      ><span>is_<wbr />open</span></a
+                      ><span>event</span></a
                     >
                     <a
-                      href="Clock.html#next_close"
+                      href="TradeUpdate.html#execution_id"
                       class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
                       ><svg
                         class="tsd-kind-icon"
@@ -144,10 +144,10 @@
                       >
                         <use href="#icon-1024-path"></use>
                         <use href="#icon-1024-text"></use></svg
-                      ><span>next_<wbr />close</span></a
+                      ><span>execution_<wbr />id</span></a
                     >
                     <a
-                      href="Clock.html#next_open"
+                      href="TradeUpdate.html#order"
                       class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
                       ><svg
                         class="tsd-kind-icon"
@@ -157,10 +157,49 @@
                       >
                         <use href="#icon-1024-path"></use>
                         <use href="#icon-1024-text"></use></svg
-                      ><span>next_<wbr />open</span></a
+                      ><span>order</span></a
                     >
                     <a
-                      href="Clock.html#timestamp"
+                      href="TradeUpdate.html#position_qty"
+                      class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
+                      ><svg
+                        class="tsd-kind-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <use href="#icon-1024-path"></use>
+                        <use href="#icon-1024-text"></use></svg
+                      ><span>position_<wbr />qty</span></a
+                    >
+                    <a
+                      href="TradeUpdate.html#price"
+                      class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
+                      ><svg
+                        class="tsd-kind-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <use href="#icon-1024-path"></use>
+                        <use href="#icon-1024-text"></use></svg
+                      ><span>price</span></a
+                    >
+                    <a
+                      href="TradeUpdate.html#qty"
+                      class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
+                      ><svg
+                        class="tsd-kind-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <use href="#icon-1024-path"></use>
+                        <use href="#icon-1024-text"></use></svg
+                      ><span>qty</span></a
+                    >
+                    <a
+                      href="TradeUpdate.html#timestamp"
                       class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"
                       ><svg
                         class="tsd-kind-icon"
@@ -183,10 +222,10 @@
           <section
             class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
           >
-            <a id="is_open" class="tsd-anchor"></a>
+            <a id="event" class="tsd-anchor"></a>
             <h3 class="tsd-anchor-link">
-              <span>is_<wbr />open</span
-              ><a href="#is_open" aria-label="Permalink" class="tsd-anchor-icon"
+              <span>event</span
+              ><a href="#event" aria-label="Permalink" class="tsd-anchor-icon"
                 ><svg
                   class="icon icon-tabler icon-tabler-link"
                   viewBox="0 0 24 24"
@@ -213,16 +252,21 @@
               ></a>
             </h3>
             <div class="tsd-signature">
-              is_<wbr />open<span class="tsd-signature-symbol">:</span>
-              <span class="tsd-signature-type">boolean</span>
+              event<span class="tsd-signature-symbol">:</span>
+              <a
+                href="../enums/TradeEventType.html"
+                class="tsd-signature-type"
+                data-tsd-kind="Enumeration"
+                >TradeEventType</a
+              >
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/clock/types/Clock.ts#L7"
-                    >src/tradingData/clock/types/Clock.ts:7</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L9"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:9</a
                   >
                 </li>
               </ul>
@@ -231,11 +275,11 @@
           <section
             class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
           >
-            <a id="next_close" class="tsd-anchor"></a>
+            <a id="execution_id" class="tsd-anchor"></a>
             <h3 class="tsd-anchor-link">
-              <span>next_<wbr />close</span
+              <span>execution_<wbr />id</span
               ><a
-                href="#next_close"
+                href="#execution_id"
                 aria-label="Permalink"
                 class="tsd-anchor-icon"
                 ><svg
@@ -253,16 +297,16 @@
               ></a>
             </h3>
             <div class="tsd-signature">
-              next_<wbr />close<span class="tsd-signature-symbol">:</span>
-              <span class="tsd-signature-type">Date</span>
+              execution_<wbr />id<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">string</span>
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/clock/types/Clock.ts#L9"
-                    >src/tradingData/clock/types/Clock.ts:9</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L10"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:10</a
                   >
                 </li>
               </ul>
@@ -271,11 +315,53 @@
           <section
             class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
           >
-            <a id="next_open" class="tsd-anchor"></a>
+            <a id="order" class="tsd-anchor"></a>
             <h3 class="tsd-anchor-link">
-              <span>next_<wbr />open</span
+              <span>order</span
+              ><a href="#order" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <div class="tsd-signature">
+              order<span class="tsd-signature-symbol">:</span>
+              <a
+                href="Order.html"
+                class="tsd-signature-type"
+                data-tsd-kind="Interface"
+                >Order</a
+              >
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L11"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:11</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section
+            class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
+          >
+            <a id="position_qty" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>position_<wbr />qty</span
               ><a
-                href="#next_open"
+                href="#position_qty"
                 aria-label="Permalink"
                 class="tsd-anchor-icon"
                 ><svg
@@ -293,16 +379,90 @@
               ></a>
             </h3>
             <div class="tsd-signature">
-              next_<wbr />open<span class="tsd-signature-symbol">:</span>
-              <span class="tsd-signature-type">Date</span>
+              position_<wbr />qty<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">number</span>
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/clock/types/Clock.ts#L8"
-                    >src/tradingData/clock/types/Clock.ts:8</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L12"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:12</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section
+            class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
+          >
+            <a id="price" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>price</span
+              ><a href="#price" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <div class="tsd-signature">
+              price<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">number</span>
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L13"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:13</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section
+            class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
+          >
+            <a id="qty" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>qty</span
+              ><a href="#qty" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <div class="tsd-signature">
+              qty<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">number</span>
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L14"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:14</a
                   >
                 </li>
               </ul>
@@ -334,15 +494,15 @@
             </h3>
             <div class="tsd-signature">
               timestamp<span class="tsd-signature-symbol">:</span>
-              <span class="tsd-signature-type">Date</span>
+              <span class="tsd-signature-type">string</span>
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/clock/types/Clock.ts#L6"
-                    >src/tradingData/clock/types/Clock.ts:6</a
+                    href="https://github.com/phoobynet/alpaca-services/blob/2dea396/src/tradingData/streaming/types/TradeUpdate.ts#L15"
+                    >src/tradingData/streaming/types/TradeUpdate.ts:15</a
                   >
                 </li>
               </ul>
@@ -540,7 +700,7 @@
         <nav class="tsd-navigation secondary menu-sticky">
           <ul>
             <li class="current tsd-kind-interface">
-              <a href="Clock.html" class="tsd-index-link"
+              <a href="TradeUpdate.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
                   width="24"
@@ -563,11 +723,11 @@
                     fill="var(--color-text)"
                     id="icon-256-text"
                   ></path></svg
-                ><span>Clock</span></a
+                ><span>Trade<wbr />Update</span></a
               >
               <ul>
                 <li class="tsd-kind-property tsd-parent-kind-interface">
-                  <a href="Clock.html#is_open" class="tsd-index-link"
+                  <a href="TradeUpdate.html#event" class="tsd-index-link"
                     ><svg
                       class="tsd-kind-icon"
                       width="24"
@@ -576,11 +736,11 @@
                     >
                       <use href="#icon-1024-path"></use>
                       <use href="#icon-1024-text"></use></svg
-                    >is_<wbr />open</a
+                    >event</a
                   >
                 </li>
                 <li class="tsd-kind-property tsd-parent-kind-interface">
-                  <a href="Clock.html#next_close" class="tsd-index-link"
+                  <a href="TradeUpdate.html#execution_id" class="tsd-index-link"
                     ><svg
                       class="tsd-kind-icon"
                       width="24"
@@ -589,11 +749,11 @@
                     >
                       <use href="#icon-1024-path"></use>
                       <use href="#icon-1024-text"></use></svg
-                    >next_<wbr />close</a
+                    >execution_<wbr />id</a
                   >
                 </li>
                 <li class="tsd-kind-property tsd-parent-kind-interface">
-                  <a href="Clock.html#next_open" class="tsd-index-link"
+                  <a href="TradeUpdate.html#order" class="tsd-index-link"
                     ><svg
                       class="tsd-kind-icon"
                       width="24"
@@ -602,11 +762,50 @@
                     >
                       <use href="#icon-1024-path"></use>
                       <use href="#icon-1024-text"></use></svg
-                    >next_<wbr />open</a
+                    >order</a
                   >
                 </li>
                 <li class="tsd-kind-property tsd-parent-kind-interface">
-                  <a href="Clock.html#timestamp" class="tsd-index-link"
+                  <a href="TradeUpdate.html#position_qty" class="tsd-index-link"
+                    ><svg
+                      class="tsd-kind-icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="#icon-1024-path"></use>
+                      <use href="#icon-1024-text"></use></svg
+                    >position_<wbr />qty</a
+                  >
+                </li>
+                <li class="tsd-kind-property tsd-parent-kind-interface">
+                  <a href="TradeUpdate.html#price" class="tsd-index-link"
+                    ><svg
+                      class="tsd-kind-icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="#icon-1024-path"></use>
+                      <use href="#icon-1024-text"></use></svg
+                    >price</a
+                  >
+                </li>
+                <li class="tsd-kind-property tsd-parent-kind-interface">
+                  <a href="TradeUpdate.html#qty" class="tsd-index-link"
+                    ><svg
+                      class="tsd-kind-icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="#icon-1024-path"></use>
+                      <use href="#icon-1024-text"></use></svg
+                    >qty</a
+                  >
+                </li>
+                <li class="tsd-kind-property tsd-parent-kind-interface">
+                  <a href="TradeUpdate.html#timestamp" class="tsd-index-link"
                     ><svg
                       class="tsd-kind-icon"
                       width="24"
