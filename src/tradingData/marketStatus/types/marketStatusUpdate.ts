@@ -1,7 +1,11 @@
-import { MarketStatusDuration } from './marketStatusDuration'
-import { MarketStatus } from './marketStatus'
-import { Calendar } from '../../calendars'
+import { MarketStatusDuration } from '@/tradingData/marketStatus/types/marketStatusDuration'
+import { MarketStatus } from '@/tradingData/marketStatus/types/marketStatus'
+import { Calendar } from '@/tradingData/calendars/types'
 
+/**
+ * @group Trading Data
+ * @category Market Status
+ */
 export interface MarketStatusUpdate {
   localTime: string
   marketTime: string

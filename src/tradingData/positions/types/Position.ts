@@ -1,3 +1,7 @@
+/**
+ * @group Trading Data
+ * @category Positions
+ */
 export interface Position {
   asset_id: string
   symbol: string

@@ -1,19 +1,12 @@
-import { Order, RawOrder } from '../types'
+import { Order, OrdersArgs, RawOrder } from '@/tradingData/orders/types'
 import qs from 'qs'
-import { getTradeData } from '../../http'
-import { cleanOrder } from '../helpers'
+import { getTradeData } from '@/tradingData/http'
+import { cleanOrder } from '@/tradingData/orders/helpers'
 
-export type OrdersArgs = {
-  status?: 'open' | 'closed' | 'all'
-  limit?: number
-  after?: string
-  until?: Date
-  direction?: 'asc' | 'desc'
-  nested?: boolean
-  side?: 'buy' | 'sell'
-  symbols?: string[]
-}
-
+/**
+ * @group Trading Data
+ * @category Orders
+ */
 export const getOrders = async (args: OrdersArgs): Promise<Order[]> => {
   const queryString = qs.stringify(args, { arrayFormat: 'comma' })
 

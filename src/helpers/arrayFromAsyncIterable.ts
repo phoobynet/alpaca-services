@@ -1,6 +1,8 @@
 /**
  * Takes an async iterable and materializes the results.
+ * @internal
  * @group Helpers
+ * @category Array
  * @param iter
  * @example
  * ```ts

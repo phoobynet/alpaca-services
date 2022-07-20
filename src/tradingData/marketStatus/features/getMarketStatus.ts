@@ -10,10 +10,13 @@ import {
   getCalendarForToday,
   getNextCalendar,
   getPreviousCalendar,
-} from '../../calendars'
-import type { Calendar } from '../../calendars'
-import { MarketStatus, MarketStatusDuration } from '../types'
-import { AMERICA_NEW_YORK_TZ } from '../../../constants'
+} from '@/tradingData/calendars'
+import type { Calendar } from '@/tradingData/calendars'
+import {
+  MarketStatus,
+  MarketStatusDuration,
+} from '@/tradingData/marketStatus/types'
+import { AMERICA_NEW_YORK_TZ } from '@/constants'
 
 const DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss'
 
@@ -22,6 +25,10 @@ let currentCalendar: Calendar | undefined
 let previousCalendar: Calendar
 let nextCalendar: Calendar
 
+/**
+ * @group Trading Data
+ * @category Market Status
+ */
 export const getMarketStatus = async () => {
   const localTime = new Date()
   const marketTime = toDate(localTime, {

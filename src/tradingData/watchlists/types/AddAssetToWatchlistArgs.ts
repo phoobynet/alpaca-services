@@ -1,6 +1,6 @@
 /**
  * {@link addAssetToWatchlist} args
- * @group Trade Data
+ * @group Trading Data
  * @category Watchlists
  */
 export type AddAssetToWatchlistArgs = {

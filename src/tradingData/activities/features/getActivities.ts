@@ -3,14 +3,26 @@ import {
   RawNonTradeActivity,
   RawTradeActivity,
   TradeActivity,
-} from '../types'
-import { getTradeData } from '../../http'
-import { isNonTradeActivity } from '../helpers/isNonTradeActivity'
-import { cleanNonTradeActivity, cleanTradeActivity } from '../helpers'
+  ActivitiesArgs,
+} from '@/tradingData/activities/types'
+import { getTradeData } from '@/tradingData/http'
+import { isNonTradeActivity } from '@/tradingData/activities/helpers/isNonTradeActivity'
+import {
+  cleanNonTradeActivity,
+  cleanTradeActivity,
+} from '@/tradingData/activities/helpers'
 import { isAfter } from 'date-fns'
-import { ActivitiesArgs } from '../types'
 
+/**
+ * @group Trading Data
+ * @category Account Activity
+ */
 export type Activity = NonTradeActivity | TradeActivity
+
+/**
+ * @group Trading Data
+ * @category Account Activity
+ */
 export type Activities = Activity[]
 
 type RawActivity = RawNonTradeActivity | RawTradeActivity

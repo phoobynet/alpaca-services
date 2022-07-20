@@ -2,6 +2,8 @@ import { MarketDataEntity } from '../../types'
 
 /**
  * See https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/historical/#quote
+ * @group Market Data
+ * @category Quotes
  */
 export interface Quote extends MarketDataEntity {
   // stock only

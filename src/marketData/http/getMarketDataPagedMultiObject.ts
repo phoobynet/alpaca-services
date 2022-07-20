@@ -4,6 +4,7 @@ import { getPagedNestedDataProperty } from './helpers'
 
 /**
  * Gets data structured as a Map<string, Object>
+ * @internal
  * @example
  * // Alpaca Response
  * {

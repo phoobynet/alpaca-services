@@ -211,7 +211,7 @@
           >
             <h2>Trade Data</h2>
           </a>
-          <pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">options</span><span class="hl-0">, </span><span class="hl-2">getPreviousCalendar</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@phoobynet/alpaca-services&#39;</span><br/><br/><span class="hl-2">options</span><span class="hl-0">.</span><span class="hl-5">set</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">key:</span><span class="hl-0"> </span><span class="hl-2">process</span><span class="hl-0">.</span><span class="hl-2">env</span><span class="hl-0">.</span><span class="hl-6">APCA_API_KEY_ID</span><span class="hl-0"> </span><span class="hl-1">as</span><span class="hl-0"> </span><span class="hl-7">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">secret:</span><span class="hl-0"> </span><span class="hl-2">process</span><span class="hl-0">.</span><span class="hl-2">env</span><span class="hl-0">.</span><span class="hl-6">APCA_API_SECRET_KEY</span><span class="hl-0"> </span><span class="hl-1">as</span><span class="hl-0"> </span><span class="hl-7">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">paper:</span><span class="hl-0"> </span><span class="hl-8">true</span><span class="hl-0">,</span><br/><span class="hl-0">})</span><br/><br/><span class="hl-8">async</span><span class="hl-0"> </span><span class="hl-8">function</span><span class="hl-0"> </span><span class="hl-5">main</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-4">// direct http request to Alpaca&#39;s API</span><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">previousCalendar</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getPreviousCalendar</span><span class="hl-0">()</span><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-7">JSON</span><span class="hl-0">.</span><span class="hl-5">stringify</span><span class="hl-0">(</span><span class="hl-2">previousCalendar</span><span class="hl-0">, </span><span class="hl-8">null</span><span class="hl-0">, </span><span class="hl-9">2</span><span class="hl-0">))</span><br/><br/><span class="hl-0">  </span><span class="hl-2">process</span><span class="hl-0">.</span><span class="hl-5">exit</span><span class="hl-0">(</span><span class="hl-9">1</span><span class="hl-0">)</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-5">main</span><span class="hl-0">().</span><span class="hl-5">catch</span><span class="hl-0">((</span><span class="hl-2">e</span><span class="hl-0">) </span><span class="hl-8">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">error</span><span class="hl-0">(</span><span class="hl-2">e</span><span class="hl-0">)</span><br/><span class="hl-0">})</span>
+          <pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">options</span><span class="hl-0">, </span><span class="hl-2">getPreviousCalendar</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@phoobynet/alpaca-services&#39;</span><br/><br/><span class="hl-2">options</span><span class="hl-0">.</span><span class="hl-5">set</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">key:</span><span class="hl-0"> </span><span class="hl-2">process</span><span class="hl-0">.</span><span class="hl-2">env</span><span class="hl-0">.</span><span class="hl-6">APCA_API_KEY_ID</span><span class="hl-0"> </span><span class="hl-1">as</span><span class="hl-0"> </span><span class="hl-7">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">secret:</span><span class="hl-0"> </span><span class="hl-2">process</span><span class="hl-0">.</span><span class="hl-2">env</span><span class="hl-0">.</span><span class="hl-6">APCA_API_SECRET_KEY</span><span class="hl-0"> </span><span class="hl-1">as</span><span class="hl-0"> </span><span class="hl-7">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">paper:</span><span class="hl-0"> </span><span class="hl-8">true</span><span class="hl-0">,</span><br/><span class="hl-0">})</span><br/><br/><span class="hl-8">async</span><span class="hl-0"> </span><span class="hl-8">function</span><span class="hl-0"> </span><span class="hl-5">main</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-4">// direct http request to Alpaca&#39;s API (see Repositories for how to cache data)</span><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">previousCalendar</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getPreviousCalendar</span><span class="hl-0">()</span><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-7">JSON</span><span class="hl-0">.</span><span class="hl-5">stringify</span><span class="hl-0">(</span><span class="hl-2">previousCalendar</span><span class="hl-0">, </span><span class="hl-8">null</span><span class="hl-0">, </span><span class="hl-9">2</span><span class="hl-0">))</span><br/><br/><span class="hl-0">  </span><span class="hl-2">process</span><span class="hl-0">.</span><span class="hl-5">exit</span><span class="hl-0">(</span><span class="hl-9">1</span><span class="hl-0">)</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-5">main</span><span class="hl-0">().</span><span class="hl-5">catch</span><span class="hl-0">((</span><span class="hl-2">e</span><span class="hl-0">) </span><span class="hl-8">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">error</span><span class="hl-0">(</span><span class="hl-2">e</span><span class="hl-0">)</span><br/><span class="hl-0">})</span>
 </code></pre>
 
           <a
@@ -761,21 +761,6 @@
             </li>
             <li class="tsd-kind-interface">
               <a
-                href="interfaces/MarketStatusCancel.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Market<wbr />Status<wbr />Cancel</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a
                 href="interfaces/MarketStatusDuration.html"
                 class="tsd-index-link"
                 ><svg
@@ -908,19 +893,6 @@
                   <use href="#icon-256-path"></use>
                   <use href="#icon-256-text"></use></svg
                 >Quote</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a href="interfaces/RawPosition.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Raw<wbr />Position</a
               >
             </li>
             <li class="tsd-kind-interface">
@@ -1080,19 +1052,6 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Cancel<wbr />Fn</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
-              <a href="types/ClosingTradeArgs.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Closing<wbr />Trade<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -1412,21 +1371,6 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a
-                href="functions/arrayFromAsyncIterable.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >array<wbr />From<wbr />Async<wbr />Iterable</a
-              >
-            </li>
-            <li class="tsd-kind-function">
               <a href="functions/cleanAnnouncement.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1723,21 +1667,6 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a
-                href="functions/getMarketDataPagedMultiObject.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Market<wbr />Data<wbr />Paged<wbr />Multi<wbr />Object</a
-              >
-            </li>
-            <li class="tsd-kind-function">
               <a href="functions/getMarketStatus.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1976,21 +1905,6 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a
-                href="functions/isDateBeforeOrEqualTo.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >is<wbr />Date<wbr />Before<wbr />Or<wbr />Equal<wbr />To</a
-              >
-            </li>
-            <li class="tsd-kind-function">
               <a href="functions/observeBars.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -2055,19 +1969,6 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >observe<wbr />Trades</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="functions/toUtcDayRange.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >to<wbr />Utc<wbr />Day<wbr />Range</a
               >
             </li>
             <li class="tsd-kind-function">

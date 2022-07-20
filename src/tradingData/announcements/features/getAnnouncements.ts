@@ -10,6 +10,8 @@ import { formatISO, isAfter, isBefore, subDays } from 'date-fns'
 
 /**
  * Corporate announcements query arguments
+ * @group Trading Data
+ * @category Announcements
  */
 export type AnnouncementsArgs = {
   /**

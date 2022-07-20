@@ -1,13 +1,16 @@
-import { MarketStatusCancel, MarketStatusHandler } from '../types'
-import { getMarketStatus } from './getMarketStatus'
+import { MarketStatusHandler } from '@/tradingData/marketStatus/types/marketStatusHandler'
+import { getMarketStatus } from '@/tradingData/marketStatus/features/getMarketStatus'
+import { CancelFn } from '@/types'
 
 const UPDATE_INTERVAL = 1_000
 const handlers = new Map<MarketStatusHandler, void>()
 let updateInterval: ReturnType<typeof setInterval>
 
-export const observeMarketStatus = (
-  handler: MarketStatusHandler,
-): MarketStatusCancel => {
+/**
+ * @group Trading Data
+ * @category Market Status
+ */
+export const observeMarketStatus = (handler: MarketStatusHandler): CancelFn => {
   if (!updateInterval) {
     updateInterval = setInterval(async () => {
       const currentMarketStatus = await getMarketStatus()

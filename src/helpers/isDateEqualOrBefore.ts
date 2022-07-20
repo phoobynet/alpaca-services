@@ -2,7 +2,9 @@ import { isBefore, isDate, isEqual, startOfDay } from 'date-fns'
 
 /**
  * If d1 is before or equal to d2, return true.
+ * @internal
  * @group Helpers
+ * @category Date
  * @param d1
  * @param d2
  * @param {'date' | 'datetime'} level - ignore time part if 'date'.

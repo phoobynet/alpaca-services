@@ -1,7 +1,12 @@
-import { Position, RawPosition } from '../types'
-import { getTradeData } from '../../http'
-import { cleanPosition } from '../helpers'
+import { Position, RawPosition } from '@/tradingData/positions/types'
+import { getTradeData } from '@/tradingData/http'
+import { cleanPosition } from '@/tradingData/positions/helpers'
 
+/**
+ * @group Trading Data
+ * @category Positions
+ * @param symbol
+ */
 export const getAnOpenPosition = async (
   symbol: string,
 ): Promise<Position | undefined> => {

@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export interface RawPosition {
   asset_id: string
   symbol: string

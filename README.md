@@ -165,7 +165,7 @@ options.set({
 })
 
 async function main() {
-  // direct http request to Alpaca's API
+  // direct http request to Alpaca's API (see Repositories for how to cache data)
   const previousCalendar = await getPreviousCalendar()
   console.log(JSON.stringify(previousCalendar, null, 2))
 

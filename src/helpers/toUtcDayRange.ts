@@ -1,7 +1,13 @@
 import { format } from 'date-fns-tz'
 import { parseISO } from 'date-fns'
 
-// HACK: This is a hack to get the date to be in the correct timezone.
+/**
+ * HACK: This is a hack to get the date to be in the correct timezone.
+ * @internal
+ * @group Helpers
+ * @category Date
+ * @param date
+ */
 export const toUtcDayRange = (date: Date): [Date, Date] => {
   const start =
     format(date, 'yyyy-MM-dd', { timeZone: 'ETC/Utc' }) + 'T00:00:00.000Z'

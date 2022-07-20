@@ -1,5 +1,9 @@
-import { Position, RawPosition } from '../types'
+import { Position, RawPosition } from '@/tradingData/positions/types'
 
+/**
+ * @internal
+ * @param rawPosition
+ */
 export const cleanPosition = (rawPosition: RawPosition): Position => {
   return {
     asset_id: rawPosition.asset_id,
