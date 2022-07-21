@@ -1,7 +1,7 @@
 import { MarketDataRealTime } from '@/marketData/http/MarketDataRealTime'
-import { getCryptoMarketDataSocket } from '@/marketData/http/getCryptoMarketDataSocket'
+import { getCryptoSocket } from '@/marketData/http/getCryptoSocket'
 
-let cryptoMarketDataRealTime: MarketDataRealTime
+let realTime: MarketDataRealTime
 
 /**
  * Provides a real time connection to Alpaca's crypto market data.
@@ -10,11 +10,9 @@ let cryptoMarketDataRealTime: MarketDataRealTime
  * @category HTTP
  */
 export const getCryptoRealTime = () => {
-  if (!cryptoMarketDataRealTime) {
-    cryptoMarketDataRealTime = new MarketDataRealTime(
-      getCryptoMarketDataSocket(),
-    )
+  if (!realTime) {
+    realTime = new MarketDataRealTime(getCryptoSocket())
   }
 
-  return cryptoMarketDataRealTime
+  return realTime
 }

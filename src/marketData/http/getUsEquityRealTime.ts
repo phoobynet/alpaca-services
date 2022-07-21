@@ -1,7 +1,7 @@
 import { MarketDataRealTime } from '@/marketData/http/MarketDataRealTime'
-import { getStockMarketDataSocket } from '@/marketData/http/getStockMarketDataSocket'
+import { getUsEquitySocket } from '@/marketData/http/getUsEquitySocket'
 
-let stockMarketDataRealTime: MarketDataRealTime
+let realTime: MarketDataRealTime
 
 /**
  * @internal
@@ -9,9 +9,9 @@ let stockMarketDataRealTime: MarketDataRealTime
  * @category HTTP
  */
 export const getUsEquityRealTime = (): MarketDataRealTime => {
-  if (!stockMarketDataRealTime) {
-    stockMarketDataRealTime = new MarketDataRealTime(getStockMarketDataSocket())
+  if (!realTime) {
+    realTime = new MarketDataRealTime(getUsEquitySocket())
   }
 
-  return stockMarketDataRealTime
+  return realTime
 }
