@@ -1,6 +1,6 @@
 import { getPreviousCalendar } from '@/tradingData'
 import { getBarsBetween } from '@/marketData/bars/features'
-import { Bar, PreviousDailyBarArgs } from '@/marketData/bars/types'
+import { Bar, DailyBarArgs } from '@/marketData/bars/types'
 import { MarketDataSource } from '@/marketData/types'
 import { arrayFromAsyncIterable } from '@/helpers'
 import { last } from 'lodash'
@@ -10,7 +10,7 @@ import { endOfDay, startOfDay, subDays } from 'date-fns'
  * @group Market Data
  * @category Bars
  * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
- * @param {PreviousDailyBarArgs} args
+ * @param {DailyBarArgs} args
  * ```ts
  * async function main() {
  *   const stockBar = await getPreviousDailyBar(usEquitySource, {
@@ -57,7 +57,7 @@ import { endOfDay, startOfDay, subDays } from 'date-fns'
  */
 export const getPreviousDailyBar = async (
   marketDataSource: MarketDataSource,
-  args: PreviousDailyBarArgs,
+  args: DailyBarArgs,
 ): Promise<Bar | undefined> => {
   let bars: Bar[] = []
   if (marketDataSource.type === 'crypto') {

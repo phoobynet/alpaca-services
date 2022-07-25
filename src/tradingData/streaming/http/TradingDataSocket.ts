@@ -7,6 +7,7 @@ import { cleanTradeUpdate } from '@/tradingData/streaming/helpers'
 import { RawTradeUpdate } from '@/tradingData/streaming/types/RawTrade'
 
 let tradingDataSocket: TradingDataSocket | undefined
+const isBrowser = typeof window !== 'undefined'
 
 interface Message {
   stream: string
@@ -22,6 +23,9 @@ interface AuthorizationMessage extends Message {
 interface TradeUpdateMessage extends Message {
   data: RawTradeUpdate
 }
+
+const PAPER_API_URL = 'wss://paper-api.alpaca.markets/stream'
+const LIVE_API_URL = 'wss://data.alpaca.markets/stream'
 
 /**
  * @internal
@@ -51,9 +55,7 @@ export class TradingDataSocket extends EventEmitter {
     if (!tradingDataSocket) {
       const { paper } = options.get()
       tradingDataSocket = new TradingDataSocket(
-        paper
-          ? 'wss://paper-api.alpaca.markets/stream'
-          : 'wss://data.alpaca.markets/stream',
+        paper ? PAPER_API_URL : LIVE_API_URL,
       )
 
       tradingDataSocket.start()
@@ -72,11 +74,14 @@ export class TradingDataSocket extends EventEmitter {
 
   private start() {
     this.socket = new WebSocket(this.url)
+
     this.socket.onmessage = this.onMessage.bind(this)
-    this.socket.onerror = TradingDataSocket.onError
     this.socket.onopen = () => {
-      this.authenticate()
+      if (this.socket.readyState === WebSocket.OPEN) {
+        this.authenticate()
+      }
     }
+    this.socket.onerror = TradingDataSocket.onError
     this.socket.onclose = () => {
       if (!this.intentionalClosing) {
         this.start()
@@ -89,21 +94,41 @@ export class TradingDataSocket extends EventEmitter {
     throw new Error(errorEvent.message)
   }
 
-  private onMessage(messageEvent: MessageEvent): void {
-    const message = JSON.parse(messageEvent.data.toString('utf-8'))
+  private async onMessage(messageEvent: MessageEvent) {
+    const data = messageEvent.data
+    let rawMessage: string
+
+    if (isBrowser) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      rawMessage = await data.text()
+    } else {
+      rawMessage = data.toString('utf-8')
+    }
+
+    if (!data) {
+      throw new Error('TradingDataSocket: empty message')
+    }
+
+    let message: Message
+
+    try {
+      message = JSON.parse(rawMessage)
+    } catch (e) {
+      throw new Error(`TradingDataSocket: failed to parse message: ${data}`)
+    }
 
     if (message.stream === 'authorization') {
       const authorizationMessage = message as AuthorizationMessage
 
       if (authorizationMessage.data.status === 'authorized') {
-        console.log('isReady')
+        this.isReady = true
         this.send({
           action: 'listen',
           data: {
             streams: ['trade_updates'],
           },
         })
-        this.isReady = true
         this.drainPending()
       } else if (authorizationMessage.data.status === 'unauthorized') {
         if (authorizationMessage.data.action === 'authenticate') {
@@ -149,13 +174,10 @@ export class TradingDataSocket extends EventEmitter {
   }
 
   private send(data: Record<string, unknown>) {
-    if (!this.isReady) {
-      console.log('Pending:', data)
-      this.pendingRequests.push(data)
+    if (this.isReady) {
+      this.socket.send(JSON.stringify(data))
     } else {
-      console.log('NOT Pending:', data)
-      const query = JSON.stringify(data)
-      this.socket.send(query)
+      this.pendingRequests.push(data)
     }
   }
 }

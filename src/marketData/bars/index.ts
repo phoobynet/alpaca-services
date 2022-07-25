@@ -7,7 +7,7 @@ export {
   MultiBarsArgs,
   BarsSinceArgs,
   BarsInTheLastArgs,
-  PreviousDailyBarArgs,
+  DailyBarArgs,
   IntradayBarsArgs,
 } from './types'
 export * from './features'
