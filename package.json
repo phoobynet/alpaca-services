@@ -1,11 +1,11 @@
 {
   "name": "@phoobynet/alpaca-services",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
     "prepublishOnly": "npm run typedoc && npm run build",
-    "build": "npm run lint:fix && npm run clean && npm run build:types && npm run build:ts",
+    "build": "npm run lint:fix && npm run clean && npm run build:types && npm run build:ts && npm run typedoc",
     "clean": "rimraf dist",
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly",
     "build:ts": "tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
