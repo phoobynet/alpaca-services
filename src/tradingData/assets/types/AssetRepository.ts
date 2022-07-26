@@ -43,7 +43,8 @@ import { Asset } from './Asset'
  *   if (!assetsReady) {
  *     const c = await database.assets.count()
  *     if (c === 0) {
- *       const assets = await getAssets()
+ *       // set forceHTTP to true to ensure data is retrieved from the API (not from cache (which will be empty (which is loop badness)))
+ *       const assets = await getAssets(true)
  *       await database.assets.bulkPut(assets)
  *     }
  *     assetsReady = true
@@ -52,7 +53,6 @@ import { Asset } from './Asset'
  *
  * export const assetRepository: AssetRepository = {
  *   async find(symbol: string): Promise<Asset | undefined> {
- *     symbol = cleanSymbol(symbol)
  *     await isEmpty()
  *     return database.assets.where('symbol').equalsIgnoreCase(symbol).first()
  *   },
