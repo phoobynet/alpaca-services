@@ -35,7 +35,10 @@ export class MarketDataRealTime {
    * Nest map that stores the entity type -> symbol -> handlers
    * @private
    */
-  private handlers = new Map<SubEntityType, Map<string, Handler[]>>()
+  private subscribersEntityTypeMaps = new Map<
+    SubEntityType,
+    Map<string, Handler[]>
+  >()
 
   private messageFilters = new Map<
     MarketDataSocketMessageType,
@@ -68,7 +71,10 @@ export class MarketDataRealTime {
     })
 
     for (const [, subscriptionType] of Object.entries(SubEntityType)) {
-      this.handlers.set(subscriptionType, new Map<string, Handler[]>())
+      this.subscribersEntityTypeMaps.set(
+        subscriptionType,
+        new Map<string, Handler[]>(),
+      )
     }
 
     for (const value of Object.values(MarketDataSocketMessageType)) {
@@ -79,21 +85,27 @@ export class MarketDataRealTime {
     }
   }
 
+  /**
+   * Subscribe to entity type and a symbol
+   * @param {SubEntityType} subscriptionEntityType
+   * @param {string} symbol
+   * @param {Handler} handler
+   */
   public subscribeTo(
     subscriptionEntityType: SubEntityType,
     symbol: string,
     handler: Handler,
   ): CancelFn {
-    const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
-      string,
-      Handler[]
-    >
-    const symbolSubscribers = subscribersMap.get(symbol)
+    const subscribersEntityTypeMap = this.subscribersEntityTypeMaps.get(
+      subscriptionEntityType,
+    ) as Map<string, Handler[]>
+
+    const symbolSubscribers = subscribersEntityTypeMap.get(symbol)
 
     if (symbolSubscribers) {
-      subscribersMap.set(symbol, [...symbolSubscribers, handler])
+      subscribersEntityTypeMap.set(symbol, [...symbolSubscribers, handler])
     } else {
-      subscribersMap.set(symbol, [handler])
+      subscribersEntityTypeMap.set(symbol, [handler])
 
       if (!this.isReady) {
         const symbolsPendingOfType =
@@ -110,37 +122,39 @@ export class MarketDataRealTime {
       }
     }
 
+    // cancellation function
     return () => {
-      const subscribersMap = this.handlers.get(subscriptionEntityType) as Map<
-        string,
-        Handler[]
-      >
-      let symbolSubscribers = subscribersMap.get(symbol) ?? []
+      const subscribersEntityTypeMap = this.subscribersEntityTypeMaps.get(
+        subscriptionEntityType,
+      ) as Map<string, Handler[]>
+      let symbolSubscribers = subscribersEntityTypeMap.get(symbol) ?? []
 
       symbolSubscribers = symbolSubscribers.filter((s) => s !== handler)
 
-      if (symbolSubscribers.length === 0) {
-        subscribersMap.delete(symbol)
-        this.sendUnsubscribe(subscriptionEntityType, symbol)
+      if (symbolSubscribers.length) {
+        subscribersEntityTypeMap.set(symbol, symbolSubscribers)
       } else {
-        subscribersMap.set(symbol, symbolSubscribers)
+        subscribersEntityTypeMap.delete(symbol)
+        this.sendUnsubscribe(subscriptionEntityType, symbol)
       }
     }
   }
 
   cancelAll() {
-    this.handlers.forEach((entityTypeHandlers, subscriptionEntityType) => {
-      entityTypeHandlers.forEach((_, symbol) => {
-        this.sendUnsubscribe(subscriptionEntityType, symbol)
-      })
-    })
+    this.subscribersEntityTypeMaps.forEach(
+      (entityTypeHandlers, subscriptionEntityType) => {
+        entityTypeHandlers.forEach((_, symbol) => {
+          this.sendUnsubscribe(subscriptionEntityType, symbol)
+        })
+      },
+    )
 
-    this.handlers.clear()
+    this.subscribersEntityTypeMaps.clear()
   }
 
   private MarketDataSocketMessagesHandler(messages: MarketDataSocketMessage[]) {
     let next = messages
-    for (const key of this.handlers.keys()) {
+    for (const key of this.subscribersEntityTypeMaps.keys()) {
       next = this.distribute(key, next)
     }
   }
@@ -175,7 +189,7 @@ export class MarketDataRealTime {
     subscriptionEntityType: SubEntityType,
     messages: MarketDataSocketMessage[],
   ) {
-    const subscriptionEntityTypeHandlers = this.handlers.get(
+    const subscriptionEntityTypeHandlers = this.subscribersEntityTypeMaps.get(
       subscriptionEntityType,
     )
 
