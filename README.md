@@ -2,7 +2,15 @@
 
 **Unofficial** Alpaca [Market Data API](https://alpaca.markets/docs/api-references/market-data-api/) wrapper.
 
-My objects in building this library are:
+# :warning: Warning
+
+- This is still a work in progress.
+- Things may not be working correctly, so don't bet your life savings on data from this wrapper.
+- This is read-only data, it has no trading capabilities.
+- Feeble amounts of unit tests have been written.
+- It's not blazingly fast :wink:.
+
+# Objectives:
 
 - Create a unified API for crypto and equity historical and real-time data
 - Make real-time data easy to consume
