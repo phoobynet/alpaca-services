@@ -46,7 +46,7 @@ export class MarketDataSocket extends EventEmitter {
   private start() {
     this.socket = new WebSocket(this.url)
     this.socket.onmessage = this.onMessage.bind(this)
-    this.socket.onerror = MarketDataSocket.onError
+    this.socket.onerror = this.onError.bind(this)
     this.socket.onclose = () => {
       if (!this.intentionalClosing) {
         this.start()
@@ -55,8 +55,13 @@ export class MarketDataSocket extends EventEmitter {
     }
   }
 
-  private static onError(errorEvent: ErrorEvent) {
-    throw new Error(errorEvent.message)
+  private onError(errorEvent: ErrorEvent) {
+    // be cool if there is a socket and the socket is open
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      console.warn(errorEvent)
+    } else {
+      throw new Error(errorEvent.message)
+    }
   }
 
   private onMessage(messageEvent: MessageEvent): void {
