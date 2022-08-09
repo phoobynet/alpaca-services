@@ -108,13 +108,11 @@ export class MarketDataSocket extends EventEmitter {
   private authenticate() {
     const { key, secret } = options.get()
 
-    this.socket.send(
-      JSON.stringify({
-        action: 'auth',
-        key,
-        secret,
-      }),
-    )
+    this.send({
+      action: 'auth',
+      key,
+      secret,
+    })
   }
 
   public send(data: Record<string, unknown>) {
