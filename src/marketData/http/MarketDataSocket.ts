@@ -105,14 +105,31 @@ export class MarketDataSocket extends EventEmitter {
     }
   }
 
-  private authenticate() {
+  private authenticate(attempts = 0) {
     const { key, secret } = options.get()
 
-    this.send({
-      action: 'auth',
-      key,
-      secret,
-    })
+    try {
+      this.socket.send(
+        JSON.stringify({
+          action: 'auth',
+          key,
+          secret,
+        }),
+      )
+    } catch (e) {
+      const message = (e as Error).message
+
+      if (attempts < 3) {
+        console.warn(
+          `Authentication attempt #${attempts} failed with reason "${message}", trying again...`,
+        )
+        setTimeout(() => {
+          this.authenticate(attempts + 1)
+        }, 1_000)
+      } else {
+        throw e
+      }
+    }
   }
 
   public send(data: Record<string, unknown>) {
