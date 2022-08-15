@@ -11,6 +11,7 @@ import { maxBy, minBy, takeRight } from 'lodash'
 import { arrayFromAsyncIterable, numberDiff, NumberDiffResult } from '@/helpers'
 import {
   Bar,
+  BarsSinceArgs,
   getBarsSince,
   getSnapshot,
   MarketDataSource,
@@ -122,7 +123,7 @@ export class LiveAssetView extends EventEmitter {
 
     const snapshot = await getSnapshot(this.source, {
       symbol: this.symbol,
-      exchange: asset.class === 'crypto' ? asset.exchange : '',
+      exchange: asset.class === 'crypto' ? asset.exchange : undefined,
     })
 
     const { latestQuote, latestTrade, prevDailyBar, dailyBar } = snapshot
@@ -137,21 +138,25 @@ export class LiveAssetView extends EventEmitter {
       changeMetrics: [],
     }
 
+    const getBarsSinceArgs: BarsSinceArgs = {
+      symbol: this.symbol,
+      timeframe: '1Min',
+      since: subHours(new Date(), 24),
+    }
+
+    if (asset.class === 'crypto') {
+      getBarsSinceArgs.exchanges = [asset.exchange]
+    }
+
     assetMetricsUpdate.dailyBars = await arrayFromAsyncIterable(
-      getBarsSince(this.source, {
-        symbol: this.symbol,
-        timeframe: '1Min',
-        since: subHours(new Date(), 24),
-        exchanges: ['CBSE'],
-      }),
+      getBarsSince(this.source, getBarsSinceArgs),
     )
 
     assetMetricsUpdate.ytdBars = await arrayFromAsyncIterable(
       getBarsSince(this.source, {
-        symbol: this.symbol,
+        ...getBarsSinceArgs,
         timeframe: '1Day',
         since: subWeeks(subYears(new Date(), 1), 1),
-        exchanges: ['CBSE'],
       }),
     )
 
