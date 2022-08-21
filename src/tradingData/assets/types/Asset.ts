@@ -18,4 +18,5 @@ export interface Asset {
   min_order_size?: string
   min_trade_increment?: string
   price_increment?: string
+  maintenance_margin_requirement?: number
 }
