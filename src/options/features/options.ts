@@ -33,23 +33,27 @@ export const options = {
    * @throws {OptionsError} if options are invalid
    */
   set(options: Options) {
-    const key = (options.key || '').trim()
+    const accessToken = (options.accessToken || '').trim()
 
-    if (!key) {
-      throw new OptionsError('options.key is invalid', options)
-    }
+    if (!accessToken) {
+      const key = (options.key || '').trim()
 
-    const secret = (options.secret || '').trim()
+      if (!key) {
+        throw new OptionsError('options.key is invalid', options)
+      }
 
-    if (!secret) {
-      throw new OptionsError('options.secret is invalid', options)
-    }
+      const secret = (options.secret || '').trim()
 
-    if (secret.length < key.length) {
-      throw new OptionsError(
-        'options.secret is shorted than options.key, which is not correct.',
-        options,
-      )
+      if (!secret) {
+        throw new OptionsError('options.secret is invalid', options)
+      }
+
+      if (secret.length < key.length) {
+        throw new OptionsError(
+          'options.secret is shorted than options.key, which is not correct.',
+          options,
+        )
+      }
     }
 
     if (options.paper) {

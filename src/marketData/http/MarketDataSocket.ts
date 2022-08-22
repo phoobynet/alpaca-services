@@ -86,6 +86,7 @@ export class MarketDataSocket extends EventEmitter {
       } else if (leading.T === MarketDataSocketMessageType.subscription) {
         this.emit(MarketDataSocket.SUBSCRIBED_EVENT, leading)
       } else if (leading.T === MarketDataSocketMessageType.error) {
+        console.log(JSON.stringify(leading, null, 2))
         throw new Error(leading.msg)
       } else {
         this.emit(MarketDataSocket.MESSAGES_EVENT, messages)
@@ -106,16 +107,25 @@ export class MarketDataSocket extends EventEmitter {
   }
 
   private authenticate(attempts = 0) {
-    const { key, secret } = options.get()
+    const { key, secret, accessToken } = options.get()
 
     try {
-      this.socket.send(
-        JSON.stringify({
-          action: 'auth',
-          key,
-          secret,
-        }),
-      )
+      if (accessToken) {
+        this.socket.send(
+          JSON.stringify({
+            action: 'auth',
+            token: accessToken,
+          }),
+        )
+      } else if (key && secret) {
+        this.socket.send(
+          JSON.stringify({
+            action: 'auth',
+            key,
+            secret,
+          }),
+        )
+      }
     } catch (e) {
       const message = (e as Error).message
 

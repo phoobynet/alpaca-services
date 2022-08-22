@@ -160,17 +160,28 @@ export class TradingDataSocket extends EventEmitter {
   }
 
   private authenticate() {
-    const { key, secret } = options.get()
+    const { key, secret, accessToken } = options.get()
 
-    this.socket.send(
-      JSON.stringify({
-        action: 'authenticate',
-        data: {
-          key_id: key,
-          secret_key: secret,
-        },
-      }),
-    )
+    if (accessToken) {
+      this.socket.send(
+        JSON.stringify({
+          action: 'authenticate',
+          data: {
+            oauth_token: accessToken,
+          },
+        }),
+      )
+    } else if (key && secret) {
+      this.socket.send(
+        JSON.stringify({
+          action: 'authenticate',
+          data: {
+            key_id: key,
+            secret_key: secret,
+          },
+        }),
+      )
+    }
   }
 
   private send(data: Record<string, unknown>) {

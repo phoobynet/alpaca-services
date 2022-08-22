@@ -1,6 +1,6 @@
 {
   "name": "@phoobynet/alpaca-services",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
