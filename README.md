@@ -8,7 +8,10 @@
 - Things may not be working correctly, so don't bet your life savings on data from this wrapper.
 - This is read-only data, it has no trading capabilities.
 - Feeble amounts of unit tests have been written.
+- The build is failing
+- There is no public NPM package
 - It's not blazingly fast :wink:.
+- Alpaca have increased the price of their SIP feed 11 fold, which I can't afford, and this really needs the SIP feed.  I may just switch to IEX or Tiingo, in which case, active development would cease.
 
 # Objectives:
 
