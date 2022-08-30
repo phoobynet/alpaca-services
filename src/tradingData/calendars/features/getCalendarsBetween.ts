@@ -10,7 +10,7 @@ import { options } from '@/options'
  * @category Calendars
  * @example
  * ```ts
- * const calendars = await getCalendarsBetween(new Date('2022-07-01), new Date('2022-07-31'))
+ * const calendars = await getCalendarsBetween(new Date('2022-07-01'), new Date('2022-07-31'))
  * ```
  * @remarks If an {@link CalendarRepository} is provided, and no {@link Calendar} is found, the function WILL NOT fall back to HTTP.
  * @param {Date} start

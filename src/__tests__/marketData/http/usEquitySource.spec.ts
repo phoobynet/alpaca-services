@@ -11,7 +11,7 @@ describe('usEquitySource', () => {
   let httpClientGet: jest.Mock
 
   beforeAll(() => {
-    httpClientGet = jest.fn()
+    httpClientGet = jest.fn().mockResolvedValue({ ok: true, data: {} })
     createHttpClientMock.mockImplementation(() => ({
       get: httpClientGet,
     }))

@@ -4,8 +4,8 @@ import {
   MarketDataSourceType,
 } from '@/marketData/types'
 
-const { isStockMarketDataSource } = jest.requireActual(
-  '@/marketData/helpers/isStockMarketDataSource',
+const { isUsEquitySource } = jest.requireActual(
+  '@/marketData/helpers/isUsEquitySource',
 )
 
 describe('isUsEquitySource', () => {
@@ -19,7 +19,7 @@ describe('isUsEquitySource', () => {
   test.each(testCases)(
     'For source "%s" the result should be "%s"',
     (marketDataSource, expected) => {
-      const actual = isStockMarketDataSource(marketDataSource)
+      const actual = isUsEquitySource(marketDataSource)
       expect(actual).toBe(expected)
     },
   )

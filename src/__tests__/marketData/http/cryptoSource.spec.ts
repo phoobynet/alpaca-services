@@ -1,14 +1,15 @@
-import { cryptoSource } from '@/marketData/http'
 import { MarketDataClass } from '@/marketData/types'
 import { createHttpClient } from '@/http'
 
+const { cryptoSource } = jest.requireActual('@/marketData/http/cryptoSource')
+
 const createHttpClientMock = createHttpClient as jest.Mock
-const createHttpClientGetMock = jest.fn()
+const createHttpClientGetMock = jest
+  .fn()
+  .mockResolvedValue({ ok: true, data: {} })
 
 describe('cryptoSource', () => {
   beforeEach(() => {
-    createHttpClientMock.mockClear()
-    createHttpClientGetMock.mockClear()
     createHttpClientMock.mockImplementation(() => {
       return {
         get: createHttpClientGetMock,
