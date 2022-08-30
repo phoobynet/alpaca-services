@@ -24,11 +24,19 @@ import {
 import { CancelFn } from '@/types'
 import { Asset, getAsset } from '@/tradingData'
 
+/**
+ * @group Market Data
+ * @category View
+ */
 export interface LiveAssetViewChange {
   period: string
   change: NumberDiffResult
 }
 
+/**
+ * @group Market Data
+ * @category View
+ */
 export interface LiveAssetViewRange {
   low: number
   high: number
@@ -36,6 +44,10 @@ export interface LiveAssetViewRange {
   pctOfCurrentPrice: number
 }
 
+/**
+ * @group Market Data
+ * @category View
+ */
 export interface LiveAssetViewUpdate {
   symbol: string
   asset: Asset
@@ -49,13 +61,20 @@ export interface LiveAssetViewUpdate {
   dailyRange: LiveAssetViewRange
 }
 
-interface LiveAssetViewChangePeriodSpec {
+/**
+ * @group Market Data
+ * @category View
+ */
+export interface LiveAssetViewChangePeriodSpec {
   period: string
   since: Date
 }
 
 /**
  * Create an instance, and subscribe to updates.
+ * @group Market Data
+ * @category View
+ * @experimental
  * @example
  * const view = new LiveAssetView(cryptoSource, 'BTCUSD')
  * view.on('update', (update) => {

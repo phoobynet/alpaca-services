@@ -1,5 +1,4 @@
 /**
- * @internal
  * @group Market Data
  * @category HTTP
  */

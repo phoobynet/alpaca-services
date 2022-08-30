@@ -1,5 +1,4 @@
 /**
- * @internal
  * @group Trading Data
  * @category Announcements
  */
