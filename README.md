@@ -8,10 +8,9 @@
 - Things may not be working correctly, so don't bet your life savings on data from this wrapper.
 - This is read-only data, it has no trading capabilities.
 - Feeble amounts of unit tests have been written.
-- The build is failing
 - There is no public NPM package
-- It's not blazingly fast :wink:.
-- Alpaca have increased the price of their SIP feed 11 fold, which I can't afford, and this really needs the SIP feed.  I may just switch to IEX or Tiingo, in which case, active development would cease.
+- It's probably blazingly fast :wink:.
+- Alpaca have increased the price of their SIP feed 11 fold, which I can't afford, and this really needs the SIP feed. I may just switch to IEX or Tiingo, in which case, active development would cease.
 
 # Objectives:
 
@@ -20,6 +19,7 @@
 - To not worry about handling pagination (just use [for await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of))
 - To convert data returned to the appropriate data type (Alpaca returns `string<number>`. See [Account](https://alpaca.markets/docs/api-references/trading-api/account/) to understand what I mean.)
 - To force timestamps into a consistent format (1,000th of a second)
+- Get real-time market status (is it open, pre-market, etc.)
 
 # Requirements
 
@@ -204,6 +204,82 @@ main().catch((e) => {
   "session_open": "2022-07-18T08:00:00.000Z",
   "session_close": "2022-07-19T00:00:00.000Z"
 }
+```
+
+## Market status
+
+You can observe for US equity market status changes, or just call `getMarketStatus()` to get the current market status.
+
+```typescript
+import {
+  options,
+  observeMarketStatus,
+  getMarketStatus,
+} from '@phoobynet/alpaca-services'
+
+options.set({
+  key: process.env.APCA_API_KEY_ID as string,
+  secret: process.env.APCA_API_SECRET_KEY as string,
+  paper: true,
+})
+
+async function main() {
+  console.log('Get the current market status...')
+  console.log(await getMarketStatus())
+
+  console.log('\n\nObserve the market status...')
+  const cancel = observeMarketStatus((marketStatus) => {
+    console.log(marketStatus)
+  })
+
+  setTimeout(() => {
+    console.log('Stopping...')
+    cancel()
+    process.exit(0)
+    console.log('Stopping...DONE')
+  }, 5_000)
+}
+
+main().catch(console.error)
+```
+
+### Result
+
+```JSON
+{
+  "status": "preMarket",
+  "nextActiveStatus": "open",
+  "timeUntilNextActiveStatus": {
+    "days": 0,
+    "minutes": 58,
+    "hours": 3,
+    "seconds": 13
+  },
+  "localTime": "2022-08-30 10:31:46",
+  "marketTime": "2022-08-30 05:31:46",
+  "currentCalendar": {
+    "date": "2022-08-30T04:00:00.000Z",
+    "open": "2022-08-30T13:30:00.000Z",
+    "close": "2022-08-30T20:00:00.000Z",
+    "session_open": "2022-08-30T08:00:00.000Z",
+    "session_close": "2022-08-31T00:00:00.000Z"
+  },
+  "previousCalendar": {
+    "date": "2022-08-29T04:00:00.000Z",
+    "open": "2022-08-29T13:30:00.000Z",
+    "close": "2022-08-29T20:00:00.000Z",
+    "session_open": "2022-08-29T08:00:00.000Z",
+    "session_close": "2022-08-30T00:00:00.000Z"
+  },
+  "nextCalendar": {
+    "date": "2022-08-31T04:00:00.000Z",
+    "open": "2022-08-31T13:30:00.000Z",
+    "close": "2022-08-31T20:00:00.000Z",
+    "session_open": "2022-08-31T08:00:00.000Z",
+    "session_close": "2022-09-01T00:00:00.000Z"
+  }
+}
+
 ```
 
 ### Repositories
