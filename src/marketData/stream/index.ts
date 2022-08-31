@@ -1,4 +1,5 @@
 import WebSocket, { MessageEvent, ErrorEvent } from 'isomorphic-ws'
+import { Mutex } from 'async-mutex'
 import { options } from '@/options'
 import {
   Bar,
@@ -22,6 +23,8 @@ let _cryptoStream: MarketDataStream | undefined
 type SubscriptionType = 'trades' | 'quotes' | 'bars'
 type Handler = (message: unknown) => void
 type HandlerSet = Set<Handler>
+
+const clientLock = new Mutex()
 
 /**
  * @internal
@@ -192,10 +195,12 @@ export class MarketDataStream extends EventEmitter {
   }
 
   public static async getUsEquityInstance(): Promise<MarketDataStream> {
+    const release = await clientLock.acquire()
     // TODO: duplication
     if (_usEquityStream) {
       return _usEquityStream
     } else {
+      console.log('creating new us equity stream')
       return new Promise((resolve, reject) => {
         if (_usEquityStream) {
           return resolve(_usEquityStream)
@@ -206,6 +211,7 @@ export class MarketDataStream extends EventEmitter {
           stream.on('open', () => {
             _usEquityStream = stream
             resolve(stream)
+            release()
           })
           stream.on('error', (error: ErrorEvent) => {
             reject(error)
