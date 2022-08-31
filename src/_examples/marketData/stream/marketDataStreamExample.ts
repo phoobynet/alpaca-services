@@ -30,7 +30,7 @@ export async function main() {
       cancelTradeStream()
       cancelQuoteStream()
       process.exit(0)
-    }, 10_000)
+    }, 3_000)
   } catch (e) {
     console.error(e)
     process.exit(1)

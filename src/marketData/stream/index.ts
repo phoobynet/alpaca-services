@@ -1,4 +1,4 @@
-import { WebSocket, MessageEvent, ErrorEvent } from 'isomorphic-ws'
+import WebSocket, { MessageEvent, ErrorEvent } from 'isomorphic-ws'
 import { options } from '@/options'
 import {
   Bar,
@@ -14,6 +14,7 @@ import { cleanTrade } from '@/marketData/trades/helpers'
 import { cleanQuote } from '@/marketData/quotes/helpers'
 import { cleanBar } from '@/marketData/bars/helpers'
 import { getAsset } from '@/tradingData'
+import { isBrowser, isNode } from 'browser-or-node'
 
 let _usEquityStream: MarketDataStream | undefined
 let _cryptoStream: MarketDataStream | undefined
@@ -22,8 +23,13 @@ type SubscriptionType = 'trades' | 'quotes' | 'bars'
 type Handler = (message: unknown) => void
 type HandlerSet = Set<Handler>
 
+/**
+ * @internal
+ * @category Market Data
+ * @category Stream
+ */
 export class MarketDataStream extends EventEmitter {
-  private socket: WebSocket
+  public socket: WebSocket
   private tradeHandlers = new Map<string, HandlerSet>()
   private quoteHandlers = new Map<string, HandlerSet>()
   private barsHandlers = new Map<string, HandlerSet>()
@@ -117,6 +123,7 @@ export class MarketDataStream extends EventEmitter {
     type: SubscriptionType,
     handler: (t: T) => void,
   ): Promise<CancelFn> {
+    console.log('subscription request recv')
     const asset = await getAsset(symbol)
     if (!asset) {
       throw new Error('Unknown asset')
@@ -169,8 +176,6 @@ export class MarketDataStream extends EventEmitter {
       [type]: [symbol],
     })
 
-    console.log(subscriptionMessage)
-
     instance.socket.send(subscriptionMessage)
 
     return () => {
@@ -186,27 +191,31 @@ export class MarketDataStream extends EventEmitter {
     }
   }
 
-  private static async getUsEquityInstance(): Promise<MarketDataStream> {
+  public static async getUsEquityInstance(): Promise<MarketDataStream> {
     // TODO: duplication
     if (_usEquityStream) {
       return _usEquityStream
     } else {
       return new Promise((resolve, reject) => {
-        const stream = new MarketDataStream(
-          'wss://stream.data.alpaca.markets/v2/sip',
-        )
-        stream.on('open', () => {
-          _usEquityStream = stream
-          resolve(stream)
-        })
-        stream.on('error', (error: ErrorEvent) => {
-          reject(error)
-        })
+        if (_usEquityStream) {
+          return resolve(_usEquityStream)
+        } else {
+          const stream = new MarketDataStream(
+            'wss://stream.data.alpaca.markets/v2/sip',
+          )
+          stream.on('open', () => {
+            _usEquityStream = stream
+            resolve(stream)
+          })
+          stream.on('error', (error: ErrorEvent) => {
+            reject(error)
+          })
+        }
       })
     }
   }
 
-  private static async getCryptoInstance(): Promise<MarketDataStream> {
+  public static async getCryptoInstance(): Promise<MarketDataStream> {
     if (_cryptoStream) {
       return _cryptoStream
     } else {
@@ -224,4 +233,27 @@ export class MarketDataStream extends EventEmitter {
       })
     }
   }
+}
+
+if (isBrowser) {
+  window.onbeforeunload = () => {
+    console.log('MarketDataStream closing')
+    _usEquityStream?.socket.close()
+    _cryptoStream?.socket.close()
+    _usEquityStream = undefined
+    _cryptoStream = undefined
+  }
+}
+
+if (isNode) {
+  // eslint-disable-next-line
+  const onExit = require('signal-exit')
+
+  onExit(() => {
+    console.log('MarketDataStream closing')
+    _usEquityStream?.socket.close()
+    _cryptoStream?.socket.close()
+    _usEquityStream = undefined
+    _cryptoStream = undefined
+  })
 }
