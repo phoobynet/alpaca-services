@@ -1,4 +1,4 @@
-import { WebSocket, MessageEvent, ErrorEvent } from 'ws'
+import { WebSocket, MessageEvent, ErrorEvent } from 'isomorphic-ws'
 import { options } from '@/options'
 import {
   Bar,
