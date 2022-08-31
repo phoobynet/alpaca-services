@@ -9,6 +9,7 @@ import { cleanQuote } from '@/marketData/quotes/helpers'
 import throttle from 'lodash/throttle'
 
 /**
+ * @deprecated Use {@link streamQuotes} instead.
  * @group Market Data
  * @category Quotes
  * @param marketDataSourceType

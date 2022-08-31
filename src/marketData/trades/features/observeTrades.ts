@@ -10,6 +10,7 @@ import throttle from 'lodash/throttle'
 
 /**
  * Real-time trade observation.
+ * @deprecated Use {@link streamTrades} instead.
  * @group Market Data
  * @category Trades
  * @param {MarketDataSourceType} marketDataSourceType - {@link cryptoSource}, {@link usEquitySource}, or {@link MarketDataClass}

@@ -8,6 +8,7 @@ import { isCryptoSource } from '@/marketData/helpers'
 import { cleanBar } from '@/marketData/bars/helpers'
 
 /**
+ * @deprecated Use {@link streamBars} instead.
  * @group Market Data
  * @category Bars
  * @param {MarketDataSourceType} marketDataSourceType - {@link cryptoSource}, {@link usEquitySource} or {@link MarketDataClass}
