@@ -1,19 +1,13 @@
-import WebSocket, { MessageEvent, ErrorEvent } from 'isomorphic-ws'
+import WebSocket, { ErrorEvent, MessageEvent } from 'isomorphic-ws'
 import { Mutex } from 'async-mutex'
 import { options } from '@/options'
 import {
-  Bar,
   MarketDataClass,
   MarketDataSocketMessage,
   MarketDataSocketMessageType,
-  Quote,
-  Trade,
 } from '@/marketData'
 import { EventEmitter } from 'eventemitter3'
 import { CancelFn } from '@/types'
-import { cleanTrade } from '@/marketData/trades/helpers'
-import { cleanQuote } from '@/marketData/quotes/helpers'
-import { cleanBar } from '@/marketData/bars/helpers'
 import { getAsset } from '@/tradingData'
 import { isBrowser, isNode } from 'browser-or-node'
 
@@ -24,7 +18,8 @@ type SubscriptionType = 'trades' | 'quotes' | 'bars'
 type Handler = (message: unknown) => void
 type HandlerSet = Set<Handler>
 
-const clientLock = new Mutex()
+const usEquityMutex = new Mutex()
+const cryptoMutex = new Mutex()
 
 /**
  * @internal
@@ -121,10 +116,10 @@ export class MarketDataStream extends EventEmitter {
     this.emit('error', errorEvent)
   }
 
-  public static async subscribeTo<T extends Trade | Quote | Bar>(
+  public static async subscribeTo(
     symbol: string,
     type: SubscriptionType,
-    handler: (t: T) => void,
+    handler: (t: unknown) => void,
   ): Promise<CancelFn> {
     console.log('subscription request recv')
     const asset = await getAsset(symbol)
@@ -143,36 +138,7 @@ export class MarketDataStream extends EventEmitter {
     }
 
     const handlerSet = instance.getHandlerSet(type, symbol)
-
-    let wrappedHandler: Handler
-
-    switch (type) {
-      case 'trades':
-        wrappedHandler = (message: unknown) => {
-          const trade = cleanTrade(message as Trade)
-          handler(trade as T)
-        }
-        handlerSet.add(wrappedHandler)
-        break
-      case 'quotes':
-        wrappedHandler = (message: unknown) => {
-          const quote = cleanQuote(message as Quote)
-          handler(quote as T)
-        }
-        break
-      case 'bars':
-        wrappedHandler = (message: unknown) => {
-          const bar = cleanBar(message as Bar)
-          handler(bar as T)
-        }
-        break
-      default:
-        throw new Error('Set type not supported')
-    }
-
-    if (wrappedHandler) {
-      handlerSet.add(wrappedHandler)
-    }
+    handlerSet.add(handler)
 
     const subscriptionMessage = JSON.stringify({
       action: 'subscribe',
@@ -182,7 +148,7 @@ export class MarketDataStream extends EventEmitter {
     instance.socket.send(subscriptionMessage)
 
     return () => {
-      handlerSet.delete(wrappedHandler)
+      handlerSet.delete(handler)
       if (handlerSet.size === 0) {
         instance.socket.send(
           JSON.stringify({
@@ -195,12 +161,11 @@ export class MarketDataStream extends EventEmitter {
   }
 
   public static async getUsEquityInstance(): Promise<MarketDataStream> {
-    const release = await clientLock.acquire()
     // TODO: duplication
     if (_usEquityStream) {
       return _usEquityStream
     } else {
-      console.log('creating new us equity stream')
+      const release = await usEquityMutex.acquire()
       return new Promise((resolve, reject) => {
         if (_usEquityStream) {
           return resolve(_usEquityStream)
@@ -225,6 +190,7 @@ export class MarketDataStream extends EventEmitter {
     if (_cryptoStream) {
       return _cryptoStream
     } else {
+      const release = await cryptoMutex.acquire()
       return new Promise((resolve, reject) => {
         const stream = new MarketDataStream(
           'wss://stream.data.alpaca.markets/v1beta2/crypto',
@@ -232,9 +198,10 @@ export class MarketDataStream extends EventEmitter {
         stream.on('open', () => {
           _usEquityStream = stream
           resolve(stream)
+          release()
         })
-        stream.on('error', () => {
-          reject(new Error('MarketDataStream failed to open'))
+        stream.on('error', (error: ErrorEvent) => {
+          reject(error)
         })
       })
     }
