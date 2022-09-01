@@ -1,5 +1,5 @@
 import { MarketDataFeed } from '@/marketData/types'
-import { BarAdjustment } from '@/marketData/bars/types'
+import { BarAdjustment, BarTimeframe } from '@/marketData/bars/types'
 
 /**
  * {@link getBarsInTheLast} args.
@@ -13,10 +13,7 @@ export type BarsInTheLastArgs = {
    * Milliseconds.
    */
   inTheLast: number
-  /**
-   * @example '1Min'
-   */
-  timeframe: string
+  timeframe: BarTimeframe
   /**
    * The total number of bars to return.
    */

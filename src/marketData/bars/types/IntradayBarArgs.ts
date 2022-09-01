@@ -1,4 +1,5 @@
 import { BarAdjustment, MarketDataFeed } from '@/marketData'
+import { BarTimeframe } from '@/marketData/bars/types/BarTimeframe'
 
 /**
  * Args for {@link getIntradayBars} request.
@@ -11,5 +12,5 @@ export type IntradayBarsArgs = {
   exchanges?: string[]
   feed?: MarketDataFeed
   adjustment?: BarAdjustment
-  timeframe?: string
+  timeframe?: BarTimeframe
 }

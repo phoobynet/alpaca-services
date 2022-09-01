@@ -6,6 +6,7 @@ import {
   usEquitySource,
 } from '@/marketData'
 import { subWeeks } from 'date-fns'
+import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -18,7 +19,7 @@ async function main() {
     symbol: 'AAPL',
     start: subWeeks(new Date(), 1),
     end: new Date(),
-    timeframe: '1Day',
+    timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
     absoluteLimit: 100,
     adjustment: BarAdjustment.split,
   }

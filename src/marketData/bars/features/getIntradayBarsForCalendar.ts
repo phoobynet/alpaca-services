@@ -5,6 +5,7 @@ import {
   getBarsBetween,
   usEquitySource,
 } from '@/marketData'
+import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 /**
  * Only applies to US equities so no source is required.
@@ -30,7 +31,7 @@ export const getIntradayBarsForCalendar = (
     symbol,
     start: calendar.session_open,
     end: calendar.session_close,
-    timeframe: '1Min',
+    timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
   }
 
   return getBarsBetween(usEquitySource, args)

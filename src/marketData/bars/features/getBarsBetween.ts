@@ -43,7 +43,7 @@ export const getBarsBetween = (
 
   const queryParams: Record<string, string> = {
     start: start instanceof Date ? start.toISOString() : start,
-    timeframe,
+    timeframe: timeframe.toString(),
   }
 
   if (end) {

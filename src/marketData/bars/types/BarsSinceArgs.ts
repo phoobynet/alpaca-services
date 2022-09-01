@@ -1,5 +1,5 @@
 import { MarketDataFeed } from '@/marketData/types'
-import { BarAdjustment } from '@/marketData/bars/types'
+import { BarAdjustment, BarTimeframe } from '@/marketData/bars/types'
 
 /**
  * {@link getBarsSince} args.
@@ -12,10 +12,7 @@ export type BarsSinceArgs = {
    * Removes time string from then encoded date
    */
   since: Date | string
-  /**
-   * @example '1Min'
-   */
-  timeframe: string
+  timeframe: BarTimeframe
   /**
    * The total number of bars to return.
    */

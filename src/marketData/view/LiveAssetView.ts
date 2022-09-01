@@ -23,6 +23,7 @@ import {
 } from '@/marketData'
 import { CancelFn } from '@/types'
 import { Asset, getAsset } from '@/tradingData'
+import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 /**
  * @group Market Data
@@ -159,7 +160,7 @@ export class LiveAssetView extends EventEmitter {
 
     const getBarsSinceArgs: BarsSinceArgs = {
       symbol: this.symbol,
-      timeframe: '1Min',
+      timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
       since: subHours(new Date(), 24),
     }
 
@@ -174,7 +175,7 @@ export class LiveAssetView extends EventEmitter {
     assetMetricsUpdate.ytdBars = await arrayFromAsyncIterable(
       getBarsSince(this.source, {
         ...getBarsSinceArgs,
-        timeframe: '1Day',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
         since: subWeeks(subYears(new Date(), 1), 1),
       }),
     )

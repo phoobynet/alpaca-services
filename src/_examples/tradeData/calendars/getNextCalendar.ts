@@ -1,5 +1,5 @@
-import { options } from '../../../options'
-import { getNextCalendar } from '../../../tradingData'
+import { options } from '@/options'
+import { getNextCalendar } from '@/tradingData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -11,6 +11,9 @@ async function main() {
   const nextCalendar = await getNextCalendar()
 
   console.log(nextCalendar)
+
+  // should use the in memory cache
+  console.log(await getNextCalendar())
   process.exit(0)
 }
 

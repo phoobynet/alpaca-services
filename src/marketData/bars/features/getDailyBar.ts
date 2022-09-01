@@ -1,4 +1,9 @@
-import { Bar, DailyBarArgs } from '@/marketData/bars/types'
+import {
+  Bar,
+  BarTimeframe,
+  BarTimeframeUnit,
+  DailyBarArgs,
+} from '@/marketData/bars/types'
 import { MarketDataSource } from '@/marketData/types'
 import { isCryptoSource } from '@/marketData/helpers'
 import { arrayFromAsyncIterable } from '@/helpers'
@@ -27,7 +32,7 @@ export const getDailyBar = async (
         symbol: args.symbol,
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        timeframe: '1Minute',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
         exchanges: args.exchanges,
       }),
     )
@@ -43,7 +48,7 @@ export const getDailyBar = async (
         symbol: args.symbol,
         start: calendar.session_open,
         end: calendar.session_close,
-        timeframe: '1Minute',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
         feed: args.feed,
       }),
     )

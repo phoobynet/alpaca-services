@@ -3,6 +3,7 @@ import { Calendar, getAsset } from '@/tradingData'
 import { subBusinessDays } from 'date-fns'
 import { isCryptoSource } from '@/marketData/helpers'
 import { arrayFromAsyncIterable } from '@/helpers'
+import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 /**
  * @group Market Data
@@ -46,7 +47,7 @@ export const getDailyBarFor = async (
       getBarsSince(marketDataSource, {
         symbol: asset.symbol,
         since,
-        timeframe: '1D',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
         exchanges: [asset.exchange],
       }),
     )
@@ -55,7 +56,7 @@ export const getDailyBarFor = async (
       getBarsSince(marketDataSource, {
         symbol: asset.symbol,
         since,
-        timeframe: '1D',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
       }),
     )
   }

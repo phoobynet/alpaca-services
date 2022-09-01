@@ -1,6 +1,6 @@
 {
   "name": "@phoobynet/alpaca-services",
-  "version": "0.0.52",
+  "version": "0.0.53",
   "description": "Alpaca API client",
   "main": "dist/index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "test:clear": "jest --clearCache",
     "test:config": "jest --showConfig",
     "workflow:test": "jest --forceExit --detectOpenHandles",
-    "typedoc": "typedoc"
+    "typedoc": "typedoc",
+    "debug": "ts-node src/_examples/tradeData/calendars/getNextCalendar.ts"
   },
   "types": "./dist/index.d.ts",
   "dependencies": {

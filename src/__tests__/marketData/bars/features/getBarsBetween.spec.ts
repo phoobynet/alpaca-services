@@ -1,5 +1,9 @@
 import { MarketDataClass, MarketDataSource } from '@/marketData/types'
-import { BarsBetweenArgs } from '@/marketData/bars/types'
+import {
+  BarsBetweenArgs,
+  BarTimeframe,
+  BarTimeframeUnit,
+} from '@/marketData/bars/types'
 
 import { getMarketDataIterator } from '@/marketData/http'
 
@@ -24,7 +28,7 @@ describe('getBarsBetween', () => {
     end,
     exchanges: ['CBSE', 'FRSX'],
     symbol: 'BTCUSD',
-    timeframe: '1Day',
+    timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
   }
 
   test('should invoke with correct URL and query parameters', async () => {

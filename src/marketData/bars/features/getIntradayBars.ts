@@ -1,6 +1,10 @@
 import { MarketDataSource } from '@/marketData/types'
 import { Bar, getBarsBetween } from '@/marketData'
-import { IntradayBarsArgs } from '@/marketData/bars/types'
+import {
+  BarTimeframe,
+  BarTimeframeUnit,
+  IntradayBarsArgs,
+} from '@/marketData/bars/types'
 import { toUtcDayRange } from '@/helpers'
 import { addHours, endOfDay, startOfDay } from 'date-fns'
 
@@ -72,7 +76,7 @@ export const getIntradayBars = (
     end,
     feed: args.feed,
     exchanges: args.exchanges,
-    timeframe: args.timeframe || '1Min',
+    timeframe: args.timeframe || BarTimeframe.from(1, BarTimeframeUnit.minute),
     adjustment: args.adjustment,
   }
   return getBarsBetween(marketDataSource, barsBetweenArgs)

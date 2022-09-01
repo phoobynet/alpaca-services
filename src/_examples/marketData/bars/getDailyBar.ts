@@ -9,6 +9,7 @@ import {
 import { getCalendarForToday } from '@/tradingData'
 import first from 'lodash/first'
 import last from 'lodash/last'
+import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -28,7 +29,7 @@ async function main() {
     symbol: 'AAPL',
     start: calendar.session_open,
     end: calendar.session_close,
-    timeframe: '1Minute',
+    timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
   }
 
   const bars: Bar[] = []

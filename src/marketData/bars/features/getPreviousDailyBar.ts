@@ -1,6 +1,11 @@
 import { getPreviousCalendar } from '@/tradingData'
 import { getBarsBetween } from '@/marketData/bars/features'
-import { Bar, DailyBarArgs } from '@/marketData/bars/types'
+import {
+  Bar,
+  BarTimeframe,
+  BarTimeframeUnit,
+  DailyBarArgs,
+} from '@/marketData/bars/types'
 import { MarketDataSource } from '@/marketData/types'
 import { arrayFromAsyncIterable } from '@/helpers'
 import { last } from 'lodash'
@@ -67,7 +72,7 @@ export const getPreviousDailyBar = async (
         symbol: args.symbol,
         start: startOfDay(yesterday),
         end: endOfDay(yesterday),
-        timeframe: '1Day',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
         exchanges: args.exchanges,
       }),
     )
@@ -79,7 +84,7 @@ export const getPreviousDailyBar = async (
         symbol: args.symbol,
         start: previousCalendar.date,
         end: previousCalendar.date,
-        timeframe: '1Day',
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
         feed: args.feed,
       }),
     )

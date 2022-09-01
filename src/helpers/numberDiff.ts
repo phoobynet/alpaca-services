@@ -5,6 +5,12 @@ export interface NumberDiffResult {
   changePercent: number
 }
 
+/**
+ * Calculates the change between two numbers.
+ * @group Helpers
+ * @param originalValue
+ * @param newValue
+ */
 export const numberDiff = (
   originalValue: number,
   newValue: number,
