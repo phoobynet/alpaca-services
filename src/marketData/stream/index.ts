@@ -121,7 +121,6 @@ export class MarketDataStream extends EventEmitter {
     type: SubscriptionType,
     handler: (t: unknown) => void,
   ): Promise<CancelFn> {
-    console.log('subscription request recv')
     const asset = await getAsset(symbol)
     if (!asset) {
       throw new Error('Unknown asset')
