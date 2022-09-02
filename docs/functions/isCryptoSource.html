@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>getMultiBars | @phoobynet/alpaca-services</title>
+    <title>isCryptoSource | @phoobynet/alpaca-services</title>
     <meta
       name="description"
       content="Documentation for @phoobynet/alpaca-services"
@@ -73,108 +73,58 @@
         <div class="tsd-page-title">
           <ul class="tsd-breadcrumb">
             <li><a href="../modules.html">@phoobynet/alpaca-services</a></li>
-            <li><a href="getMultiBars.html">getMultiBars</a></li>
+            <li><a href="isCryptoSource.html">isCryptoSource</a></li>
           </ul>
-          <h1>Function getMultiBars</h1>
+          <h1>Function isCryptoSource</h1>
         </div>
         <section class="tsd-panel">
           <ul class="tsd-signatures tsd-kind-function">
-            <li class="tsd-signature" id="getMultiBars">
-              get<wbr />Multi<wbr />Bars<span class="tsd-signature-symbol"
+            <li class="tsd-signature" id="isCryptoSource">
+              is<wbr />Crypto<wbr />Source<span class="tsd-signature-symbol"
                 >(</span
-              >marketDataSource<span class="tsd-signature-symbol">: </span
+              >marketDataSourceType<span class="tsd-signature-symbol">: </span
               ><a
-                href="../interfaces/MarketDataSource.html"
-                class="tsd-signature-type"
-                data-tsd-kind="Interface"
-                >MarketDataSource</a
-              >, args<span class="tsd-signature-symbol">: </span
-              ><a
-                href="../types/MultiBarsArgs.html"
+                href="../types/MarketDataSourceType.html"
                 class="tsd-signature-type"
                 data-tsd-kind="Type alias"
-                >MultiBarsArgs</a
+                >MarketDataSourceType</a
               ><span class="tsd-signature-symbol">)</span
               ><span class="tsd-signature-symbol">: </span
-              ><span class="tsd-signature-type">Promise</span
-              ><span class="tsd-signature-symbol">&lt;</span
-              ><span class="tsd-signature-type">Record</span
-              ><span class="tsd-signature-symbol">&lt;</span
-              ><span class="tsd-signature-type">string</span
-              ><span class="tsd-signature-symbol">, </span
-              ><a
-                href="../interfaces/Bar.html"
-                class="tsd-signature-type"
-                data-tsd-kind="Interface"
-                >Bar</a
-              ><span class="tsd-signature-symbol">[]</span
-              ><span class="tsd-signature-symbol">&gt;</span
-              ><span class="tsd-signature-symbol">&gt;</span>
+              ><span class="tsd-signature-type">boolean</span>
             </li>
           </ul>
           <ul class="tsd-descriptions">
             <li class="tsd-description">
-              <div class="tsd-comment tsd-typography">
-                <h3>See</h3>
-                <p><a href="../enums/BarAdjustment.html">BarAdjustment</a></p>
-
-                <h3>Example</h3>
-                <pre><code class="language-ts"><span class="hl-4">// crypto</span><br/><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">multiBars</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getMultiBars</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">symbols:</span><span class="hl-0"> [</span><span class="hl-3">&#39;BTCUSD&#39;</span><span class="hl-0">, </span><span class="hl-3">&#39;ETHUSD&#39;</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">timeframe:</span><span class="hl-0"> </span><span class="hl-3">&#39;1Day&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">start:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-01-01&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">end:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-07-31&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-4">// required for crypto</span><br/><span class="hl-0">  </span><span class="hl-2">exchange:</span><span class="hl-0"> </span><span class="hl-3">&#39;CBSE&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">// optional</span><br/><span class="hl-0">  </span><span class="hl-2">absoluteLimit:</span><span class="hl-0"> </span><span class="hl-9">1_000</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">// optional</span><br/><span class="hl-0">  </span><span class="hl-2">adjustment:</span><span class="hl-0"> </span><span class="hl-2">BarAdjustment</span><span class="hl-0">.</span><span class="hl-2">raw</span><span class="hl-0">,</span><br/><span class="hl-0">})</span><br/><br/><span class="hl-4">// stock</span><br/><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">multiBars</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getMultiBars</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">symbols:</span><span class="hl-0"> [</span><span class="hl-3">&#39;AAPL&#39;</span><span class="hl-0">, </span><span class="hl-3">&#39;AMZN&#39;</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">start:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-01-01&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-4">// required</span><br/><span class="hl-0">  </span><span class="hl-2">end:</span><span class="hl-0"> </span><span class="hl-8">new</span><span class="hl-0"> </span><span class="hl-7">Date</span><span class="hl-0">(</span><span class="hl-3">&#39;2022-07-31&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-4">// optional</span><br/><span class="hl-0">  </span><span class="hl-2">feed:</span><span class="hl-0"> </span><span class="hl-3">&#39;sip&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">// optional</span><br/><span class="hl-0">  </span><span class="hl-2">absoluteLimit:</span><span class="hl-0"> </span><span class="hl-9">1_000</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">// optional</span><br/><span class="hl-0">  </span><span class="hl-2">adjustment:</span><span class="hl-0"> </span><span class="hl-2">BarAdjustment</span><span class="hl-0">.</span><span class="hl-2">raw</span><span class="hl-0">,</span>
-</code></pre>
-              </div>
               <div class="tsd-parameters">
                 <h4 class="tsd-parameters-title">Parameters</h4>
                 <ul class="tsd-parameter-list">
                   <li>
                     <h5>
-                      marketDataSource:
+                      marketDataSourceType:
                       <a
-                        href="../interfaces/MarketDataSource.html"
+                        href="../types/MarketDataSourceType.html"
                         class="tsd-signature-type"
-                        data-tsd-kind="Interface"
-                        >MarketDataSource</a
+                        data-tsd-kind="Type alias"
+                        >MarketDataSourceType</a
                       >
                     </h5>
                     <div class="tsd-comment tsd-typography">
                       <p>
-                        <a href="../variables/cryptoSource.html"
-                          >cryptoSource</a
-                        >
-                        or
+                        <a href="../variables/cryptoSource.html">cryptoSource</a
+                        >,
                         <a href="../variables/usEquitySource.html"
                           >usEquitySource</a
+                        >, or
+                        <a href="../enums/MarketDataClass.html"
+                          >MarketDataClass</a
                         >
                       </p>
                     </div>
                   </li>
-                  <li>
-                    <h5>
-                      args:
-                      <a
-                        href="../types/MultiBarsArgs.html"
-                        class="tsd-signature-type"
-                        data-tsd-kind="Type alias"
-                        >MultiBarsArgs</a
-                      >
-                    </h5>
-                  </li>
                 </ul>
               </div>
               <h4 class="tsd-returns-title">
-                Returns <span class="tsd-signature-type">Promise</span
-                ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">Record</span
-                ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">string</span
-                ><span class="tsd-signature-symbol">, </span
-                ><a
-                  href="../interfaces/Bar.html"
-                  class="tsd-signature-type"
-                  data-tsd-kind="Interface"
-                  >Bar</a
-                ><span class="tsd-signature-symbol">[]</span
-                ><span class="tsd-signature-symbol">&gt;</span
-                ><span class="tsd-signature-symbol">&gt;</span>
+                Returns <span class="tsd-signature-type">boolean</span>
               </h4>
             </li>
           </ul>
@@ -1944,7 +1894,7 @@
                 >get<wbr />Market<wbr />Status</a
               >
             </li>
-            <li class="current tsd-kind-function">
+            <li class="tsd-kind-function">
               <a href="getMultiBars.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -2178,7 +2128,7 @@
                 >get<wbr />Watchlists</a
               >
             </li>
-            <li class="tsd-kind-function">
+            <li class="current tsd-kind-function">
               <a href="isCryptoSource.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
