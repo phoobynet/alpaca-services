@@ -84,7 +84,7 @@ export const getPreviousDailyBar = async (
         symbol: args.symbol,
         start: previousCalendar.date,
         end: previousCalendar.date,
-        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
+        timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
         feed: args.feed,
       }),
     )

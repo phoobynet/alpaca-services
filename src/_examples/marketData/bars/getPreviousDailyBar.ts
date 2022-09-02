@@ -1,4 +1,4 @@
-import { cryptoSource, getPreviousDailyBar, usEquitySource } from '@/marketData'
+import { getPreviousDailyBar, usEquitySource } from '@/marketData'
 import { options } from '@/options'
 
 options.set({
@@ -13,13 +13,13 @@ async function main() {
   })
 
   console.log(JSON.stringify(stockBar, null, 2))
-
-  const cryptoBar = await getPreviousDailyBar(cryptoSource, {
-    symbol: 'BTCUSD',
-    exchanges: ['CBSE'],
-  })
-
-  console.log(JSON.stringify(cryptoBar, null, 2))
+  //
+  // const cryptoBar = await getPreviousDailyBar(cryptoSource, {
+  //   symbol: 'BTCUSD',
+  //   exchanges: ['CBSE'],
+  // })
+  //
+  // console.log(JSON.stringify(cryptoBar, null, 2))
 }
 
 main().catch((e) => {
