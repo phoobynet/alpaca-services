@@ -1,6 +1,7 @@
 import { MarketDataClass, MarketDataSource } from '@/marketData/types'
 import { createHttpClient, HttpClient } from '@/http'
-import { Mutex } from 'async-mutex'
+import { Mutex, MutexInterface } from 'async-mutex'
+import { options } from '@/options'
 
 let httpClient: HttpClient
 
@@ -27,7 +28,11 @@ const httpGetMutex = new Mutex()
  */
 export const usEquitySource: MarketDataSource = {
   async get<T>(url: string, queryParams?: Record<string, string>): Promise<T> {
-    const release = await httpGetMutex.acquire()
+    const { disableRestMutex } = options.get()
+    let release: MutexInterface.Releaser | undefined = undefined
+    if (!disableRestMutex) {
+      release = await httpGetMutex.acquire()
+    }
     try {
       const httpResponse = await getHttpClient().get<T>(url, queryParams)
 
@@ -37,7 +42,9 @@ export const usEquitySource: MarketDataSource = {
         throw new Error(httpResponse.message)
       }
     } finally {
-      release()
+      if (!disableRestMutex && release) {
+        release()
+      }
     }
   },
   type: MarketDataClass.us_equity,

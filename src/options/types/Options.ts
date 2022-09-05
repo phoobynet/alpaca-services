@@ -12,4 +12,6 @@ export interface Options {
   paper: boolean
   calendarRepository?: CalendarRepository
   assetRepository?: AssetRepository
+  debugStreams?: boolean
+  disableRestMutex?: boolean
 }

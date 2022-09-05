@@ -9,7 +9,6 @@ import {
 import { EventEmitter } from 'eventemitter3'
 import { CancelFn } from '@/types'
 import { getAsset } from '@/tradingData'
-import { isBrowser, isNode } from 'browser-or-node'
 
 let _usEquityStream: MarketDataStream | undefined
 let _cryptoStream: MarketDataStream | undefined
@@ -27,17 +26,14 @@ const cryptoMutex = new Mutex()
  * @category Stream
  */
 export class MarketDataStream extends EventEmitter {
-  public socket: WebSocket
+  public socket?: WebSocket
   private tradeHandlers = new Map<string, HandlerSet>()
   private quoteHandlers = new Map<string, HandlerSet>()
   private barsHandlers = new Map<string, HandlerSet>()
 
-  private constructor(url: string) {
+  private constructor(private url: string) {
     super()
-    this.socket = new WebSocket(url)
-    this.socket.onopen = this.onOpen.bind(this)
-    this.socket.onmessage = this.onMessage.bind(this)
-    this.socket.onerror = this.onError.bind(this)
+    this.initialiseSocket()
   }
 
   private getHandlers(type: SubscriptionType): Map<string, HandlerSet> {
@@ -64,15 +60,54 @@ export class MarketDataStream extends EventEmitter {
   }
 
   private onOpen() {
-    const { key, secret } = options.get()
+    console.log('opening socket')
+    if (
+      this.socket &&
+      this.socket.readyState !== WebSocket.CLOSED &&
+      this.socket.readyState !== WebSocket.CLOSING
+    ) {
+      this.socket.close()
 
-    this.socket.send(
-      JSON.stringify({
-        action: 'auth',
-        key,
-        secret,
-      }),
-    )
+      const reconnect = () => {
+        this.initialiseSocket()
+        this.auth()
+      }
+
+      this.addListener('closed', reconnect)
+      this.removeListener('closed', reconnect)
+    } else {
+      this.auth()
+    }
+  }
+
+  private auth() {
+    console.log('authenticating')
+    if (this.socket) {
+      const { key, secret } = options.get()
+
+      this.socket.send(
+        JSON.stringify({
+          action: 'auth',
+          key,
+          secret,
+        }),
+      )
+    } else {
+      console.log('no socket')
+    }
+  }
+
+  private onClose() {
+    this.socket = undefined
+    this.emit('closed')
+  }
+
+  private initialiseSocket() {
+    this.socket = new WebSocket(this.url)
+    this.socket.onopen = this.onOpen.bind(this)
+    this.socket.onmessage = this.onMessage.bind(this)
+    this.socket.onerror = this.onError.bind(this)
+    this.socket.onclose = this.onClose.bind(this)
   }
 
   private onMessage(messageEvent: MessageEvent) {
@@ -87,7 +122,9 @@ export class MarketDataStream extends EventEmitter {
           this.emit('open')
         }
       } else if (leading.T === MarketDataSocketMessageType.subscription) {
-        // TODO: handle subscription
+        if (options.get().debugStreams) {
+          console.log('Stream subscription message:', leading)
+        }
       } else if (leading.T === MarketDataSocketMessageType.error) {
         console.log(JSON.stringify(leading, null, 2))
         throw new Error(leading.msg)
@@ -144,12 +181,12 @@ export class MarketDataStream extends EventEmitter {
       [type]: [symbol],
     })
 
-    instance.socket.send(subscriptionMessage)
+    instance.socket?.send(subscriptionMessage)
 
     return () => {
       handlerSet.delete(handler)
       if (handlerSet.size === 0) {
-        instance.socket.send(
+        instance.socket?.send(
           JSON.stringify({
             action: 'unsubscribe',
             trades: [symbol],
@@ -205,27 +242,4 @@ export class MarketDataStream extends EventEmitter {
       })
     }
   }
-}
-
-if (isBrowser) {
-  window.onbeforeunload = () => {
-    console.log('MarketDataStream closing')
-    _usEquityStream?.socket.close()
-    _cryptoStream?.socket.close()
-    _usEquityStream = undefined
-    _cryptoStream = undefined
-  }
-}
-
-if (isNode) {
-  // eslint-disable-next-line
-  const onExit = require('signal-exit')
-
-  onExit(() => {
-    console.log('MarketDataStream closing')
-    _usEquityStream?.socket.close()
-    _cryptoStream?.socket.close()
-    _usEquityStream = undefined
-    _cryptoStream = undefined
-  })
 }
