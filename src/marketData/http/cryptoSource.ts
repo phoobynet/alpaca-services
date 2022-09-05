@@ -12,7 +12,7 @@ let httpClient: HttpClient
  */
 const getHttpClient = (): HttpClient => {
   if (!httpClient) {
-    httpClient = createHttpClient('https://data.alpaca.markets/v1beta1/crypto')
+    httpClient = createHttpClient('https://data.alpaca.markets/v1beta2/crypto')
   }
 
   return httpClient
