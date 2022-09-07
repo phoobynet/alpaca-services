@@ -1,5 +1,7 @@
 import first from 'lodash/first'
 import { MarketDataSource } from '../types'
+import { isCryptoSource } from '@/marketData'
+import get from 'lodash/get'
 
 /**
  * @group Market Data
@@ -34,7 +36,7 @@ export const getMarketDataIterator = <T>(
   let itemsIndex = 0
   let overallCount = 0
   let remaining = absoluteLimit ?? DEFAULT_ABSOLUTE_LIMIT
-  let nestedDataProperty = ''
+  let nestedDataPath: string[] = []
   const tidy = args.tidy ?? ((item) => item)
 
   async function fetchNextPage(): Promise<void> {
@@ -61,23 +63,34 @@ export const getMarketDataIterator = <T>(
     const result = await marketDataSource.get<Record<string, unknown>>(url, qp)
 
     // extract nested data property, e.g trades, quotes or bars
-    if (!nestedDataProperty) {
-      nestedDataProperty =
+    if (!nestedDataPath.length) {
+      nestedDataPath = [
         first(
           Object.keys(result).filter(
             (key) => ['symbol', 'next_page_token'].indexOf(key) === -1,
           ),
-        ) || ''
+        ) || '',
+      ]
+
+      // inconsistent API response for crypto
+      if (isCryptoSource(marketDataSource)) {
+        const nestedData = get(result, nestedDataPath, {})
+        const symbol = first(Object.keys(nestedData as Record<string, unknown>))
+
+        if (symbol) {
+          nestedDataPath.push(symbol)
+        }
+      }
     }
 
-    if (!nestedDataProperty) {
+    if (!nestedDataPath) {
       throw new Error(
         'Expected to find a nest key called something like "trades", "quotes", "bars"',
       )
     }
 
     page_token = (result.next_page_token || '') as string
-    items = (result[nestedDataProperty] || []) as T[]
+    items = get(result, nestedDataPath, []) as T[]
     itemsIndex = 0
   }
 
@@ -110,7 +123,7 @@ export const getMarketDataIterator = <T>(
 
           if (!item) {
             throw new Error(
-              'Bounds error retrieving item during page iteration',
+              'Bounds error retrieving item during page iteration.  This can be due to not being able to locate the nested data path which differs between equities and crypto - thanks Alpaca.',
             )
           }
 

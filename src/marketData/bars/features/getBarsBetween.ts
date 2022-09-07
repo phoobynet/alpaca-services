@@ -2,6 +2,7 @@ import { Bar, BarsBetweenArgs } from '@/marketData/bars/types'
 import { MarketDataSource } from '@/marketData/types'
 import { getMarketDataIterator } from '@/marketData/http'
 import { cleanBar } from '@/marketData/bars/helpers'
+import { isCryptoSource } from '@/marketData'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
@@ -62,8 +63,14 @@ export const getBarsBetween = (
     queryParams.adjustment = adjustment
   }
 
+  if (isCryptoSource(marketDataSource)) {
+    queryParams.symbols = symbol
+  }
+
+  const url = isCryptoSource(marketDataSource) ? '/bars' : `/${symbol}/bars`
+
   return getMarketDataIterator<Bar>(marketDataSource, {
-    url: `/${symbol}/bars`,
+    url,
     queryParams,
     absoluteLimit: absoluteLimit || DEFAULT_ABSOLUTE_LIMIT,
     tidy: (item) => cleanBar(item, symbol),
