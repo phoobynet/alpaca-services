@@ -17,7 +17,7 @@ import { CancelFn } from '@/types'
  * function main() {
  *   const cancel = observeTrades(
  *     cryptoSource,
- *     'BTCUSD',
+ *     'BTC/USD',
  *     (trade: Trade): void => {
  *       console.log(JSON.stringify(trade, null, 2))
  *     },

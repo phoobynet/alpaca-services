@@ -19,7 +19,7 @@ describe('cleanMarketDataEntity', () => {
 
     console.log(cleanTimestampMock.mock.calls)
 
-    cleanMarketDataEntity(entity, 'BTCUSD')
+    cleanMarketDataEntity(entity, 'BTC/USD')
 
     expect(cleanTimestamp).toHaveBeenCalledWith(entity)
   })

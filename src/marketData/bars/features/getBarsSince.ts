@@ -6,9 +6,9 @@ import { getBarsBetween } from '@/marketData/bars/features'
  * @category Bars
  * @param args
  * @example
- * * ```ts
+ * ```typescript
  * const args: BarsSinceArgs = {
- *   symbol: 'BTCUSD',
+ *   symbol: 'BTC/USD',
  *   since: subWeeks(new Date(), 1),
  *   timeframe: '1Hour',
  *   exchange: 'CBSE'

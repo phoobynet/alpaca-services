@@ -24,7 +24,7 @@ import { cleanSymbol } from '@/marketData/helpers'
  *   console.log(JSON.stringify(stockBar, null, 2))
  *
  *   const cryptoBar = await getPreviousDailyBar({
- *     symbol: 'BTCUSD',
+ *     symbol: 'BTC/USD',
  *     exchanges: ['CBSE'],
  *   })
  *

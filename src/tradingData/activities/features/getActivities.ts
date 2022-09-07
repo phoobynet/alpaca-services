@@ -58,7 +58,7 @@ type RawActivities = RawActivity[]
  *     "price": 19250,
  *     "qty": 0.0519,
  *     "side": "buy",
- *     "symbol": "BTCUSD",
+ *     "symbol": "BTC/USD",
  *     "transaction_time": "2022-07-01T12:41:00.573Z",
  *     "order_id": "b61904a4-2d8f-4366-b6a6-cbd98f2a3d7d",
  *     "type": "fill"
@@ -71,7 +71,7 @@ type RawActivities = RawActivity[]
  *     "price": 19244,
  *     "qty": 0.2599,
  *     "side": "sell",
- *     "symbol": "BTCUSD",
+ *     "symbol": "BTC/USD",
  *     "transaction_time": "2022-07-01T12:40:40.749Z",
  *     "order_id": "f5850582-28f5-488d-8628-9abe23455c89",
  *     "type": "fill"
@@ -84,7 +84,7 @@ type RawActivities = RawActivity[]
  *     "price": 19236,
  *     "qty": 0.2599,
  *     "side": "buy",
- *     "symbol": "BTCUSD",
+ *     "symbol": "BTC/USD",
  *     "transaction_time": "2022-07-01T12:28:38.169Z",
  *     "order_id": "b7dacc39-8dcf-4cff-8387-52e4ca467283",
  *     "type": "fill"

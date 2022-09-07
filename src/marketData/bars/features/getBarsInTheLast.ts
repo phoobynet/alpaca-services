@@ -10,10 +10,9 @@ import { getBarsBetween } from '@/marketData/bars/features'
  * @example
  * ```ts
  * const args: BarsInTheLastArgs = {
- *   symbol: 'BTCUSD',
+ *   symbol: 'BTC/USD',
  *   inTheLast: 1 * MS.WEEK,
  *   timeframe: '1Hour',
- *   exchange: 'CBSE'
  * }
  *
  * for await (const bar of getBarsInTheLast(source, args)) {

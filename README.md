@@ -2,15 +2,35 @@
 
 **Unofficial** Alpaca [Market Data API](https://alpaca.markets/docs/api-references/market-data-api/) wrapper.
 
+The goal is to create a unified way of getting market data for either crypto or equities using the same interface.
+
+```typescript
+import { options, getLatestQuote } from '@phoobynet/alpaca-services'
+
+// make sure you set your key and secret (just one time)
+options.set({
+  key: process.env.APCA_API_KEY_ID as string,
+  secret: process.env.APCA_API_SECRET_KEY as string,
+  paper: true,
+})
+
+async function main() {
+  // it doesn't matter if you use crypto or equities
+  await getLatestQuote('AAPL').then(console.log)
+  await getLatestQuote('BTC/USD').then(console.log)
+}
+
+main().catch(console.error)
+```
+
 # :warning: Warning
 
-- This is still a work in progress.
+- This is still a work in progress (crypto changed to beta2 - which is fun).
 - Things may not be working correctly, so don't bet your life savings on data from this wrapper.
 - This is read-only data, it has no trading capabilities.
 - Feeble amounts of unit tests have been written.
 - There is no public NPM package
-- It's probably blazingly fast :wink:.
-- Alpaca have increased the price of their SIP feed 11 fold, which I can't afford, and this really needs the SIP feed. I may just switch to IEX or Tiingo, in which case, active development would cease.
+- It's probably not blazingly fast :wink:.
 
 # Objectives:
 
@@ -38,33 +58,16 @@ npm i @phoobynet/alpaca-services
 ## Market Data
 
 ```typescript
-import {
-  options,
-  usEquitySource,
-  cryptoSource,
-  getLatestTrade,
-} from '@phoobynet/alpaca-services'
+import { getLatestTrade } from '@phoobynet/alpaca-services'
 
-// set global configuration options first
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  paper: true,
-})
+// set your options somewhere first!
 
 async function main() {
-  // crypto and us equity sources share the same functions (mostly)
-  // the first argument is the source of the data
-  const latestUsEquityTrade = await getLatestTrade(usEquitySource, 'AAPL')
-  console.log(JSON.stringify(latestUsEquityTrade, null, 2))
-
-  const latestCryptoTrade = await getLatestTrade(cryptoSource, 'BTCUSD')
-  console.log(JSON.stringify(latestCryptoTrade, null, 2))
+  await getLatestTrade('AAPL').then(console.log)
+  await getLatestTrade('BTC/USD').then(console.log)
 }
 
-main().catch((e) => {
-  console.error(e)
-})
+main().catch(console.error)
 ```
 
 ### latestUsEquityTrade
@@ -92,7 +95,7 @@ main().catch((e) => {
   "s": 0.00000714,
   "tks": "B",
   "i": 376952593,
-  "S": "BTCUSD"
+  "S": "BTC/USD"
 }
 ```
 
@@ -108,15 +111,8 @@ import {
   BarAdjustment,
   BarsBetweenArgs,
   getBarsBetween,
-  usEquitySource,
 } from '@phoobynet/alpaca-services'
 import { subWeeks } from 'date-fns'
-
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  paper: true,
-})
 
 async function main() {
   const args: BarsBetweenArgs = {
@@ -130,7 +126,7 @@ async function main() {
   }
 
   // iterate over the bars
-  for await (const bar of getBarsBetween(usEquitySource, args)) {
+  for await (const bar of getBarsBetween(args)) {
     console.log(bar)
   }
   process.exit(0)
@@ -149,11 +145,10 @@ Simple real-time data. **Just remember to cancel the observer.**
 function main() {
   // observers return a cancel function that can be called to stop the observation
   const cancel = observeTrades(
-    cryptoSource,
-    'BTCUSD',
+    'BTC/USD',
     // handler
     (trade: Trade): void => {
-      console.log(JSON.stringify(trade, null, 2))
+      console.log(trade)
     },
     // throttleMs: 500,
     500,
@@ -173,18 +168,12 @@ main()
 ## Trade Data
 
 ```typescript
-import { options, getPreviousCalendar } from '@phoobynet/alpaca-services'
-
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  paper: true,
-})
+import { getPreviousCalendar } from '@phoobynet/alpaca-services'
 
 async function main() {
   // direct http request to Alpaca's API (see Repositories for how to cache data)
   const previousCalendar = await getPreviousCalendar()
-  console.log(JSON.stringify(previousCalendar, null, 2))
+  console.log(previousCalendar)
 
   process.exit(1)
 }
@@ -212,16 +201,9 @@ You can observe for US equity market status changes, or just call `getMarketStat
 
 ```typescript
 import {
-  options,
   observeMarketStatus,
   getMarketStatus,
 } from '@phoobynet/alpaca-services'
-
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  paper: true,
-})
 
 async function main() {
   console.log('Get the current market status...')
@@ -294,7 +276,6 @@ In this example, I'd rather not have to go back to Alpaca every time just to get
 // npm i @phoobynet/alpaca-service realm date-fns lodash
 import Realm from 'realm'
 import {
-  options,
   Calendar,
   CalendarRepository,
   getCalendarsBetween,
@@ -302,6 +283,8 @@ import {
 } from '@phoobynet/alpaca-services'
 import { addMonths, endOfDay, subMonths } from 'date-fns'
 import { first } from 'lodash'
+
+// remember to set the options!
 
 async function main() {
   // create a realm database
@@ -322,14 +305,6 @@ async function main() {
 
   // cache collection
   const calendars = realm.objects<Calendar>('Calendar')
-
-  // set global configuration options first to retrieve calendars from the cache
-  // if the realm collection is empty
-  options.set({
-    key: process.env.APCA_API_KEY_ID as string,
-    secret: process.env.APCA_API_SECRET_KEY as string,
-    paper: true,
-  })
 
   // populate if empty
   if (calendars.isEmpty()) {
@@ -382,7 +357,7 @@ async function main() {
 
   // get the previous calendar should now use the options.calendarRepository
   const previousCalendar = await getPreviousCalendar()
-  console.log(JSON.stringify(previousCalendar, null, 2))
+  console.log(previousCalendar)
 
   process.exit(0)
 }

@@ -17,7 +17,7 @@ async function main() {
     onUpdate: (update: Record<string, Trade>) => {
       console.log(update)
     },
-    symbols: ['BTCUSD', 'ETHUSD'],
+    symbols: ['BTC/USD', 'ETH/USD'],
     throttleMs: 500,
     subscriptionEntityType: MarketDataRealTimeSubscriptionEntityType.trade,
   })

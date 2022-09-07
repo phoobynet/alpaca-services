@@ -26,7 +26,7 @@ describe('getBarsBetween', () => {
     absoluteLimit: 500,
     start,
     end,
-    symbol: 'BTCUSD',
+    symbol: 'BTC/USD',
     timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
   }
 
@@ -35,7 +35,8 @@ describe('getBarsBetween', () => {
     expect(getMarketDataIteratorMock).toHaveBeenCalledWith(
       mockMarketDataSource,
       {
-        url: '/BTCUSD/bars',
+        // This is f**cked! The URL is wrong!
+        url: '/bars?',
         queryParams: {
           start: start.toISOString(),
           end: end.toISOString(),

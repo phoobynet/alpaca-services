@@ -18,7 +18,7 @@ import { CancelFn } from '@/types'
  *   onUpdate: (update: Record<string, Trade>) => {
  *     console.log(update)
  *   },
- *   symbols: ['BTCUSD', 'ETHUSD'],
+ *   symbols: ['BTC/USD', 'ETH/USD'],
  *   throttleMs: 500,
  *   subscriptionEntityType: MarketDataRealTimeSubscriptionEntityType.trade,
  * })
@@ -34,9 +34,9 @@ import { CancelFn } from '@/types'
  * Output
  * ```json
  {
-  "ETHUSD": {
+  "ETH/USD": {
     "T": "t",
-    "S": "ETHUSD",
+    "S": "ETH/USD",
     "x": "CBSE",
     "p": 1189.64,
     "s": 0.002,
@@ -44,9 +44,9 @@ import { CancelFn } from '@/types'
     "i": 314658438,
     "tks": "B"
   },
-  "BTCUSD": {
+  "BTC/USD": {
     "T": "t",
-    "S": "BTCUSD",
+    "S": "BTC/USD",
     "x": "CBSE",
     "p": 21328.05,
     "s": 0.00058829,

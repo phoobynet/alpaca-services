@@ -9,7 +9,7 @@ options.set({
 
 async function main() {
   let snapshot = await getSnapshot({
-    symbol: 'BTCUSD',
+    symbol: 'BTC/USD',
   })
   console.log(snapshot)
 

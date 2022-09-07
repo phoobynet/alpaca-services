@@ -11,7 +11,7 @@ import { cleanSymbol } from '@/marketData/helpers'
  * ```ts
  * // crypto
  * const latestBar = await getLatestBar({
- *   symbol: 'BTCUSD',
+ *   symbol: 'BTC/USD',
  *
  *   // required
  *   exchange: 'CBSE',

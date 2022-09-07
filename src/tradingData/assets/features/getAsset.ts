@@ -14,7 +14,7 @@ import { cleanSymbol } from '@/marketData/helpers'
  * ```ts
  * const asset = await getAsset('AAPL')
  * ```
- * @param {string} symbol - A valid ticker symbol, e.g. AAPL or BTCUSD for an {@link Asset}
+ * @param {string} symbol - A valid ticker symbol, e.g. AAPL or BTC/USD for an {@link Asset}
  * @param {boolean} forceHttp - bypass assetRepository and force HTTP request
  */
 export const getAsset = async (

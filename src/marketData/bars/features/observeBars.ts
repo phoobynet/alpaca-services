@@ -12,7 +12,7 @@ import { CancelFn } from '@/types'
  * @param {(nextBar: Bar) => void} handler
  * @example
  * ```ts
- * const cancel = observeBars(cryptoSource, 'BTCUSD', (nextBar) => {
+ * const cancel = observeBars('BTC/USD', (nextBar) => {
  *   log(nextBar)
  * })
  *

@@ -14,11 +14,11 @@ async function main() {
 
   console.log(JSON.stringify(stockBar, null, 2))
   //
-  // const cryptoBar = await getPreviousDailyBar(cryptoSource, {
-  //   symbol: 'BTCUSD',
+  // const cryptoBar = await getPreviousDailyBar({
+  //   symbol: 'BTC/USD',
   // })
   //
-  // console.log(JSON.stringify(cryptoBar, null, 2))
+  // console.log(cryptoBar)
 }
 
 main().catch((e) => {
