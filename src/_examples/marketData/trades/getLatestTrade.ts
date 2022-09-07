@@ -12,7 +12,7 @@ async function main() {
   const stockLatestTrade = await getLatestTrade('AAPL')
   console.log(JSON.stringify(stockLatestTrade, null, 2))
 
-  const cryptoLatestTrade = await getLatestTrade('BTCUSD')
+  const cryptoLatestTrade = await getLatestTrade('BTC/USD')
   console.log(JSON.stringify(cryptoLatestTrade, null, 2))
   process.exit(0)
 }

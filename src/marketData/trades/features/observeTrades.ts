@@ -1,19 +1,15 @@
-import {
-  MarketDataRealTimeSubscriptionEntityType,
-  MarketDataSourceType,
-} from '@/marketData/types'
-import { isCryptoSource } from '@/marketData/helpers'
+import { MarketDataRealTimeSubscriptionEntityType } from '@/marketData/types'
+import { cleanSymbol, getSource, isCryptoSource } from '@/marketData/helpers'
 import { getCryptoRealTime, getUsEquityRealTime } from '@/marketData/http'
 import { Trade } from '@/marketData/trades/types'
 import { cleanTrade } from '@/marketData/trades/helpers'
 import throttle from 'lodash/throttle'
+import { CancelFn } from '@/types'
 
 /**
  * Real-time trade observation.
- * @deprecated Use {@link streamTrades} instead.
  * @group Market Data
  * @category Trades
- * @param {MarketDataSourceType} marketDataSourceType - {@link cryptoSource}, {@link usEquitySource}, or {@link MarketDataClass}
  * @param {string} symbol
  * @param {(trade: Trade) => void} onTrade
  * @param {number} throttleMs - throttle trade updates to this many milliseconds
@@ -39,13 +35,14 @@ import throttle from 'lodash/throttle'
  * main()
  * ```
  */
-export const observeTrades = (
-  marketDataSourceType: MarketDataSourceType,
+export const observeTrades = async (
   symbol: string,
   onTrade: (trade: Trade) => void,
   throttleMs = 0,
-) => {
-  const realTime = isCryptoSource(marketDataSourceType)
+): Promise<CancelFn> => {
+  symbol = cleanSymbol(symbol)
+  const source = await getSource(symbol)
+  const realTime = isCryptoSource(source)
     ? getCryptoRealTime()
     : getUsEquityRealTime()
 

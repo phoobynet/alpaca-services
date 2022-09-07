@@ -5,6 +5,7 @@ import { MarketDataStream } from '@/marketData/stream'
 import { cleanTrade } from '@/marketData/trades/helpers'
 
 /**
+ * @deprecated
  * @group Market Data
  * @category Trades
  * @param symbol

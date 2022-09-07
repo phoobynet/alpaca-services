@@ -20,7 +20,7 @@ export const getLatestTrade = async (symbol: string): Promise<Trade> => {
     queryParams.symbols = symbol
     return source
       .get<{ trades: Record<string, Trade> }>(url, queryParams)
-      .then((data) => cleanTrade(data.trades[symbol]))
+      .then((data) => cleanTrade(data.trades[symbol], symbol))
   } else {
     return source.get<RawTrade>(url, queryParams).then(cleanTrade)
   }

@@ -10,7 +10,14 @@ import { cleanMarketDataEntity } from '@/marketData/helpers'
  * @param symbol
  * @returns {Bar} - a {@link Bar} with .S property populated and .t property trimmed to nearest 1,000th of a second.
  */
-export const cleanBar = (bar: Bar | RawBar, symbol?: string): Bar => {
+export const cleanBar = (
+  bar: Bar | RawBar | undefined,
+  symbol?: string,
+): Bar => {
+  if (bar === undefined) {
+    throw new Error('bar is undefined')
+  }
+
   let result: Bar
   if ('bar' in bar) {
     const rawBar = bar as RawBar

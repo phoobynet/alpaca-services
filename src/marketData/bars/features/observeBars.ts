@@ -1,17 +1,13 @@
 import { getCryptoRealTime, getUsEquityRealTime } from '@/marketData/http'
-import {
-  MarketDataRealTimeSubscriptionEntityType as SubEntityType,
-  MarketDataSourceType,
-} from '@/marketData/types'
+import { MarketDataRealTimeSubscriptionEntityType as SubEntityType } from '@/marketData/types'
 import { Bar } from '@/marketData/bars/types'
-import { isCryptoSource } from '@/marketData/helpers'
+import { cleanSymbol, getSource, isCryptoSource } from '@/marketData/helpers'
 import { cleanBar } from '@/marketData/bars/helpers'
+import { CancelFn } from '@/types'
 
 /**
- * @deprecated Use {@link streamBars} instead.
  * @group Market Data
  * @category Bars
- * @param {MarketDataSourceType} marketDataSourceType - {@link cryptoSource}, {@link usEquitySource} or {@link MarketDataClass}
  * @param {string} symbol
  * @param {(nextBar: Bar) => void} handler
  * @example
@@ -26,12 +22,13 @@ import { cleanBar } from '@/marketData/bars/helpers'
  * }, 10_000)
  * ```
  */
-export const observeBars = (
-  marketDataSourceType: MarketDataSourceType,
+export const observeBars = async (
   symbol: string,
   handler: (nextBar: Bar) => void,
-): (() => void) => {
-  const realTime = isCryptoSource(marketDataSourceType)
+): Promise<CancelFn> => {
+  symbol = cleanSymbol(symbol)
+  const source = await getSource(symbol)
+  const realTime = isCryptoSource(source)
     ? getCryptoRealTime()
     : getUsEquityRealTime()
 

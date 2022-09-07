@@ -4,6 +4,7 @@ import { MarketDataStream } from '@/marketData/stream'
 import { cleanBar } from '@/marketData/bars/helpers'
 
 /**
+ * @deprecated
  * @group Market Data
  * @category Bars
  * @param symbol

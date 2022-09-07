@@ -1,29 +1,26 @@
-import {
-  MarketDataRealTimeSubscriptionEntityType,
-  MarketDataSourceType,
-} from '@/marketData/types'
-import { isCryptoSource } from '@/marketData/helpers'
+import { MarketDataRealTimeSubscriptionEntityType } from '@/marketData/types'
+import { cleanSymbol, getSource, isCryptoSource } from '@/marketData/helpers'
 import { getCryptoRealTime, getUsEquityRealTime } from '@/marketData/http'
 import { Quote } from '../types'
 import { cleanQuote } from '@/marketData/quotes/helpers'
 import throttle from 'lodash/throttle'
+import { CancelFn } from '@/types'
 
 /**
- * @deprecated Use {@link streamQuotes} instead.
  * @group Market Data
  * @category Quotes
- * @param marketDataSourceType
  * @param symbol
  * @param onQuote
  * @param throttleMs
  */
-export const observeQuotes = (
-  marketDataSourceType: MarketDataSourceType,
+export const observeQuotes = async (
   symbol: string,
   onQuote: (Quote: Quote) => void,
   throttleMs = 0,
-) => {
-  const realTime = isCryptoSource(marketDataSourceType)
+): Promise<CancelFn> => {
+  symbol = cleanSymbol(symbol)
+  const source = await getSource(symbol)
+  const realTime = isCryptoSource(source)
     ? getCryptoRealTime()
     : getUsEquityRealTime()
 

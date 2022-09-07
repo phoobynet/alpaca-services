@@ -1,16 +1,14 @@
 import { getLatestQuote } from '@/marketData'
-import { options } from '@/options'
-
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  paper: true,
-})
+import { initOptions } from '@/_examples/initOptions'
+initOptions()
 
 async function main() {
-  const data = await getLatestQuote('AAPL')
+  const equityQuote = await getLatestQuote('AAPL')
 
-  console.log(data)
+  console.log(equityQuote)
+
+  const cryptoQuote = await getLatestQuote('BTC/USD')
+  console.log(cryptoQuote)
   process.exit(0)
 }
 

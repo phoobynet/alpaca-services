@@ -5,6 +5,7 @@ import { MarketDataStream } from '@/marketData/stream'
 import { cleanQuote } from '@/marketData/quotes/helpers'
 
 /**
+ * @deprecated
  * @group Market Data
  * @category Quotes
  * @param symbol

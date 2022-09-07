@@ -25,6 +25,10 @@ export const getTradesBetween = (
     queryParams.feed = args.feed
   }
 
+  if (isCryptoPair) {
+    queryParams.symbols = symbol
+  }
+
   return getMarketDataIterator<Trade>(symbol, {
     url: isCryptoPair ? '/trades' : `/${args.symbol}/trades`,
     queryParams,
