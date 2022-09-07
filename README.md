@@ -109,6 +109,8 @@ See [for await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 import {
   options,
   BarAdjustment,
+  BarTimeframe,
+  BarTimeframeUnit,
   BarsBetweenArgs,
   getBarsBetween,
 } from '@phoobynet/alpaca-services'
@@ -119,7 +121,7 @@ async function main() {
     symbol: 'AAPL',
     start: subWeeks(new Date(), 1),
     end: new Date(),
-    timeframe: '1Day',
+    timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
     // not a page limit, but an absolute limit (defaults to 1,000)
     absoluteLimit: 10_000,
     adjustment: BarAdjustment.split,
