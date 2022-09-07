@@ -4,8 +4,7 @@ import {
   BarTimeframeUnit,
   DailyBarArgs,
 } from '@/marketData/bars/types'
-import { MarketDataSource } from '@/marketData/types'
-import { isCryptoSource } from '@/marketData/helpers'
+import { cleanSymbol } from '@/marketData/helpers'
 import { arrayFromAsyncIterable } from '@/helpers'
 import { getBarsBetween, mergeBars } from '@/marketData'
 import { endOfDay, startOfDay } from 'date-fns'
@@ -17,23 +16,23 @@ import { getCalendarForToday } from '@/tradingData'
  * @remarks - HACK: Unable to use daily timeframe.  Instead, all minutes bars are returned and merged together.  See {@link mergeBars} for details.
  * @group Market Data
  * @category Bars
- * @param marketDataSource
  * @param args
  */
 export const getDailyBar = async (
-  marketDataSource: MarketDataSource,
   args: DailyBarArgs,
 ): Promise<Bar | undefined> => {
   let bars: Bar[] = []
 
-  if (isCryptoSource(marketDataSource)) {
+  const symbol = cleanSymbol(args.symbol)
+  const isCryptoPair = symbol.includes('/')
+
+  if (isCryptoPair) {
     bars = await arrayFromAsyncIterable(
-      getBarsBetween(marketDataSource, {
-        symbol: args.symbol,
+      getBarsBetween({
+        symbol,
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
-        exchanges: args.exchanges,
       }),
     )
   } else {
@@ -44,8 +43,8 @@ export const getDailyBar = async (
     }
 
     bars = await arrayFromAsyncIterable(
-      getBarsBetween(marketDataSource, {
-        symbol: args.symbol,
+      getBarsBetween({
+        symbol,
         start: calendar.session_open,
         end: calendar.session_close,
         timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),

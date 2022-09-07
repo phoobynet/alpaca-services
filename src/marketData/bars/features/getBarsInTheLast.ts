@@ -1,4 +1,3 @@
-import { MarketDataSource } from '@/marketData/types'
 import { Bar, BarsInTheLastArgs } from '@/marketData/bars/types'
 import { getBarsBetween } from '@/marketData/bars/features'
 
@@ -7,7 +6,6 @@ import { getBarsBetween } from '@/marketData/bars/features'
  * @group Market Data
  * @category Bars
  * @remarks See {@link MS} for a selection of millisecond constants.
- * @param {MarketDataSource} source
  * @param {BarsInTheLastArgs} args
  * @example
  * ```ts
@@ -24,14 +22,13 @@ import { getBarsBetween } from '@/marketData/bars/features'
  * ```
  */
 export const getBarsInTheLast = (
-  source: MarketDataSource,
   args: BarsInTheLastArgs,
 ): AsyncIterable<Bar> => {
   const { inTheLast, ...theRest } = args
 
   const now = new Date()
 
-  return getBarsBetween(source, {
+  return getBarsBetween({
     ...theRest,
     start: new Date(now.getTime() - inTheLast),
     end: now,

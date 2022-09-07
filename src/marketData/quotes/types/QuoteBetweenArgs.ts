@@ -8,5 +8,4 @@ export type QuoteBetweenArgs = {
   start: Date
   end: Date
   absoluteLimit?: number
-  exchanges?: string[]
 }

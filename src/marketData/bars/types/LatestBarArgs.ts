@@ -11,8 +11,4 @@ export type LatestBarArgs = {
    * Stock only
    */
   feed?: MarketDataFeed
-  /**
-   * Crypto only
-   */
-  exchange?: string
 }

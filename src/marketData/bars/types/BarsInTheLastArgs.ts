@@ -18,10 +18,6 @@ export type BarsInTheLastArgs = {
    * The total number of bars to return.
    */
   absoluteLimit?: number
-  /**
-   * Optional for crypto.
-   */
-  exchanges?: string[]
 
   /**
    * Optional for stock.

@@ -1,31 +1,35 @@
-import { MarketDataSource } from '@/marketData/types'
 import { Quote, QuoteBetweenArgs } from '@/marketData/quotes/types'
 import { getMarketDataIterator } from '@/marketData'
 import { cleanQuote } from '@/marketData/quotes/helpers'
+import { cleanSymbol } from '@/marketData/helpers'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
 /**
  * @group Market Data
  * @category Quotes
- * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {QuoteBetweenArgs} args
  */
 export const getQuotesBetween = (
-  marketDataSource: MarketDataSource,
   args: QuoteBetweenArgs,
 ): AsyncIterable<Quote> => {
+  const symbol = cleanSymbol(args.symbol)
+  const isCryptoPair = symbol.includes('/')
+
   const queryParams: Record<string, string> = {
     start: args.start.toISOString(),
     end: args.end.toISOString(),
   }
 
-  if (args.exchanges?.length) {
-    queryParams.exchanges = args.exchanges.join(',')
+  let url = `/${args.symbol}/quotes`
+
+  if (isCryptoPair) {
+    url = '/quotes'
+    queryParams.symbols = args.symbol
   }
 
-  return getMarketDataIterator<Quote>(marketDataSource, {
-    url: `/${args.symbol}/quotes`,
+  return getMarketDataIterator<Quote>(symbol, {
+    url,
     queryParams,
     absoluteLimit: args.absoluteLimit || DEFAULT_ABSOLUTE_LIMIT,
     tidy: (Quote) => cleanQuote(Quote, args.symbol),

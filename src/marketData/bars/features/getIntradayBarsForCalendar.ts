@@ -1,10 +1,5 @@
 import { Calendar } from '@/tradingData'
-import {
-  Bar,
-  BarsBetweenArgs,
-  getBarsBetween,
-  usEquitySource,
-} from '@/marketData'
+import { Bar, BarsBetweenArgs, getBarsBetween } from '@/marketData'
 import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 /**
@@ -34,5 +29,5 @@ export const getIntradayBarsForCalendar = (
     timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
   }
 
-  return getBarsBetween(usEquitySource, args)
+  return getBarsBetween(args)
 }

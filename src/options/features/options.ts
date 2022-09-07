@@ -1,4 +1,5 @@
 import { Options } from '../types'
+import { assetRepository } from '@/tradingData/assets/features/assetRepository'
 
 let _options: Options
 
@@ -59,6 +60,11 @@ export const options = {
     if (options.paper) {
       const paper = String.fromCodePoint(0x1f4f0)
       console.warn(paper + ' Paper trading is enabled.')
+    }
+
+    // When no external asset repository is provided, use the default one
+    if (!options.assetRepository) {
+      options.assetRepository = assetRepository
     }
 
     _options = options

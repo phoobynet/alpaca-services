@@ -10,7 +10,14 @@ import { cleanBar } from '@/marketData/bars/helpers'
  * @param snapshot
  * @param symbol
  */
-export const cleanSnapshot = (snapshot: Snapshot, symbol: string): Snapshot => {
+export const cleanSnapshot = (
+  snapshot: Snapshot | undefined,
+  symbol: string,
+): Snapshot => {
+  if (!snapshot) {
+    throw new Error('Snapshot is undefined')
+  }
+
   const { latestTrade, latestQuote, dailyBar, prevDailyBar, minuteBar } =
     snapshot
 

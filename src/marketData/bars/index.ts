@@ -3,8 +3,6 @@ export {
   BarAdjustment,
   BarsBetweenArgs,
   LatestBarArgs,
-  LatestMultiBarsArgs,
-  MultiBarsArgs,
   BarsSinceArgs,
   BarsInTheLastArgs,
   DailyBarArgs,

@@ -1,7 +1,13 @@
 import { Quote, RawQuote } from '../types'
 import { cleanMarketDataEntity, cleanTimestamp } from '../../helpers'
 
-export const cleanQuote = (quote: RawQuote | Quote, symbol?: string): Quote => {
+export const cleanQuote = (
+  quote: RawQuote | Quote | undefined,
+  symbol?: string,
+): Quote => {
+  if (quote === undefined) {
+    throw new Error('Quote is undefined')
+  }
   if ('quote' in quote) {
     const rawQuote = quote as RawQuote
     return cleanQuote(cleanTimestamp(rawQuote.quote), rawQuote.symbol)

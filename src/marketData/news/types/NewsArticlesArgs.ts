@@ -4,7 +4,7 @@
  * @category News
  */
 export type NewsArticlesArgs = {
-  symbols?: string[]
+  symbol: string
   start?: Date
   end?: Date
   limit?: number

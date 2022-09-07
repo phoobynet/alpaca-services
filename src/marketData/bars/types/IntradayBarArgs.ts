@@ -9,7 +9,6 @@ import { BarTimeframe } from '@/marketData/bars/types/BarTimeframe'
 export type IntradayBarsArgs = {
   symbol: string
   date: Date
-  exchanges?: string[]
   feed?: MarketDataFeed
   adjustment?: BarAdjustment
   timeframe?: BarTimeframe

@@ -1,4 +1,4 @@
-import { usEquitySource, getLatestQuote } from '@/marketData'
+import { getLatestQuote } from '@/marketData'
 import { options } from '@/options'
 
 options.set({
@@ -8,7 +8,7 @@ options.set({
 })
 
 async function main() {
-  const data = await getLatestQuote(usEquitySource, 'AAPL')
+  const data = await getLatestQuote('AAPL')
 
   console.log(data)
   process.exit(0)

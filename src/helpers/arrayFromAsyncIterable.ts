@@ -11,7 +11,6 @@
  *   start: new Date('2022-01-01'),
  *   end: new Date('2022-07-31'),
  *   timeframe: '1Hour',
- *   exchange: 'CBSE'
  * }
  *
  * const bars = await arrayFromAsyncIterable(getBarsBetween(cryptoSource, args))

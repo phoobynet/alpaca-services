@@ -1,4 +1,3 @@
-import { MarketDataSource } from '@/marketData/types'
 import { Bar, getBarsBetween } from '@/marketData'
 import {
   BarTimeframe,
@@ -7,17 +6,17 @@ import {
 } from '@/marketData/bars/types'
 import { toUtcDayRange } from '@/helpers'
 import { addHours, endOfDay, startOfDay } from 'date-fns'
+import { cleanSymbol } from '@/marketData/helpers'
 
 /**
  * @group Market Data
  * @category Bars
- * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {IntradayBarsArgs} args
  * ```ts
  * async function main() {
  *   const bars: Bar[] = []
  *
- *   for await (const bar of getIntradayBars(usEquitySource, {
+ *   for await (const bar of getIntradayBars({
  *     symbol: 'AAPL',
  *     date: new Date('2022-07-19'),
  *   })) {
@@ -54,14 +53,14 @@ import { addHours, endOfDay, startOfDay } from 'date-fns'
  * ]
  * ```
  */
-export const getIntradayBars = (
-  marketDataSource: MarketDataSource,
-  args: IntradayBarsArgs,
-): AsyncIterable<Bar> => {
+export const getIntradayBars = (args: IntradayBarsArgs): AsyncIterable<Bar> => {
   let start: Date
   let end: Date
 
-  if (marketDataSource.type === 'crypto') {
+  const symbol = cleanSymbol(args.symbol)
+  const isCryptoPair = symbol.includes('/')
+
+  if (isCryptoPair) {
     const arr = toUtcDayRange(args.date)
     start = arr[0]
     end = arr[1]
@@ -75,9 +74,8 @@ export const getIntradayBars = (
     start,
     end,
     feed: args.feed,
-    exchanges: args.exchanges,
     timeframe: args.timeframe || BarTimeframe.from(1, BarTimeframeUnit.minute),
     adjustment: args.adjustment,
   }
-  return getBarsBetween(marketDataSource, barsBetweenArgs)
+  return getBarsBetween(barsBetweenArgs)
 }

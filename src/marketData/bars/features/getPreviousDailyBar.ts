@@ -6,25 +6,24 @@ import {
   BarTimeframeUnit,
   DailyBarArgs,
 } from '@/marketData/bars/types'
-import { MarketDataSource } from '@/marketData/types'
 import { arrayFromAsyncIterable } from '@/helpers'
 import { last } from 'lodash'
 import { endOfDay, startOfDay, subDays } from 'date-fns'
+import { cleanSymbol } from '@/marketData/helpers'
 
 /**
  * @group Market Data
  * @category Bars
- * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {DailyBarArgs} args
  * ```ts
  * async function main() {
- *   const stockBar = await getPreviousDailyBar(usEquitySource, {
+ *   const stockBar = await getPreviousDailyBar({
  *     symbol: 'AAPL',
  *   })
  *
  *   console.log(JSON.stringify(stockBar, null, 2))
  *
- *   const cryptoBar = await getPreviousDailyBar(cryptoSource, {
+ *   const cryptoBar = await getPreviousDailyBar({
  *     symbol: 'BTCUSD',
  *     exchanges: ['CBSE'],
  *   })
@@ -61,26 +60,27 @@ import { endOfDay, startOfDay, subDays } from 'date-fns'
  * ```
  */
 export const getPreviousDailyBar = async (
-  marketDataSource: MarketDataSource,
   args: DailyBarArgs,
 ): Promise<Bar | undefined> => {
   let bars: Bar[] = []
-  if (marketDataSource.type === 'crypto') {
+  const symbol = cleanSymbol(args.symbol)
+  const isCryptoPair = symbol.includes('/')
+
+  if (isCryptoPair) {
     const yesterday = subDays(new Date(), 1)
     bars = await arrayFromAsyncIterable(
-      getBarsBetween(marketDataSource, {
+      getBarsBetween({
         symbol: args.symbol,
         start: startOfDay(yesterday),
         end: endOfDay(yesterday),
         timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
-        exchanges: args.exchanges,
       }),
     )
   } else {
     const previousCalendar = await getPreviousCalendar(new Date())
 
     bars = await arrayFromAsyncIterable(
-      getBarsBetween(marketDataSource, {
+      getBarsBetween({
         symbol: args.symbol,
         start: previousCalendar.date,
         end: previousCalendar.date,

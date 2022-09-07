@@ -83,13 +83,7 @@
               get<wbr />Previous<wbr />Daily<wbr />Bar<span
                 class="tsd-signature-symbol"
                 >(</span
-              >marketDataSource<span class="tsd-signature-symbol">: </span
-              ><a
-                href="../interfaces/MarketDataSource.html"
-                class="tsd-signature-type"
-                data-tsd-kind="Interface"
-                >MarketDataSource</a
-              >, args<span class="tsd-signature-symbol">: </span
+              >args<span class="tsd-signature-symbol">: </span
               ><a
                 href="../types/DailyBarArgs.html"
                 class="tsd-signature-type"
@@ -116,28 +110,6 @@
                 <ul class="tsd-parameter-list">
                   <li>
                     <h5>
-                      marketDataSource:
-                      <a
-                        href="../interfaces/MarketDataSource.html"
-                        class="tsd-signature-type"
-                        data-tsd-kind="Interface"
-                        >MarketDataSource</a
-                      >
-                    </h5>
-                    <div class="tsd-comment tsd-typography">
-                      <p>
-                        <a href="../variables/cryptoSource.html"
-                          >cryptoSource</a
-                        >
-                        or
-                        <a href="../variables/usEquitySource.html"
-                          >usEquitySource</a
-                        >
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <h5>
                       args:
                       <a
                         href="../types/DailyBarArgs.html"
@@ -147,7 +119,7 @@
                       >
                     </h5>
                     <div class="tsd-comment tsd-typography">
-                      <pre><code class="language-ts"><span class="hl-8">async</span><span class="hl-0"> </span><span class="hl-8">function</span><span class="hl-0"> </span><span class="hl-5">main</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">stockBar</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getPreviousDailyBar</span><span class="hl-0">(</span><span class="hl-2">usEquitySource</span><span class="hl-0">, {</span><br/><span class="hl-0">    </span><span class="hl-2">symbol:</span><span class="hl-0"> </span><span class="hl-3">&#39;AAPL&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  })</span><br/><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-7">JSON</span><span class="hl-0">.</span><span class="hl-5">stringify</span><span class="hl-0">(</span><span class="hl-2">stockBar</span><span class="hl-0">, </span><span class="hl-8">null</span><span class="hl-0">, </span><span class="hl-9">2</span><span class="hl-0">))</span><br/><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">cryptoBar</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getPreviousDailyBar</span><span class="hl-0">(</span><span class="hl-2">cryptoSource</span><span class="hl-0">, {</span><br/><span class="hl-0">    </span><span class="hl-2">symbol:</span><span class="hl-0"> </span><span class="hl-3">&#39;BTCUSD&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-2">exchanges:</span><span class="hl-0"> [</span><span class="hl-3">&#39;CBSE&#39;</span><span class="hl-0">],</span><br/><span class="hl-0">  })</span><br/><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-7">JSON</span><span class="hl-0">.</span><span class="hl-5">stringify</span><span class="hl-0">(</span><span class="hl-2">cryptoBar</span><span class="hl-0">, </span><span class="hl-8">null</span><span class="hl-0">, </span><span class="hl-9">2</span><span class="hl-0">))</span><br/><span class="hl-0">}</span>
+                      <pre><code class="language-ts"><span class="hl-8">async</span><span class="hl-0"> </span><span class="hl-8">function</span><span class="hl-0"> </span><span class="hl-5">main</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">stockBar</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getPreviousDailyBar</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-2">symbol:</span><span class="hl-0"> </span><span class="hl-3">&#39;AAPL&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  })</span><br/><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-7">JSON</span><span class="hl-0">.</span><span class="hl-5">stringify</span><span class="hl-0">(</span><span class="hl-2">stockBar</span><span class="hl-0">, </span><span class="hl-8">null</span><span class="hl-0">, </span><span class="hl-9">2</span><span class="hl-0">))</span><br/><br/><span class="hl-0">  </span><span class="hl-8">const</span><span class="hl-0"> </span><span class="hl-6">cryptoBar</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-5">getPreviousDailyBar</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-2">symbol:</span><span class="hl-0"> </span><span class="hl-3">&#39;BTCUSD&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-2">exchanges:</span><span class="hl-0"> [</span><span class="hl-3">&#39;CBSE&#39;</span><span class="hl-0">],</span><br/><span class="hl-0">  })</span><br/><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-5">log</span><span class="hl-0">(</span><span class="hl-7">JSON</span><span class="hl-0">.</span><span class="hl-5">stringify</span><span class="hl-0">(</span><span class="hl-2">cryptoBar</span><span class="hl-0">, </span><span class="hl-8">null</span><span class="hl-0">, </span><span class="hl-9">2</span><span class="hl-0">))</span><br/><span class="hl-0">}</span>
 </code></pre>
                       <p>Results:</p>
                       <pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-18T04:00:00.000Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;o&quot;</span><span class="hl-0">: </span><span class="hl-9">150.74</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;h&quot;</span><span class="hl-0">: </span><span class="hl-9">151.57</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;l&quot;</span><span class="hl-0">: </span><span class="hl-9">146.7</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;c&quot;</span><span class="hl-0">: </span><span class="hl-9">147.07</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;v&quot;</span><span class="hl-0">: </span><span class="hl-9">81446408</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;n&quot;</span><span class="hl-0">: </span><span class="hl-9">620456</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;vw&quot;</span><span class="hl-0">: </span><span class="hl-9">149.030641</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;AAPL&quot;</span><br/><span class="hl-0">}</span><br/><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;t&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;2022-07-18T05:00:00.000Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;x&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;CBSE&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;o&quot;</span><span class="hl-0">: </span><span class="hl-9">21295</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;h&quot;</span><span class="hl-0">: </span><span class="hl-9">22961.04</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;l&quot;</span><span class="hl-0">: </span><span class="hl-9">21289.14</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;c&quot;</span><span class="hl-0">: </span><span class="hl-9">21892.11</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;v&quot;</span><span class="hl-0">: </span><span class="hl-9">36065.88615974</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;n&quot;</span><span class="hl-0">: </span><span class="hl-9">635956</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;vw&quot;</span><span class="hl-0">: </span><span class="hl-9">22112.0871344817</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">&quot;S&quot;</span><span class="hl-0">: </span><span class="hl-3">&quot;BTCUSD&quot;</span><br/><span class="hl-0">}</span>
@@ -565,19 +537,6 @@
               >
             </li>
             <li class="tsd-kind-class">
-              <a href="../classes/LiveAssetView.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-128-path"></use>
-                  <use href="#icon-128-text"></use></svg
-                >Live<wbr />Asset<wbr />View</a
-              >
-            </li>
-            <li class="tsd-kind-class">
               <a href="../classes/OptionsError.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -725,66 +684,6 @@
                   <use href="#icon-256-path"></use>
                   <use href="#icon-256-text"></use></svg
                 >Clock</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a
-                href="../interfaces/LiveAssetViewChange.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Live<wbr />Asset<wbr />View<wbr />Change</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a
-                href="../interfaces/LiveAssetViewChangePeriodSpec.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Live<wbr />Asset<wbr />View<wbr />Change<wbr />Period<wbr />Spec</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a
-                href="../interfaces/LiveAssetViewRange.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Live<wbr />Asset<wbr />View<wbr />Range</a
-              >
-            </li>
-            <li class="tsd-kind-interface">
-              <a
-                href="../interfaces/LiveAssetViewUpdate.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-256-path"></use>
-                  <use href="#icon-256-text"></use></svg
-                >Live<wbr />Asset<wbr />View<wbr />Update</a
               >
             </li>
             <li class="tsd-kind-interface">
@@ -1238,49 +1137,6 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/LatestMultiBarsArgs.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Latest<wbr />Multi<wbr />Bars<wbr />Args</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
-              <a
-                href="../types/LatestMultiQuotesArgs.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Latest<wbr />Multi<wbr />Quotes<wbr />Args</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
-              <a
-                href="../types/LatestMultiTradesArgs.html"
-                class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Latest<wbr />Multi<wbr />Trades<wbr />Args</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
               <a
                 href="../types/MarketDataIteratorArgs.html"
                 class="tsd-index-link"
@@ -1311,32 +1167,6 @@
               >
             </li>
             <li class="tsd-kind-type-alias">
-              <a href="../types/MultiBarsArgs.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Multi<wbr />Bars<wbr />Args</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
-              <a href="../types/MultiQuotesArgs.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Multi<wbr />Quotes<wbr />Args</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
               <a href="../types/MultiSnapshotsArgs.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1347,19 +1177,6 @@
                   <use href="#icon-4194304-path"></use>
                   <use href="#icon-4194304-text"></use></svg
                 >Multi<wbr />Snapshots<wbr />Args</a
-              >
-            </li>
-            <li class="tsd-kind-type-alias">
-              <a href="../types/MultiTradesArgs.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-4194304-path"></use>
-                  <use href="#icon-4194304-text"></use></svg
-                >Multi<wbr />Trades<wbr />Args</a
               >
             </li>
             <li class="tsd-kind-type-alias">
@@ -1625,6 +1442,19 @@
               >
             </li>
             <li class="tsd-kind-function">
+              <a href="getActiveAssets.html" class="tsd-index-link"
+                ><svg
+                  class="tsd-kind-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="#icon-64-path"></use>
+                  <use href="#icon-64-text"></use></svg
+                >get<wbr />Active<wbr />Assets</a
+              >
+            </li>
+            <li class="tsd-kind-function">
               <a href="getActivities.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1859,45 +1689,6 @@
               >
             </li>
             <li class="tsd-kind-function">
-              <a href="getLatestMultiBars.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Latest<wbr />Multi<wbr />Bars</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getLatestMultiQuotes.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Latest<wbr />Multi<wbr />Quotes</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getLatestMultiTrades.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Latest<wbr />Multi<wbr />Trades</a
-              >
-            </li>
-            <li class="tsd-kind-function">
               <a href="getLatestQuote.html" class="tsd-index-link"
                 ><svg
                   class="tsd-kind-icon"
@@ -1934,58 +1725,6 @@
                   <use href="#icon-64-path"></use>
                   <use href="#icon-64-text"></use></svg
                 >get<wbr />Market<wbr />Status</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getMultiBars.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Multi<wbr />Bars</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getMultiQuotes.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Multi<wbr />Quotes</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getMultiSnapshots.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Multi<wbr />Snapshots</a
-              >
-            </li>
-            <li class="tsd-kind-function">
-              <a href="getMultiTrades.html" class="tsd-index-link"
-                ><svg
-                  class="tsd-kind-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="#icon-64-path"></use>
-                  <use href="#icon-64-text"></use></svg
-                >get<wbr />Multi<wbr />Trades</a
               >
             </li>
             <li class="tsd-kind-function">

@@ -1,6 +1,6 @@
 import first from 'lodash/first'
 import { MarketDataSource } from '../types'
-import { isCryptoSource } from '@/marketData'
+import { getSource, isCryptoSource } from '@/marketData'
 import get from 'lodash/get'
 
 /**
@@ -21,11 +21,11 @@ const DEFAULT_PAGE_LIMIT = 1_000
  * @internal
  * @group Market Data
  * @category HTTP
- * @param {MarketDataSource} marketDataSource
+ * @param {string} symbol - represents the symbol or "ticker" to retrieve data for
  * @param {MarketDataIteratorArgs} args
  */
 export const getMarketDataIterator = <T>(
-  marketDataSource: MarketDataSource,
+  symbol: string,
   args: MarketDataIteratorArgs<T>,
 ): AsyncIterable<T> => {
   const { url, queryParams, absoluteLimit } = args
@@ -39,7 +39,13 @@ export const getMarketDataIterator = <T>(
   let nestedDataPath: string[] = []
   const tidy = args.tidy ?? ((item) => item)
 
+  let marketDataSource: MarketDataSource
+
   async function fetchNextPage(): Promise<void> {
+    if (!marketDataSource) {
+      marketDataSource = await getSource(symbol)
+    }
+
     let _pageLimit = DEFAULT_PAGE_LIMIT
     if (queryParams?.limit?.length) {
       _pageLimit = parseInt(queryParams.limit)

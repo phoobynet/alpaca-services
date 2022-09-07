@@ -1,11 +1,5 @@
 import { options } from '@/options'
-import {
-  Bar,
-  BarsBetweenArgs,
-  getBarsBetween,
-  mergeBars,
-  usEquitySource,
-} from '@/marketData'
+import { Bar, BarsBetweenArgs, getBarsBetween, mergeBars } from '@/marketData'
 import { getCalendarForToday } from '@/tradingData'
 import first from 'lodash/first'
 import last from 'lodash/last'
@@ -34,7 +28,7 @@ async function main() {
 
   const bars: Bar[] = []
 
-  for await (const bar of getBarsBetween(usEquitySource, args)) {
+  for await (const bar of getBarsBetween(args)) {
     bars.push(bar)
   }
 

@@ -1,11 +1,11 @@
-import { Bar, LatestBarArgs, MarketDataSource } from '@/marketData'
+import { Bar, getSource, LatestBarArgs } from '@/marketData'
 import { cleanBar } from '@/marketData/bars/helpers'
 import { RawBar } from '@/marketData/bars/types'
+import { cleanSymbol } from '@/marketData/helpers'
 
 /**
  * @group Market Data
  * @category Bars
- * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {LatestBarArgs} args
  * @example
  * ```ts
@@ -26,13 +26,12 @@ import { RawBar } from '@/marketData/bars/types'
  * })
  * ```
  */
-export const getLatestBar = (
-  marketDataSource: MarketDataSource,
-  args: LatestBarArgs,
-): Promise<Bar> => {
+export const getLatestBar = async (args: LatestBarArgs): Promise<Bar> => {
   const { symbol, ...queryParams } = args
 
-  return marketDataSource
+  const source = await getSource(cleanSymbol(symbol))
+
+  return source
     .get<RawBar>(
       `/${symbol}/bars/latest`,
       queryParams as Record<string, unknown>,

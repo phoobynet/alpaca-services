@@ -1,14 +1,13 @@
-import { Bar, getBarsSince, MarketDataSource } from '@/marketData'
+import { Bar, getBarsSince } from '@/marketData'
 import { Calendar, getAsset } from '@/tradingData'
 import { subBusinessDays } from 'date-fns'
-import { isCryptoSource } from '@/marketData/helpers'
+import { cleanSymbol } from '@/marketData/helpers'
 import { arrayFromAsyncIterable } from '@/helpers'
 import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
 /**
  * @group Market Data
  * @category Bars
- * @param marketDataSource
  * @param args
  * @example
  * ```typescript
@@ -18,10 +17,11 @@ import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
  *  })
  * ```
  */
-export const getDailyBarFor = async (
-  marketDataSource: MarketDataSource,
-  args: { symbol: string; date: Date | Calendar },
-): Promise<Bar | undefined> => {
+export const getDailyBarFor = async (args: {
+  symbol: string
+  date: Date | Calendar
+}): Promise<Bar | undefined> => {
+  const symbol = cleanSymbol(args.symbol)
   let d: Date
 
   if (args.date instanceof Date) {
@@ -40,26 +40,13 @@ export const getDailyBarFor = async (
     throw new Error(`Asset ${args.symbol} not found`)
   }
 
-  let bars: Bar[] = []
-
-  if (isCryptoSource(marketDataSource)) {
-    bars = await arrayFromAsyncIterable(
-      getBarsSince(marketDataSource, {
-        symbol: asset.symbol,
-        since,
-        timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
-        exchanges: [asset.exchange],
-      }),
-    )
-  } else {
-    bars = await arrayFromAsyncIterable(
-      getBarsSince(marketDataSource, {
-        symbol: asset.symbol,
-        since,
-        timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
-      }),
-    )
-  }
+  const bars = await arrayFromAsyncIterable(
+    getBarsSince({
+      symbol,
+      since,
+      timeframe: BarTimeframe.from(1, BarTimeframeUnit.day),
+    }),
+  )
 
   const datePart = d.toISOString().substring(0, 10)
 

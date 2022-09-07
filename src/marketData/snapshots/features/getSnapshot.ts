@@ -1,20 +1,35 @@
 import { Snapshot, SnapshotArgs } from '@/marketData/snapshots/types'
-import { MarketDataSource } from '@/marketData/types'
 import { cleanSnapshot } from '@/marketData/snapshots/helpers'
+import { getSource, isCryptoSource } from '@/marketData'
+import { cleanSymbol } from '@/marketData/helpers'
 
 /**
  * @group Market Data
  * @category Snapshots
- * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {SnapshotArgs} args
  */
-export const getSnapshot = async (
-  marketDataSource: MarketDataSource,
-  args: SnapshotArgs,
-): Promise<Snapshot> => {
-  const { symbol, ...queryParams } = args
+export const getSnapshot = async (args: SnapshotArgs): Promise<Snapshot> => {
+  const { symbol, ...theRest } = args
 
-  return marketDataSource
-    .get<Snapshot>(`${symbol}/snapshot`, queryParams as Record<string, string>)
-    .then((snapshot) => cleanSnapshot(snapshot, symbol))
+  const cleanedSymbol = cleanSymbol(symbol)
+  const source = await getSource(cleanedSymbol)
+  const queryParams: Record<string, string> = {
+    ...theRest,
+  }
+
+  if (isCryptoSource(source)) {
+    const url = '/snapshot'
+    queryParams.symbols = symbol
+    return source
+      .get<{ snapshots: Record<string, Snapshot> }>(url, queryParams)
+      .then((response) => response.snapshots[symbol])
+      .then((snapshot) => {
+        return cleanSnapshot(snapshot, symbol)
+      })
+  } else {
+    const url = `${symbol}/snapshot`
+    return source.get<Snapshot>(url, queryParams).then((snapshot) => {
+      return cleanSnapshot(snapshot, symbol)
+    })
+  }
 }

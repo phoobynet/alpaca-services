@@ -1,8 +1,7 @@
 import { Bar, BarsBetweenArgs } from '@/marketData/bars/types'
-import { MarketDataSource } from '@/marketData/types'
 import { getMarketDataIterator } from '@/marketData/http'
 import { cleanBar } from '@/marketData/bars/helpers'
-import { isCryptoSource } from '@/marketData'
+import { cleanSymbol } from '@/marketData/helpers'
 
 const DEFAULT_ABSOLUTE_LIMIT = 1_000
 
@@ -10,7 +9,6 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
  * Get bars between two dates.
  * @group Market Data
  * @category Bars
- * @param {MarketDataSource} marketDataSource
  * @param {BarsBetweenArgs} args
  * @example
  * ```ts
@@ -27,20 +25,11 @@ const DEFAULT_ABSOLUTE_LIMIT = 1_000
  * }
  * ```
  */
-export const getBarsBetween = (
-  marketDataSource: MarketDataSource,
-  args: BarsBetweenArgs,
-): AsyncIterable<Bar> => {
-  const {
-    symbol,
-    start,
-    end,
-    timeframe,
-    exchanges,
-    absoluteLimit,
-    feed,
-    adjustment,
-  } = args
+export const getBarsBetween = (args: BarsBetweenArgs): AsyncIterable<Bar> => {
+  const { start, end, timeframe, absoluteLimit, feed, adjustment } = args
+
+  const symbol = cleanSymbol(args.symbol)
+  const isCryptoPair = symbol.includes('/')
 
   const queryParams: Record<string, string> = {
     start: start instanceof Date ? start.toISOString() : start,
@@ -51,10 +40,6 @@ export const getBarsBetween = (
     queryParams.end = end instanceof Date ? end.toISOString() : end
   }
 
-  if (exchanges?.length) {
-    queryParams.exchanges = exchanges?.join(',')
-  }
-
   if (feed) {
     queryParams.feed = feed
   }
@@ -63,13 +48,15 @@ export const getBarsBetween = (
     queryParams.adjustment = adjustment
   }
 
-  if (isCryptoSource(marketDataSource)) {
+  // vary handling for API inconsistency
+  let url = `/${symbol}/bars`
+
+  if (isCryptoPair) {
     queryParams.symbols = symbol
+    url = '/bars'
   }
 
-  const url = isCryptoSource(marketDataSource) ? '/bars' : `/${symbol}/bars`
-
-  return getMarketDataIterator<Bar>(marketDataSource, {
+  return getMarketDataIterator<Bar>(symbol, {
     url,
     queryParams,
     absoluteLimit: absoluteLimit || DEFAULT_ABSOLUTE_LIMIT,

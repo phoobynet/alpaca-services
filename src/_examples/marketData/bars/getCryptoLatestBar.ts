@@ -1,4 +1,4 @@
-import { getLatestBar, cryptoSource } from '@/marketData'
+import { getLatestBar } from '@/marketData'
 import { options } from '@/options'
 
 options.set({
@@ -8,9 +8,8 @@ options.set({
 })
 
 async function main() {
-  const bar = await getLatestBar(cryptoSource, {
-    symbol: 'BTCUSD',
-    exchange: 'CBSE',
+  const bar = await getLatestBar({
+    symbol: 'BTC/USD',
   })
 
   console.log(bar)

@@ -1,6 +1,6 @@
 import { NewsArticle, NewsArticlesArgs } from '@/marketData/news/types'
 import { getMarketDataIterator } from '@/marketData'
-import { newsSource } from '@/marketData/news/http'
+import { cleanSymbol } from '@/marketData/helpers'
 
 /**
  * @group Market Data
@@ -10,10 +10,10 @@ import { newsSource } from '@/marketData/news/http'
 export const getNewsArticles = (
   args: NewsArticlesArgs,
 ): AsyncIterable<NewsArticle> => {
-  const queryParams: Record<string, string> = {}
+  const symbol = cleanSymbol(args.symbol)
 
-  if (args.symbols?.length) {
-    queryParams.symbols = args.symbols.join(',')
+  const queryParams: Record<string, string> = {
+    symbols: symbol,
   }
 
   if (args.start) {
@@ -42,9 +42,9 @@ export const getNewsArticles = (
       : 'false'
   }
 
-  return getMarketDataIterator<NewsArticle>(newsSource, {
+  return getMarketDataIterator<NewsArticle>(symbol, {
     queryParams,
-    url: '',
+    url: '/news',
     absoluteLimit: args.limit || 1_000,
   })
 }

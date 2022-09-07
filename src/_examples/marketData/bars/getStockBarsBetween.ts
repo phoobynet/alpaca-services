@@ -1,10 +1,5 @@
 import { options } from '@/options'
-import {
-  BarAdjustment,
-  BarsBetweenArgs,
-  getBarsBetween,
-  usEquitySource,
-} from '@/marketData'
+import { BarAdjustment, BarsBetweenArgs, getBarsBetween } from '@/marketData'
 import { subWeeks } from 'date-fns'
 import { BarTimeframe, BarTimeframeUnit } from '@/marketData/bars/types'
 
@@ -24,7 +19,7 @@ async function main() {
     adjustment: BarAdjustment.split,
   }
 
-  for await (const bar of getBarsBetween(usEquitySource, args)) {
+  for await (const bar of getBarsBetween(args)) {
     console.log(bar)
   }
   process.exit(0)

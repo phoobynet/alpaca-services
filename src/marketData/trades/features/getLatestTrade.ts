@@ -1,26 +1,27 @@
-import { MarketDataSource } from '@/marketData/types'
 import { RawTrade, Trade } from '@/marketData/trades/types'
 import { cleanTrade } from '@/marketData/trades/helpers'
+import { cleanSymbol, getSource, isCryptoSource } from '@/marketData/helpers'
 
 /**
  * @group Market Data
  * @category Trades
- * @param {MarketDataSource} marketDataSource - {@link cryptoSource} or {@link usEquitySource}
  * @param {string} symbol
- * @param {string} [exchange] - required for crypto requests
  */
-export const getLatestTrade = async (
-  marketDataSource: MarketDataSource,
-  symbol: string,
-  exchange?: string,
-): Promise<Trade> => {
+export const getLatestTrade = async (symbol: string): Promise<Trade> => {
+  symbol = cleanSymbol(symbol)
+
   const queryParams: Record<string, string> = {}
+  const source = await getSource(symbol)
 
-  if (exchange) {
-    queryParams.exchange = exchange
+  let url = `${symbol}/trades/latest`
+
+  if (isCryptoSource(source)) {
+    url = '/latest/trades'
+    queryParams.symbols = symbol
+    return source
+      .get<{ trades: Record<string, Trade> }>(url, queryParams)
+      .then((data) => cleanTrade(data.trades[symbol]))
+  } else {
+    return source.get<RawTrade>(url, queryParams).then(cleanTrade)
   }
-
-  return marketDataSource
-    .get<RawTrade>(`${symbol}/trades/latest`, queryParams)
-    .then(cleanTrade)
 }

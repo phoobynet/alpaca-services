@@ -7,6 +7,5 @@ import { MarketDataFeed } from '@/marketData'
  */
 export type DailyBarArgs = {
   symbol: string
-  exchanges?: string[]
   feed?: MarketDataFeed
 }

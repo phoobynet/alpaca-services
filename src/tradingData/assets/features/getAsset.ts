@@ -3,9 +3,6 @@ import { getTradeData } from '@/tradingData/http'
 import { options } from '@/options'
 import { cleanSymbol } from '@/marketData/helpers'
 
-/** Used when repository has not been set - simple in memory caching */
-const inMemoryCache = new Map<string, Asset>()
-
 /**
  * Retrieve the {@link Asset} for the given symbol.
  *
@@ -31,16 +28,9 @@ export const getAsset = async (
     return assetRepository.find(symbol)
   }
 
-  if (inMemoryCache.has(symbol) && !forceHttp) {
-    return inMemoryCache.get(symbol)
-  }
-
   const httpResponse = await getTradeData<Asset>(`/assets/${symbol}`)
 
   if (httpResponse.ok) {
-    if (httpResponse.data) {
-      inMemoryCache.set(symbol, httpResponse.data)
-    }
     return httpResponse.data
   } else {
     throw new Error(httpResponse.message)

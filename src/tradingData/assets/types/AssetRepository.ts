@@ -19,7 +19,7 @@ import { Asset } from './Asset'
  *
  *  ```ts
  * // assetRepository.ts
- * import type { Asset, AssetRepository } from '@phoobynet/alpaca-services'
+ * import type { Asset, ØAssetRepository } from '@phoobynet/alpaca-services'
  * import { getAssets, cleanSymbol } from '@phoobynet/alpaca-services'
  * import Dexie from 'dexie'
  *
@@ -67,4 +67,9 @@ export interface AssetRepository {
   find(symbol: string): Promise<Asset | undefined>
 
   findAll(): Promise<Asset[]>
+
+  /**
+   * Indicates this is using the in-memory asset repository (not recommended)
+   */
+  isDefault?: boolean
 }

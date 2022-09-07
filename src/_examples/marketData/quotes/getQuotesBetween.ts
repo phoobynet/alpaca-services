@@ -1,5 +1,5 @@
-import { usEquitySource, getQuotesBetween, Quote } from '../../../marketData'
-import { options } from '../../../options'
+import { getQuotesBetween, Quote } from '@/marketData'
+import { options } from '@/options'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -8,7 +8,7 @@ options.set({
 })
 
 async function main() {
-  const iterable = getQuotesBetween(usEquitySource, {
+  const iterable = getQuotesBetween({
     symbol: 'AAPL',
     start: new Date('2022-06-24 12:00:00'),
     end: new Date('2022-06-24 12:01:00'),

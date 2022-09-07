@@ -8,6 +8,5 @@ export type TradeBetweenArgs = {
   start: Date
   end: Date
   absoluteLimit?: number
-  exchanges?: string[]
   feed?: string
 }

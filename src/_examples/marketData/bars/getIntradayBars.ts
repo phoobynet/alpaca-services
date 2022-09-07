@@ -1,10 +1,5 @@
 import { options } from '@/options'
-import {
-  Bar,
-  cryptoSource,
-  getIntradayBars,
-  usEquitySource,
-} from '@/marketData'
+import { Bar, getIntradayBars } from '@/marketData'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -15,7 +10,7 @@ options.set({
 async function main() {
   const bars: Bar[] = []
 
-  for await (const bar of getIntradayBars(cryptoSource, {
+  for await (const bar of getIntradayBars({
     symbol: 'BTC/USD',
     date: new Date('2022-07-18'),
   })) {
@@ -23,7 +18,7 @@ async function main() {
   }
   console.table(bars)
 
-  for await (const bar of getIntradayBars(usEquitySource, {
+  for await (const bar of getIntradayBars({
     symbol: 'AAPL',
     date: new Date('2022-09-06'),
   })) {

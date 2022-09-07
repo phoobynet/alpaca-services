@@ -26,7 +26,6 @@ describe('getBarsBetween', () => {
     absoluteLimit: 500,
     start,
     end,
-    exchanges: ['CBSE', 'FRSX'],
     symbol: 'BTCUSD',
     timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
   }
@@ -40,7 +39,6 @@ describe('getBarsBetween', () => {
         queryParams: {
           start: start.toISOString(),
           end: end.toISOString(),
-          exchanges: 'CBSE,FRSX',
           timeframe: '1Day',
         },
         absoluteLimit: 500,

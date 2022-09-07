@@ -1,5 +1,4 @@
 import { options } from '@/options'
-import { usEquitySource } from '@/marketData'
 import { getDailyBarFor } from '@/marketData/bars/features/getDailyBarFor'
 
 options.set({
@@ -9,7 +8,7 @@ options.set({
 })
 
 async function main() {
-  const dailyBar = await getDailyBarFor(usEquitySource, {
+  const dailyBar = await getDailyBarFor({
     symbol: 'AAPL',
     date: new Date('2022-08-29'),
   })
