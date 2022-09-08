@@ -1,19 +1,10 @@
-import {
-  Bar,
-  BarTimeframe,
-  BarTimeframeUnit,
-  DailyBarArgs,
-} from '@/marketData/bars/types'
-import { cleanSymbol } from '@/marketData/helpers'
-import { arrayFromAsyncIterable } from '@/helpers'
-import { getBarsBetween, mergeBars } from '@/marketData'
-import { endOfDay, startOfDay } from 'date-fns'
-import { getCalendarForToday } from '@/tradingData'
+import { Bar, DailyBarArgs } from '@/marketData/bars/types'
+import { cleanSymbol, getSource, isCryptoSource } from '@/marketData/helpers'
+import { formatISO, subDays } from 'date-fns'
+import first from 'lodash/first'
 
 /**
- * HACK: Returns a single bar representing a daily bar.  See remarks.
- *
- * @remarks - HACK: Unable to use daily timeframe.  Instead, all minutes bars are returned and merged together.  See {@link mergeBars} for details.
+ * Returns a single bar for the given day or the previous day if the market is closed or not open yet
  * @group Market Data
  * @category Bars
  * @param args
@@ -21,36 +12,35 @@ import { getCalendarForToday } from '@/tradingData'
 export const getDailyBar = async (
   args: DailyBarArgs,
 ): Promise<Bar | undefined> => {
-  let bars: Bar[] = []
+  const cleanedSymbol = cleanSymbol(args.symbol)
+  const source = await getSource(cleanedSymbol)
 
-  const symbol = cleanSymbol(args.symbol)
-  const isCryptoPair = symbol.includes('/')
-
-  if (isCryptoPair) {
-    bars = await arrayFromAsyncIterable(
-      getBarsBetween({
-        symbol,
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
-      }),
-    )
+  if (isCryptoSource(source)) {
+    return await source
+      .get<{ bars: Record<string, Bar[]> }>('/bars', {
+        symbols: cleanedSymbol,
+        start: formatISO(new Date(), { representation: 'date' }),
+        end: formatISO(new Date(), { representation: 'date' }),
+        timeframe: '1Day',
+      })
+      .then((result) => first(result.bars[cleanedSymbol]))
   } else {
-    const calendar = await getCalendarForToday()
+    let bar: Bar | undefined
+    let date = new Date()
+    let attempts = 0
 
-    if (!calendar) {
-      return undefined
+    while (!bar && attempts < 5) {
+      bar = await source
+        .get<{ bars?: Bar[] }>(`${cleanedSymbol}/bars`, {
+          start: formatISO(date, { representation: 'date' }),
+          end: formatISO(date, { representation: 'date' }),
+          timeframe: '1Day',
+        })
+        .then((result) => (result.bars?.length ? result.bars[0] : undefined))
+      date = subDays(date, 1)
+      attempts++
     }
 
-    bars = await arrayFromAsyncIterable(
-      getBarsBetween({
-        symbol,
-        start: calendar.session_open,
-        end: calendar.session_close,
-        timeframe: BarTimeframe.from(1, BarTimeframeUnit.minute),
-        feed: args.feed,
-      }),
-    )
+    return bar
   }
-  return mergeBars(bars)
 }

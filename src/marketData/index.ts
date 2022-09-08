@@ -7,4 +7,9 @@ export * from './snapshots'
 export * from './observe'
 export * from './news'
 export * from './stream'
-export { getSource, isCryptoSource, isUsEquitySource } from './helpers'
+export {
+  getSource,
+  isCryptoSource,
+  isUsEquitySource,
+  cleanSymbol,
+} from './helpers'
