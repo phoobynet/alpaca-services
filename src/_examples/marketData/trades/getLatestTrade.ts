@@ -1,16 +1,11 @@
 import { getLatestTrade } from '@/marketData'
-import { options } from '@/options'
+import { initOptions } from '@/_examples/initOptions'
 
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  // accessToken: '',
-  paper: true,
-})
+initOptions()
 
 async function main() {
-  const stockLatestTrade = await getLatestTrade('AAPL')
-  console.log(JSON.stringify(stockLatestTrade, null, 2))
+  // const stockLatestTrade = await getLatestTrade('AAPL')
+  // console.log(JSON.stringify(stockLatestTrade, null, 2))
 
   const cryptoLatestTrade = await getLatestTrade('BTC/USD')
   console.log(JSON.stringify(cryptoLatestTrade, null, 2))

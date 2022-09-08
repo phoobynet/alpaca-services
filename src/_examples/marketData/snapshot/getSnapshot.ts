@@ -1,11 +1,7 @@
 import { getSnapshot } from '@/marketData'
-import { options } from '@/options'
+import { initOptions } from '@/_examples/initOptions'
 
-options.set({
-  key: process.env.APCA_API_KEY_ID as string,
-  secret: process.env.APCA_API_SECRET_KEY as string,
-  paper: true,
-})
+initOptions()
 
 async function main() {
   let snapshot = await getSnapshot({

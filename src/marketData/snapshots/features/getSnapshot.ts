@@ -18,7 +18,7 @@ export const getSnapshot = async (args: SnapshotArgs): Promise<Snapshot> => {
   }
 
   if (isCryptoSource(source)) {
-    const url = '/snapshot'
+    const url = '/snapshots'
     queryParams.symbols = symbol
     return source
       .get<{ snapshots: Record<string, Snapshot> }>(url, queryParams)
