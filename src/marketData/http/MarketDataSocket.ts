@@ -1,4 +1,4 @@
-import WebSocket, { ErrorEvent, MessageEvent } from 'isomorphic-ws'
+import WebSocket, { CloseEvent, ErrorEvent, MessageEvent } from 'isomorphic-ws'
 import { EventEmitter } from 'eventemitter3'
 import { options } from '@/options'
 import {
@@ -29,7 +29,9 @@ export class MarketDataSocket extends EventEmitter {
 
   private constructor(private url: string) {
     super()
-    this.start()
+    this.start().catch((e) => {
+      throw new Error(e)
+    })
   }
 
   public static getByUrl(url: string): MarketDataSocket {
@@ -43,13 +45,31 @@ export class MarketDataSocket extends EventEmitter {
     return marketDataSocket
   }
 
-  private start() {
+  /**
+   * Kill off every socket
+   */
+  public static closeAllSockets() {
+    sockets.forEach((marketDataSocket) => {
+      marketDataSocket.close()
+    })
+
+    sockets.clear()
+  }
+
+  private close() {
+    this.intentionalClosing = true
+    this.socket.close()
+  }
+
+  private async start() {
+    this.socket?.terminate()
     this.socket = new WebSocket(this.url)
     this.socket.onmessage = this.onMessage.bind(this)
     this.socket.onerror = this.onError.bind(this)
-    this.socket.onclose = () => {
+    this.socket.onclose = async (event: CloseEvent) => {
+      console.log('socket closed', event)
       if (!this.intentionalClosing) {
-        this.start()
+        await this.start()
         this.emit(MarketDataSocket.RESTART_EVENT)
       }
     }
@@ -60,7 +80,8 @@ export class MarketDataSocket extends EventEmitter {
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       console.warn(errorEvent)
     } else {
-      throw new Error(errorEvent.message)
+      console.log('Ignoring error event', errorEvent)
+      console.warn(errorEvent.message)
     }
   }
 

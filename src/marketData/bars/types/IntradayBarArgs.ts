@@ -8,7 +8,8 @@ import { BarTimeframe } from '@/marketData/bars/types/BarTimeframe'
  */
 export type IntradayBarsArgs = {
   symbol: string
-  date: Date
+  // when not provided, defaults to today or the previous trading day for equities
+  date?: Date
   feed?: MarketDataFeed
   adjustment?: BarAdjustment
   timeframe?: BarTimeframe

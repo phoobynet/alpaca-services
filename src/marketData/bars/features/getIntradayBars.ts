@@ -1,11 +1,10 @@
-import { Bar, getBarsBetween } from '@/marketData'
+import { Bar, BarsBetweenArgs, getBarsBetween } from '@/marketData'
 import {
   BarTimeframe,
   BarTimeframeUnit,
   IntradayBarsArgs,
 } from '@/marketData/bars/types'
-import { toUtcDayRange } from '@/helpers'
-import { addHours, endOfDay, startOfDay } from 'date-fns'
+import { formatISO } from 'date-fns'
 import { cleanSymbol } from '@/marketData/helpers'
 
 /**
@@ -54,25 +53,12 @@ import { cleanSymbol } from '@/marketData/helpers'
  * ```
  */
 export const getIntradayBars = (args: IntradayBarsArgs): AsyncIterable<Bar> => {
-  let start: Date
-  let end: Date
+  const date = args.date ?? new Date()
 
-  const symbol = cleanSymbol(args.symbol)
-  const isCryptoPair = symbol.includes('/')
-
-  if (isCryptoPair) {
-    const arr = toUtcDayRange(args.date)
-    start = arr[0]
-    end = arr[1]
-  } else {
-    start = startOfDay(args.date)
-    end = addHours(endOfDay(args.date), 3)
-  }
-
-  const barsBetweenArgs = {
-    symbol: args.symbol,
-    start,
-    end,
+  const barsBetweenArgs: BarsBetweenArgs = {
+    symbol: cleanSymbol(args.symbol),
+    start: formatISO(date, { representation: 'date' }),
+    end: formatISO(date, { representation: 'date' }),
     feed: args.feed,
     timeframe: args.timeframe || BarTimeframe.from(1, BarTimeframeUnit.minute),
     adjustment: args.adjustment,
