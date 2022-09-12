@@ -8,11 +8,11 @@ import { MarketDataRealTimeSubscriptionEntityType } from '@/marketData'
  * @param symbol
  * @param handler
  */
-export const observeNews = (
+export const observeNews = async (
   symbol: string,
   handler: (article: NewsArticle) => void,
 ) => {
-  const realTime = getNewsRealTime()
+  const realTime = await getNewsRealTime()
 
   return realTime.subscribeTo(
     MarketDataRealTimeSubscriptionEntityType.news,

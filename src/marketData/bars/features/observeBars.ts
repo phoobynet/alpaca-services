@@ -29,8 +29,8 @@ export const observeBars = async (
   symbol = cleanSymbol(symbol)
   const source = await getSource(symbol)
   const realTime = isCryptoSource(source)
-    ? getCryptoRealTime()
-    : getUsEquityRealTime()
+    ? await getCryptoRealTime()
+    : await getUsEquityRealTime()
 
   return realTime.subscribeTo(SubEntityType.bar, symbol, (message: unknown) => {
     handler(cleanBar(message as Bar, symbol))

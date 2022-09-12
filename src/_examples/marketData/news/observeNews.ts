@@ -1,5 +1,6 @@
 import { options } from '@/options'
 import { NewsArticle, observeNews } from '@/marketData'
+import { CancelFn } from '@/types'
 
 options.set({
   key: process.env.APCA_API_KEY_ID as string,
@@ -7,14 +8,16 @@ options.set({
   paper: true,
 })
 
-function main() {
+async function main() {
   const symbols = ['AAPL', 'TSLA', 'MSFT', 'GOOGL', 'AMZN', 'META', 'TWTR']
 
   const handler = (newsArticle: NewsArticle) => {
     console.log(JSON.stringify(newsArticle, null, 2))
   }
 
-  const cancels = symbols.map((symbol) => observeNews(symbol, handler))
+  const cancels: CancelFn[] = await Promise.all(
+    symbols.map((symbol): Promise<CancelFn> => observeNews(symbol, handler)),
+  )
 
   setTimeout(() => {
     cancels.forEach((cancel) => cancel())
@@ -23,4 +26,4 @@ function main() {
   }, 120_000)
 }
 
-main()
+main().catch(console.error)

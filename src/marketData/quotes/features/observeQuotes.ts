@@ -21,8 +21,8 @@ export const observeQuotes = async (
   symbol = cleanSymbol(symbol)
   const source = await getSource(symbol)
   const realTime = isCryptoSource(source)
-    ? getCryptoRealTime()
-    : getUsEquityRealTime()
+    ? await getCryptoRealTime()
+    : await getUsEquityRealTime()
 
   let update = (quote: unknown): void =>
     onQuote(cleanQuote(quote as Quote, symbol))

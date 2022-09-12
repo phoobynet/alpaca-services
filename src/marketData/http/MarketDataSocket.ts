@@ -5,8 +5,11 @@ import {
   MarketDataSocketMessage,
   MarketDataSocketMessageType,
 } from '@/marketData/types'
+import { Mutex } from 'async-mutex'
 
 const sockets = new Map<string, MarketDataSocket>()
+
+const mutex = new Mutex()
 
 /**
  * @internal
@@ -18,6 +21,7 @@ export class MarketDataSocket extends EventEmitter {
   private isReady = false
   private pendingRequests: Record<string, unknown>[] = []
   private intentionalClosing = false
+  private currentSubscription?: MarketDataSocketMessage
 
   public static CONNECTED_EVENT = 'CONNECTED'
   public static AUTHENTICATED_EVENT = 'AUTHENTICATED'
@@ -34,13 +38,16 @@ export class MarketDataSocket extends EventEmitter {
     })
   }
 
-  public static getByUrl(url: string): MarketDataSocket {
+  public static async getByUrl(url: string): Promise<MarketDataSocket> {
+    const release = await mutex.acquire()
     let marketDataSocket = sockets.get(url)
 
     if (!marketDataSocket) {
       marketDataSocket = new MarketDataSocket(url)
       sockets.set(url, marketDataSocket)
     }
+
+    release()
 
     return marketDataSocket
   }
@@ -62,6 +69,7 @@ export class MarketDataSocket extends EventEmitter {
   }
 
   private async start() {
+    console.log('Starting socket', this.url)
     this.socket?.terminate()
     this.socket = new WebSocket(this.url)
     this.socket.onmessage = this.onMessage.bind(this)
@@ -85,7 +93,7 @@ export class MarketDataSocket extends EventEmitter {
     }
   }
 
-  private onMessage(messageEvent: MessageEvent): void {
+  private async onMessage(messageEvent: MessageEvent): Promise<void> {
     const messages = JSON.parse(
       messageEvent.data.toString('utf-8'),
     ) as MarketDataSocketMessage[]
@@ -105,10 +113,30 @@ export class MarketDataSocket extends EventEmitter {
           this.authenticate()
         }
       } else if (leading.T === MarketDataSocketMessageType.subscription) {
+        this.currentSubscription = leading
         this.emit(MarketDataSocket.SUBSCRIBED_EVENT, leading)
+        console.log('subscribed', leading)
       } else if (leading.T === MarketDataSocketMessageType.error) {
-        console.log(JSON.stringify(leading, null, 2))
-        throw new Error(leading.msg)
+        console.error('Uh oh:', leading.msg)
+        console.log('Attempting restart...')
+        this.intentionalClosing = true
+        this.socket.close()
+        await this.start()
+
+        this.on(MarketDataSocket.IS_READY_EVENT, () => {
+          console.log('Attempting restart...SUCCESS')
+          if (this.currentSubscription) {
+            console.log('Attempting re-subscription')
+            this.socket.send(
+              JSON.stringify({
+                action: 'subscribe',
+                trades: this.currentSubscription.trades ?? [],
+                quotes: this.currentSubscription.quotes ?? [],
+                bars: this.currentSubscription.bars ?? [],
+              }),
+            )
+          }
+        })
       } else {
         this.emit(MarketDataSocket.MESSAGES_EVENT, messages)
       }

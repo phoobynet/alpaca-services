@@ -110,6 +110,14 @@ export const getMarketDataIterator = <T>(
               done: true,
             }
           }
+
+          if (items === undefined) {
+            return {
+              value: undefined,
+              done: true,
+            }
+          }
+
           if (pages === 0 || (itemsIndex >= items.length && page_token)) {
             await fetchNextPage()
             pages++

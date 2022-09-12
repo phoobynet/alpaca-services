@@ -43,8 +43,8 @@ export const observeTrades = async (
   symbol = cleanSymbol(symbol)
   const source = await getSource(symbol)
   const realTime = isCryptoSource(source)
-    ? getCryptoRealTime()
-    : getUsEquityRealTime()
+    ? await getCryptoRealTime()
+    : await getUsEquityRealTime()
 
   let update = (trade: unknown) => onTrade(cleanTrade(trade as Trade, symbol))
 

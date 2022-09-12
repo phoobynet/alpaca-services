@@ -8,9 +8,9 @@ let realTime: MarketDataRealTime
  * @group Market Data
  * @category HTTP
  */
-export const getNewsRealTime = (): MarketDataRealTime => {
+export const getNewsRealTime = async (): Promise<MarketDataRealTime> => {
   if (!realTime) {
-    realTime = new MarketDataRealTime(getNewsSocket())
+    realTime = new MarketDataRealTime(await getNewsSocket())
   }
 
   return realTime
