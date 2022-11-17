@@ -7,5 +7,4 @@ import { MarketDataFeed } from '@/marketData'
 export type MultiSnapshotsArgs = {
   symbols: string[]
   feed?: MarketDataFeed
-  exchange?: string
 }
