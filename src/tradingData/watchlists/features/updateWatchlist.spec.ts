@@ -68,7 +68,7 @@ describe('updateWatchlist', () => {
         symbols: ['AAPL', 'MSFT'],
       }
 
-      await expect(() => updateWatchlist(args)).rejects.toThrowError(
+      await expect(() => updateWatchlist(args)).rejects.toThrow(
         'Some parameters are not valid',
       )
     })
@@ -82,7 +82,7 @@ describe('updateWatchlist', () => {
         symbols: ['AAPL', 'MSFT'],
       }
 
-      await expect(() => updateWatchlist(args)).rejects.toThrowError(
+      await expect(() => updateWatchlist(args)).rejects.toThrow(
         'The requested watchlist is not found, or one of the symbol is not found in the assets',
       )
     })

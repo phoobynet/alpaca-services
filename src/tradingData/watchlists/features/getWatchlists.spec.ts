@@ -21,7 +21,7 @@ describe('getWatchlists', () => {
       message: 'some error',
     })
 
-    await expect(async () => await getWatchlists()).rejects.toThrowError(
+    await expect(async () => await getWatchlists()).rejects.toThrow(
       'some error',
     )
   })

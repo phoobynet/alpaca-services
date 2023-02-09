@@ -14,4 +14,9 @@ export interface Options {
   assetRepository?: AssetRepository
   debugStreams?: boolean
   disableRestMutex?: boolean
+
+  tradingBaseUrl?: string
+
+  marketDataBaseUrl?: string
+  realTimeMarketDataBaseUrl?: string
 }

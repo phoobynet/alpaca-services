@@ -32,7 +32,7 @@ describe('createWatchlist', () => {
             name: 'foo',
             symbols: ['AAPL', 'MSFT'],
           }),
-      ).rejects.toThrowError(
+      ).rejects.toThrow(
         'Watchlist name is not unique, or some parameters are not valid',
       )
     })
@@ -48,7 +48,7 @@ describe('createWatchlist', () => {
             name: 'foo',
             symbols: ['AAPL', 'MSFT'],
           }),
-      ).rejects.toThrowError('One of the symbol is not found in the assets')
+      ).rejects.toThrow('One of the symbol is not found in the assets')
     })
   })
 })

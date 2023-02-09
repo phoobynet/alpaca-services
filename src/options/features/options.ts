@@ -1,5 +1,7 @@
-import { Options } from '../types'
+import { Options, OptionsError } from '../types'
 import { assetRepository } from '@/tradingData/assets/features/assetRepository'
+import { APCA_TRADING_BASE_URL } from '@/options/defaults/APCA_TRADING_BASE_URL'
+import { APCA_PAPER_TRADING_BASE_URL } from '@/options/defaults/APCA_PAPER_TRADING_BASE_URL'
 
 let _options: Options
 
@@ -59,7 +61,18 @@ export const options = {
 
     if (options.paper) {
       const paper = String.fromCodePoint(0x1f4f0)
-      console.warn(paper + ' Paper trading is enabled.')
+      // trading base URL can be passed in, taken from the environment, or defaulted
+      options.tradingBaseUrl =
+        options.tradingBaseUrl || APCA_PAPER_TRADING_BASE_URL
+      console.info(
+        `${paper} PAPER trading is enabled using "${options.tradingBaseUrl}".`,
+      )
+    } else {
+      const lightning = String.fromCodePoint(0x26a1)
+      options.tradingBaseUrl = options.tradingBaseUrl || APCA_TRADING_BASE_URL
+      console.info(
+        `${lightning} LIVE trading is enabled using "${options.tradingBaseUrl}".`,
+      )
     }
 
     // When no external asset repository is provided, use the default one
@@ -69,14 +82,4 @@ export const options = {
 
     _options = options
   },
-}
-
-/**
- * @group Options
- */
-export class OptionsError extends Error {
-  constructor(message: string, public options: Options) {
-    super(message)
-    this.name = 'OptionsError'
-  }
 }

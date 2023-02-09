@@ -1,21 +1,19 @@
-import { options } from '../../options'
-import { createHttpClient, HttpClient } from '../../http'
+import { options } from '@/options'
+import { createHttpClient, HttpClient } from '@/http'
 
 let httpClient: HttpClient
 
-/**
- * Uses baseURL https://paper-api.alpaca.markets/v2
- */
 export const getTradeHttpClient = (): HttpClient => {
   if (!httpClient) {
-    // TODO: allow user to determine the baseURL
-    const { paper } = options.get()
+    const { tradingBaseUrl } = options.get()
 
-    const url = paper
-      ? 'https://paper-api.alpaca.markets/v2'
-      : 'https://api.alpaca.markets/v2'
+    if (!tradingBaseUrl) {
+      throw new Error(
+        'For some weird reason the trading base URL has not been set',
+      )
+    }
 
-    httpClient = createHttpClient(url)
+    httpClient = createHttpClient(tradingBaseUrl)
   }
 
   return httpClient

@@ -7,7 +7,7 @@ describe('options', () => {
   it('should throw an error if options are not set', () => {
     expect(() => {
       options.get()
-    }).toThrowError('Options not set')
+    }).toThrow('Options not set')
   })
 
   it('should return the options', () => {
@@ -31,7 +31,7 @@ describe('options', () => {
         secret: 'secret',
         paper: true,
       })
-    }).toThrowError('options.key is invalid')
+    }).toThrow('options.key is invalid')
   })
 
   it('should throw an error if options.secret is invalid', () => {
@@ -41,7 +41,7 @@ describe('options', () => {
         secret: '   ',
         paper: true,
       })
-    }).toThrowError('options.secret is invalid')
+    }).toThrow('options.secret is invalid')
   })
 
   it('should throw an error if options.secret is shorter than the length of options.key', () => {
@@ -51,7 +51,7 @@ describe('options', () => {
         secret: 'OIWNEFOIWNE',
         paper: true,
       })
-    }).toThrowError(
+    }).toThrow(
       'options.secret is shorted than options.key, which is not correct.',
     )
   })

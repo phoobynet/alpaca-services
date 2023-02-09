@@ -70,8 +70,6 @@ describe('getAccount', () => {
       message: 'Some error',
     })
 
-    await expect(async () => await getAccount()).rejects.toThrowError(
-      'Some error',
-    )
+    await expect(async () => await getAccount()).rejects.toThrow('Some error')
   })
 })

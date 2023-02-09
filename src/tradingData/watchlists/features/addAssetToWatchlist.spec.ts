@@ -34,7 +34,7 @@ describe('addAssetToWatchlist', () => {
         symbol: 'AAPL',
       }
 
-      await expect(() => addAssetToWatchlist(args)).rejects.toThrowError(
+      await expect(() => addAssetToWatchlist(args)).rejects.toThrow(
         'The requested watchlist is not found, or the symbol is not found in the assets',
       )
     })
@@ -50,7 +50,7 @@ describe('addAssetToWatchlist', () => {
         symbol: 'AAPL',
       }
 
-      await expect(() => addAssetToWatchlist(args)).rejects.toThrowError(
+      await expect(() => addAssetToWatchlist(args)).rejects.toThrow(
         'Some parameters are not valid',
       )
     })

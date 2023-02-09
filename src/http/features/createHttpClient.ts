@@ -32,16 +32,10 @@ export const createHttpClient = (baseURL: string): HttpClient => {
     const { key, secret, accessToken } = options.get()
 
     if (accessToken) {
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${accessToken}`,
-      }
+      config.headers.Authorization = `Bearer ${accessToken}`
     } else if (key && secret) {
-      config.headers = {
-        ...config.headers,
-        'APCA-API-KEY-ID': key,
-        'APCA-API-SECRET-KEY': secret,
-      }
+      config.headers.set('APCA-API-KEY-ID', key)
+      config.headers.set('APCA-API-SECRET-KEY', secret)
     } else {
       throw new Error(
         'Authentication error: accessToken or key and secret are required',
